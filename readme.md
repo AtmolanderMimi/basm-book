@@ -1,0 +1,15 @@
+# A Quick Introduction and Reference to Brain Aneurysm Programming Language
+
+![basm-logo](./resources/logo.png)
+
+This repository serves to publish the book in a readable and accessible format through github pages.
+The source code for this book created with mdbook is available []in this repository]().
+Please look over there for information about the language and compiler.
+
+
+## License
+The contents of this repository are licensed under the [`MIT` license](https://opensource.org/license/mit) and the [`Apache License (Version 2.0)` license](https://opensource.org/license/apache-2-0).
+
+You can see these licenses in this repository. Both [MIT](./LICENSE-MIT) and [Apache 2.0](./LICENSE-APACHE) are available in text format.
+
+started as of 2024-10-12

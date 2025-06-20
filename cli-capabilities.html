@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cli Capabilities - A Quick Introduction and Reference to Brain Aneurysm</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Quick Introduction and Reference to Brain Aneurysm</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm/src/cli-capabilities.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="cli-capabilities"><a class="header" href="#cli-capabilities">Cli Capabilities</a></h1>
+<p>Alongside the language itself, I'd like to include some information about the transpiler I wrote for it,
+because, of course, there's no point in writing a book about a compiler<em>less</em> language.</p>
+<p>The only (probably forever) basm compiler is
+<a href="https://github.com/AtmolanderMimi/basm">available on github</a>
+under the retrospectively confusing name <code>basm</code>.
+This tool doesn't just include a compiler,
+it also comes with a bf interpreter to run transpiled basm directly.</p>
+<p>Currently, the cli has two subcommands: <code>compile</code> and <code>run</code>.
+Both of them are similar in that they both take in a file path and have some flags in common.</p>
+<h2 id="compile"><a class="header" href="#compile"><code>compile</code></a></h2>
+<p>The <code>compile</code> subcommand is the simplest way to use the basm cli.
+Similar to tool like <code>gcc</code>, it will create a file in the current working directory named like the one passed in with the extension replaced with <code>.bf</code>.
+File name and output path can be specified with the <code>-o</code> flag.
+If compilation fails, error information will be printed to the terminal.</p>
+<h3 id="flags"><a class="header" href="#flags">Flags</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Shorthand</th><th>Longhand</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>-o</code></td><td><code>--out &lt;OUT&gt;</code></td><td>The path to put the compiled file</td></tr>
+<tr><td><code>-p</code></td><td><code>--show</code></td><td>Print the transpiled bf script</td></tr>
+<tr><td><code>-u</code></td><td><code>--unoptimized</code></td><td>Skips the use of the inbuilt brainfuck optimizer</td></tr>
+<tr><td><code>-h</code></td><td><code>--help</code></td><td>Print help</td></tr>
+</tbody></table>
+</div>
+<h2 id="run"><a class="header" href="#run"><code>run</code></a></h2>
+<p>This command compiles then run the specified basm source file.
+You can use the bf interpreter directly if you use this command the <code>-r</code> flag,
+which specifies that the file is a bf source file, not a basm source file.
+Unlike <code>compile</code>, this does not create a file containing the compiled bf.
+If the compilation fails, error information will be printed to the terminal.</p>
+<h3 id="flags-1"><a class="header" href="#flags-1">Flags</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Shorthand</th><th>Longhand</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>-c</code></td><td><code>--cell-size &lt;CELL_SIZE&gt;</code></td><td>Sets the size of cells in bits (only 8, 16 and 32) [default: 8]</td></tr>
+<tr><td><code>-i</code></td><td><code>--signed</code></td><td>Sets the cells as signed containing signed numbers</td></tr>
+<tr><td><code>-a</code></td><td><code>--abort-overflow</code></td><td>Aborts the execution of the program when a cell over/under-flows</td></tr>
+<tr><td><code>-t</code></td><td><code>--tape-limit &lt;TAPE_LIMIT&gt;</code></td><td>Limits the lenght of the tape in cells, aborts execution if it is reached</td></tr>
+<tr><td><code>-n</code></td><td><code>--number-input</code></td><td>Treats the input as integer numbers rather than characters</td></tr>
+<tr><td><code>-m</code></td><td><code>--number-output</code></td><td>Treats the output as integer numbers rather than characters</td></tr>
+<tr><td><code>-s</code></td><td><code>--single-input</code></td><td>Removes the bufferring of the unused parts of inputs to provide to them to later bf inputs</td></tr>
+<tr><td><code>-r</code></td><td><code>--raw</code></td><td>Interprets the file as brainfuck, skips the compiling process</td></tr>
+<tr><td><code>-p</code></td><td><code>--show</code></td><td>Print the transpiled brainfuck</td></tr>
+<tr><td><code>-u</code></td><td><code>--unoptimized</code></td><td>Skips the use of the inbuilt brainfuck optimizer</td></tr>
+<tr><td><code>-d</code></td><td><code>--dump</code></td><td>Dump the tape and tape pointer position to terminal once the program ends (includes by erroring out)</td></tr>
+<tr><td><code>-h</code></td><td><code>--help</code></td><td>Print help</td></tr>
+</tbody></table>
+</div>
+<h2 id="bf-optimizations"><a class="header" href="#bf-optimizations">Bf Optimizations</a></h2>
+<p><code>basm</code> applies some basic optimizations to the bf resulting from the transpilation process by default.
+It can merge operators to reduce redundant use (e.g: <code>+++-</code> would turn into <code>++</code>)
+and it can reorder operations so that less tape pointer moves are used.
+Overall, the purpose of the built in optimizer is to reduce the number of operators in compiled scripts.
+By default, basm doesn't remove redundant operations and is generally quite stupid.
+For example, an instruction like <code>INCR 12 0;</code>, which does nothing,
+would still move the tape pointer to the 12th cell. This gets optimized out.</p>
+<p>All optimization are made to have no impact on the resulting program, at a few exceptions:</p>
+<ul>
+<li>Willingfully moving the tape pointer before 0 will be optimized out if there is a cancelling move afterwards (e.g: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>)</li>
+<li>Any pointer moves that don't lead to other operations (at the end of the program) are removed</li>
+</ul>
+<p>If you suspect that optimizations are messing with your program,
+you can disable them with the <code>-u</code> flag.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="keywords.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="keywords.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

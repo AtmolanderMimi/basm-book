@@ -1,0 +1,931 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Synthesis: Making a Bf Interpreter - A Quick Introduction and Reference to Brain Aneurysm</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Quick Introduction and Reference to Brain Aneurysm</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm/src/bf-interpreter.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="synthesis-making-a-bf-interpreter"><a class="header" href="#synthesis-making-a-bf-interpreter">Synthesis: Making a Bf Interpreter</a></h1>
+<p>This chapter focuses entirely on the conception process of a bf interpreter in basm.
+This interpreter will be able in turn to transpile to bf, to make a bf interpreter in bf!
+It is <strong>highly recommended</strong> to have read all other chapters before digging into this one.</p>
+<h2 id="meta-instructions-header"><a class="header" href="#meta-instructions-header">Meta-instructions "header"</a></h2>
+<p>While working on the logic of the interpreter,
+I will use meta-instruction which we already defined earlier (notably <code>GETD</code> and <code>ADDD</code>).
+Make sure to add these meta-instructions definitions before any other code that uses them:</p>
+<pre><code class="language-basm">// sets a value to a specific value by zeroing it before writing
+[@SET Aaddr Vval] [
+ZERO Aaddr;
+INCR Aaddr Vval;
+]
+
+// copies the content of a cell whilst keeping the source (conservatively)
+[@COPC Asrc Adst sp] [
+	ALIS Atmp sp;
+	COPY Asrc Adst Atmp;
+	ADDP Asrc Atmp;
+]
+
+// if not equal conditional
+[@IFNE Aaddr Vval [scp] sp] [
+ALIS Atmp1 sp;
+ALIS Atmp2 sp+1;
+ALIS sp sp+2;
+
+COPY Aaddr Atmp1 Atmp2;
+ADDP Aaddr Atmp2;
+
+WHNE Atmp1 Vval [
+    ZERO Atmp1;
+
+    INLN [scp];
+
+    INCR Atmp1 Vval;
+];
+
+ZERO Atmp1;
+]
+
+// if equal conditional
+[@IFEQ Aaddr Vval [scp] sp] [
+    ALIS Aflag sp;
+    ALIS sp sp+1;
+    ALIS Vnot_equal 1;
+
+    IFNE Aaddr Vval [
+        INCR Aflag Vnot_equal;
+    ] sp;
+
+    IFNE Aflag Vnot_equal [scp] sp;
+    ZERO Aflag;
+]
+
+// moves the value of the cell at Aarray[value of Aindex] to Adst
+[@GETD Aarray Aindex Adst] [
+ADDP Aarray+3 Aindex; 
+
+BBOX Aarray+1;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Aelement 3;
+
+WHNE Aindex 0 [
+    DECR Aindex 1
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ALIS Acell Aindex;
+
+ADDP Acell Aelement;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+    ADDP Acell-1 Acell;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray+1;
+
+ADDP Adst Aarray+3;
+]
+
+// adds the value of the cell at Asrc to the Aarray[value of Aindex] cell
+[@ADDD Aarray Aindex Asrc] [
+ADDP Aarray+3 Asrc;
+ADDP Aarray+2 Aindex;
+
+BBOX Aarray;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Acell 3;
+ALIS Aelement 4;
+
+WHNE Aindex 0 [
+    DECR Aindex 1;
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Acell+1 Acell;
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ADDP Aelement Acell;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray;
+]
+</code></pre>
+<h2 id="memory-layout"><a class="header" href="#memory-layout">Memory Layout</a></h2>
+<p>Our the memory of our bf interpreter's tape consist of 3 parts:</p>
+<ul>
+<li>Generic memory for operations, aka operating memory</li>
+<li>Instruction array (with parking)</li>
+<li>Tape array (with parking)</li>
+</ul>
+<p>In memory the sections should look like this:</p>
+<pre><code class="language-txt">[operation][instruction][tape]
+</code></pre>
+<p>The tape array will be allowed to grow infinitely, as there is no ranges of allocated allocated cells after it.
+This is unlike the instruction array, which is stuck in-between the operation and tape array,
+meaning that we will need to reserve it a static size so that it does not overwrite the tape array's cells.
+Since we can't expand infinitely before the 0'th cell, as using cells before the 0'th is invalid bf
+(not the one we are going to interpret, but the one our program is made of),
+we cannot grow infinitely backwards, only forwards.</p>
+<h2 id="taking-user-input"><a class="header" href="#taking-user-input">Taking User Input</a></h2>
+<p>We will want the user to be able to input any bf program they find
+and paste it directly into the bf input without any processing on the part of the user.
+We'll also need a way for the user to tell us that they are done inputting the program,
+for this we can check for a specific character like <code>!</code> to stop instruction input.</p>
+<p>To do this your first though might be to have a counter
+representing the number of characters inputted.
+When there is an input, use <code>ADDD</code> to set it to the index of counter and then increase counter by 1.
+Repeat until we reach <code>!</code>.</p>
+<p>That is <em>fine</em>, with nothing more.
+There are some issues, mostly performance (both compute and size), which arise from it.
+We'll need all the space we can take,
+and I assure you that any performance gain will be very appreciated.</p>
+<p>First, using this method, we will end up storing any non-operator characters in our instruction array.
+This both takes up space for no reason and slows down <code>GETD</code> and <code>ADDD</code>
+(the more element in the array, the less efficient they become).</p>
+<p>Second, we don't take advantage of the limited nature of the operators.
+The set of characters which represent an operator is very restricted.
+When storing a <code>+</code> with this method, we will actually store the <code>+</code> character, being 43.
+Remember, most operations in bf take <code>O(n)</code> time, where <code>n: value of the cell</code>
+Whereas in most languages, operations are in <code>O(1)</code> time, aka constant time.
+This means that, if we can reduce the values representing operators,
+this will speed up all operations on operators including indexing them,
+since array indexing is just shifting them around (shifting once is <code>O(n)</code>)</p>
+<p>To address these issues, we will discard all non-operators characters
+and we will map all operators to the lowest values possible.
+We can also use 0 to denote the start/end of the array contents.
+Since all cells are zero by default, we won't need to add 0's manually, which is quite nifty.
+(You could also store the array length to know when you reach the end of the contents,
+but that will not be possible with our implementation)
+Here is the mapping:</p>
+<pre><code class="language-txt">start / end -&gt; 0
+`+` -&gt; 1
+`-` -&gt; 2
+`&gt;` -&gt; 3
+`&lt;` -&gt; 4
+`[` -&gt; 5
+`]` -&gt; 6
+`,` -&gt; 7
+`.` -&gt; 8
+</code></pre>
+<p>There is one more issue, although rather small compared to the two first ones.
+That being, <strong><code>ADDD</code> is not made for this at all!</strong>
+Every time we would add a new operator,
+we would need to travel through all the other elements of the array we already added before.
+It's not <em>that</em> bad, since instruction input is a one time process,
+but this is the best example where <code>GETD</code> and <code>ADDD</code> like meta-instruction should be avoided.
+So we are going to work around having to use them by making a dedicated instruction array filling flyer.</p>
+<h3 id="writing-the-flyer"><a class="header" href="#writing-the-flyer">Writing The Flyer</a></h3>
+<p>Instead of having a flyer go out for each operator through the use of <code>ADDD</code>,
+we can simply write a specialized flyer to fill the array.
+This input flyer will be able to take advantage of the context to have zero cells of state!
+That's right, we don't care about where we are or where we are going, so no index needed.
+Furthermore, since the array it will be constructing does not contain arbitrary data,
+we can guaranty that certain values will not show up (like 0).
+So, we can return without having to store a return cell.
+For the return, we will look for 0, which is not mapped to any instructions,
+but is present in the parking.</p>
+<p>I'll write this logic into a program specific meta-instruction.
+A program specific meta-instruction is a meta-instruction which is
+only useful within the context of the program.
+Custom instructions like <code>COPC</code> are not program specific,
+because they are generic enough to be used in many circumstances.
+This is not the case with what we will write.
+When writing program specific meta-instructions, I like to give them snake case names, like aliases.
+Don't worry meta-instruction names cannot overwrite your aliases.</p>
+<pre><code class="language-basm">
+[@init_input Aarray] [
+BBOX Aarray+4;
+ASUM 0;
+
+ALIS Aflag 1;
+ALIS Vappended 1;
+ALIS Vexit 2;
+
+ALIS sp 2;
+// we can still use sp, since we know the cells will be zeroed
+
+WHNE Aflag Vexit [
+    IN 0;
+
+    // -- mapping operators --
+    IFEQ 0 '+' [
+        SET 0 1;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '-' [
+        SET 0 2;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&gt;' [
+        SET 0 3;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&lt;' [
+        SET 0 4;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '[' [
+        SET 0 5;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ']' [
+        SET 0 6;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ',' [
+        SET 0 7;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '.' [
+        SET 0 8;
+        INCR Aflag Vappended;
+    ] sp;
+
+    // check for end
+    IFEQ 0 '!' [
+        ZERO 0;
+        SET Aflag Vexit;
+    ] sp;
+
+    // if we added something, we need to move up one
+    IFEQ Aflag Vappended [
+        ZERO Aflag;
+
+        BBOX 1;
+        ASUM 0;
+    ] sp;
+
+    // we don't clear the last character, even if it was invalid,
+    // as the next IN will overwrite the cell
+];
+
+// NEVER forget cleanup
+ZERO Aflag;
+
+// -- going back --
+// because the last char will be our zeroed '!', we need to offset by at least 1
+// if we don't want to read 0 directly
+BBOX 0;
+ASUM 1;
+
+// moves back until we reached the zeroed cells of the parking
+WHNE 0 0 [
+    BBOX 0;
+    ASUM 1;
+];
+
+ASUM Aarray+3;
+]
+</code></pre>
+<p>As you can see we once again use a flag for control flow.
+In this case our flag can have three states:</p>
+<ul>
+<li><code>0</code>: when nothing has happened</li>
+<li><code>Vappend</code>: when a operation is appended to the array</li>
+<li><code>Vexit</code>: when the '!' character is detected</li>
+</ul>
+<p>This flag doesn't count as the flyer having a state properly speaking.
+It's more like operation memory than state, since we won't carry that flag along for each glider shift.</p>
+<p>We also, despite having a flyer, use <code>sp</code>.
+We can safely do this as we can assume that the un-visited parts of the array are still zeroed.
+Also, our input safely overwrites the flag when getting user input,
+meaning that our code will always consume our flag, leaving no trash on the array.
+Once again, taking advantage of safe array assumptions saves us from using <code>ADDD</code>/<code>GETD</code> which operate on no assumption and are much less efficient.</p>
+<h2 id="memory-layout-in-main"><a class="header" href="#memory-layout-in-main">Memory Layout in <code>[main]</code></a></h2>
+<p>First and foremost, before defining the main logic we'll define the cells for our program to use.</p>
+<pre><code class="language-basm">ALIS Voperating_memory 16;
+ALIS Aprog_pointer 0;
+ALIS Amem_pointer 1;
+ALIS Aflag 2;
+ALIS Vexit 1;
+ALIS Vbracket 2;
+ALIS Aoperator 3;
+ALIS Acell 4;
+ALIS Abracket_jump 5;
+ALIS sp 6;
+
+ALIS Vprog_array_cap 256;
+ALIS Aprog Voperating_memory;
+// we add 4 to take into account the parking of the program array
+ALIS Amem Aprog+Vprog_array_cap+4;
+</code></pre>
+<p>There's alot to unpack here. Here are the most notable ones:</p>
+<h3 id="voperating_memory"><a class="header" href="#voperating_memory"><code>Voperating_memory</code></a></h3>
+<p>This alias defines how many cells are reserved for general computation (that being all but the arrays).
+The reserved space granted by <code>Voperating_memory</code> is required for us to store cells like <code>Aflag</code>.
+It is also required for meta-instruction using <code>sp</code> so they can have zeroed cells.
+Otherwise, without free zeroed cells, meta-instructions would reach into the program array, which would be bad for program state.</p>
+<h3 id="aflag"><a class="header" href="#aflag"><code>Aflag</code></a></h3>
+<p><code>Aflag</code> is <em>once again</em> a flag cell. It can have one of these values:</p>
+<ul>
+<li><code>0</code>: nothing happened</li>
+<li><code>Vexit</code>: program is done and should exit</li>
+<li><code>Vbracket</code>: a bracket has jumped, so <code>Aprog_pointer</code> should be updated to <code>Abracket_jump</code>
+(this needs to be done after all the other logic, which is why it is stored in the flag)</li>
+</ul>
+<h3 id="aoperator-and-acell"><a class="header" href="#aoperator-and-acell"><code>Aoperator</code> and <code>Acell</code></a></h3>
+<p>Those two aliased cells will hold both the current operator and current memory cell respectively.
+Since we can't edit cells directly in their array, we need to keep them in a static place in memory to read/write them.</p>
+<h3 id="aprog"><a class="header" href="#aprog"><code>Aprog</code></a></h3>
+<p>This alias defines the start of the program array (at its parking).
+The way it is defined is that it comes straight after the operating memory segment,
+meaning that its address can be defined as the length of the operating memory segment!
+That means that the starting position of the instruction array is relative to the end of the reserved operation cells range.
+This would cause an off by 1 error if basm started indexing cells from 1, but it indexes from 0,
+so we are good!</p>
+<p><code>Aprog</code> also comes with <code>Vprog_array_cap</code> aka the capacity of the program array.
+We don't inherently <em>need</em> it to define the array,
+but we will need to define how far away we want the memory array to be from the program array.
+Effectively, choosing how much space we allocated to the program array.
+In this example, I set 256 as the array capacity,
+because that is the max that you can index with an unsigned 8 bit cells.
+If you want to interpret bigger programs, you can increase this capacity,
+but beware you will also need to use cells of more than 8 bits to be able to index the instructions!</p>
+<h3 id="amem"><a class="header" href="#amem"><code>Amem</code></a></h3>
+<p>All that I specified about <code>Aprog</code> applies to <code>Amem</code>.
+The value is the start of the array (at its parking).
+While the memory array is technically not limited by memory, since it cannot overwrite other memory,
+it is still practically limited by the (un)efficiency of indexing
+and the maximum value storable in the cells, limiting the number of indexable cells.</p>
+<h3 id="abracket_jump"><a class="header" href="#abracket_jump"><code>Abracket_jump</code></a></h3>
+<p>Is used to store the address of the bracket operation matching the current bracket operation.
+(Aka, the <code>[</code> which is linked to the current <code>]</code> or vice versa)
+The bracket jumping implementation will not set the program pointer directly to it when running the bracket specific logic,
+since the program needs to do some cleanup before updating the <code>Aprog_pointer</code>.
+That cleanup includes setting the current operation back in <code>Aoperator</code>back in the array.
+To do that we need to know the index of that operator, which is always just the index in<code>Aprog_pointer</code>.
+This is why we don't change the operator pointer right away as we need to store it to return <code>Aoperator</code>.
+You are probably going to understand it better when you'll see the code managing this for yourself.</p>
+<h2 id="writing-main-logic"><a class="header" href="#writing-main-logic">Writing <code>[main]</code> Logic</a></h2>
+<p>The bread and butter of our logic is of course going to be a loop.
+We'll loop over every operator in the program until we reach the end,
+applying the effects of them as we go.
+To be more precise here's the broken down version of what the loop does:</p>
+<ol>
+<li>Get the operator at <code>Aprog_pointer</code></li>
+<li>Execute the operator specific logic</li>
+<li>Set the operator back</li>
+<li>Increase <code>Aprog_pointer</code></li>
+</ol>
+<p>Notice how getting the memory cell is not part of the loop, and neither will it be part of operator specific logic.
+This is because it would be incredibly wasteful to get and set the cell in the tape for every operator
+since the cell mostly remains over operators.
+Only <code>&gt;</code> and <code>&lt;</code> change the cell index, we will set and get a new cell only when these operators appear.
+Think about interpreting the very common pattern <code>+++</code>.
+If we were to get the cell, increase it by one and then put it back 3 times performance would be horrendous!
+So, to combat this, <code>Acell</code> functions more like a cell "cache" then its <code>Aoperator</code> counterpart.
+We only get/set the memory cell when moving the tape pointer with <code>&gt;</code> and <code>&lt;</code>.</p>
+<p>With all that said, let's start implementing the easy parts of the logic, that being all operators, but the brackets:</p>
+<pre><code class="language-basm">// .. add the header here
+// .. define init_input here
+
+[main] [
+ALIS Voperating_memory 16;
+ALIS Aprog_pointer 0;
+ALIS Amem_pointer 1;
+ALIS Aflag 2;
+ALIS Vexit 1;
+ALIS Vbracket 2;
+ALIS Aoperator 3;
+ALIS Acell 4;
+ALIS Abracket_jump 5;
+ALIS sp 6;
+
+ALIS Vprog_array_cap 256;
+ALIS Aprog Voperating_memory;
+ALIS Amem Aprog+Vprog_array_cap+4;
+
+// get program from user
+init_input Aprog;
+
+WHNE Aflag Vexit [
+    ALIS Atmp sp;
+    ALIS sp sp+1;
+
+    // 1. load in operator
+    COPC Aprog_pointer Atmp sp;
+    GETD Aprog Atmp Aoperator;
+
+    // 2. operator specific logic
+    // + + + + +
+    IFEQ Aoperator 1 [
+        INCR Acell 1;
+    ] sp;
+
+    // - - - - -
+    IFEQ Aoperator 2 [
+        DECR Acell 1;
+    ] sp;
+
+    // &gt; &gt; &gt; &gt; &gt;
+    IFEQ Aoperator 3 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        INCR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // &lt; &lt; &lt; &lt; &lt;
+    IFEQ Aoperator 4 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        // NOTE: this DECR may underflow the tape pointer
+        DECR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // TODO: implement '[' and ']'
+
+    // , , , , ,
+    IFEQ Aoperator 7 [
+        IN Acell;
+    ] sp;
+
+    // . . . . .
+    IFEQ Aoperator 8 [
+        OUT Acell;
+    ] sp;
+
+    // check for the end
+    IFEQ Aoperator 0 [
+        INCR Aflag Vexit;
+    ] sp;
+
+    // set the operator back
+    COPC Aprog_pointer Atmp sp;
+    ADDD Aprog Atmp Aoperator;
+
+    // NOTE: we'll add something here later... (ominous)
+
+    // increase program pointer
+    INCR Aprog_pointer 1;
+];
+]
+</code></pre>
+<p>With that that's <em>seemingly</em> most of the bf interpreter done already!
+(with the exception of <code>[</code> and <code>]</code>)
+You can take it easy from here we're already on the final stretch.
+With this stripped down bf interpreter, we don't have access to looping or conditionals, but we have enough to print some basic characters.
+Try the following code: (don't forget to use <code>!</code> to end program input!)</p>
+<pre><code class="language-bf">outputs the answer to life the universe and everything
+++++++++++++++++++++++++++++++++++++++++++++++++++++.--.
+</code></pre>
+<h3 id="the-needlessly-complicated-part"><a class="header" href="#the-needlessly-complicated-part">The "Needlessly" Complicated Part</a></h3>
+<p>You may not have understood the part about <code>Abracket_jump</code> and <code>Vbracket</code> for <code>Aflag</code>.
+It's time where we need to use them...
+Welp, the bracket jumping is logic not actually <em>that</em> bad, it's just that it is the most complicated part of this interpreter by far.
+If you equate complexity with <em>badness</em>, like me, this is the worst part, but it ain't that bad.
+Don't treat, my implementation is going to be the simplest one possible.</p>
+<p>When we get a <code>[</code> and we point to 0 or when we have <code>]</code> and point to a non-zero value,
+we follow this procedure to find the index of the opposing matching bracket:</p>
+<ol>
+<li>Initiate a counter at 1</li>
+<li>Initiate a search pointer at the current program pointer</li>
+<li>Add/Subtract the search pointer by 1</li>
+<li>Get the operator at the search pointer</li>
+<li>If the operator is a bracket and it is the <strong>same as the original, add 1</strong> to the counter.
+Else, if the operator is a bracket and the <strong>bracket is opposite, remove 1</strong> to the counter</li>
+<li>Set the operator back at the search pointer</li>
+<li>If the counter is non-zero, repeat from number 3</li>
+</ol>
+<p>With this procedure, our search counter should always end on the matching bracket!
+<em>Or, the program will loop forever/read oob if there is an unmatched bracket, but most bf code doesn't contain unmatched brackets.</em>
+<em>So, this is not a issue by one bit.</em>
+Once we have completed the procedure the <em>searched</em> search counter, equates to the position of the matching bracket.
+We don't want to apply it right away for reasons stated before.
+Instead, we will opt into setting the flag to <code>Vbracket</code>,
+so we can apply it after having set the operator back.</p>
+<p>Add these <code>IFEQ</code> instructions to apply bracket logic:</p>
+<pre><code class="language-basm">// [ [ [ [ [
+IFEQ Aoperator 5 [
+    IFEQ Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+
+        // 2.
+        // we don't need to define our search counter here,
+        // we can use Abracket_jump directly
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            INCR Abracket_jump 1;
+
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                INCR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                DECR Acounter 1;
+            ] sp;
+
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+
+// ] ] ] ] ]
+IFEQ Aoperator 6 [
+    IFNE Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+  
+        // 2.
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            DECR Abracket_jump 1;
+  
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+  
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                DECR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                INCR Acounter 1;
+            ] sp;
+  
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+</code></pre>
+<p>And the extra conditional to check the flag and apply the bracket jump:
+(you should add it at my <em>ominous</em> `NOTE</p>
+<p>`)</p>
+<pre><code class="language-basm">// if there was a jump, set the pointer to the matching bracket
+// (having the pointer increment after is intentional)
+IFEQ Aflag Vbracket [
+    ZERO Aprog_pointer;
+    ADDP Aprog_pointer Abracket_jump;
+    ZERO Aflag;
+] sp;
+</code></pre>
+<p>Whew... that, was, all.
+So now, with this enormous blob of bracket logic written, we finally have a 100% functional bf interpreter in basm!!!</p>
+<p>Try it out with this fancier "Hello Word!" example:
+(<a href="https://en.wikipedia.org/wiki/Brainfuck#Hello_World!">taken from Wikipedia</a>)</p>
+<pre><code class="language-bf">++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++.
+</code></pre>
+<h2 id="what-to-improve"><a class="header" href="#what-to-improve">What to Improve</a></h2>
+<p>You now own a bf interpreter, problem: <em>it's slooooooooow...</em>
+I highly encourage you to keep on working on this code
+to get a better handle on the logic that goes behind it.
+You can probably improve your knowledge of the language overall just by reviewing the interpreter.
+In implementing tweaks, you will find your own preferred way to approach writing basm code
+and find how you typically make mistakes. Making mistakes is part of learning, don't forget that!</p>
+<p>The bf interpreter may have seemed like an easy project
+if you just copied and pasted the code provided in this book, but let me tell you <strong>it isn't!</strong>
+Myself, despite having already written an extremely similar interpreter in basm and despite basm being a language I created,
+has struggled with many bugs which were not mentioned in this book for brevity <em>and also for my ego a little</em>.
+For example, as I was rewriting every meta-instruction from scratch for the book,
+I made a mistake in the original <code>IFEQ</code> definition. I forgot to zero the flag.
+This issue caught up with me when writing this very chapter on the interpreter.
+I didn't suspect that <code>IFEQ</code>, which I had written a long while ago and worked seeming well, would pollute cells.
+Now, with my experience and the fact that I already had a working <code>IFEQ</code> implementation
+before writing the book version, you would expect it to be easy to spot that mistake.
+It wasn't, especially considering this was not the only mistake I had made on the interpreter.</p>
+<p>I won't go over how to implement patches to improve the interpreter beyond what is shown above,
+but I can point out areas that you can thinker with if you crave performance.</p>
+<h3 id="bulking-operators"><a class="header" href="#bulking-operators">Bulking Operators</a></h3>
+<p>Adjacent operators of the same type can be merged into one single 2 cell wide item on the program array.
+For example, you could lay bulked operator on the array with this layout: <code>[operator][recurrence]</code>.
+So, <code>[+][+][+][+]</code> could be represented as <code>[+][4]</code> saving both space and the time to get those cells.
+(Saving space also comes with saving time, as the bigger the array is, the longer it will take to index)</p>
+<p>You could also store the precomputed index of the matching partner for brackets instead of recurrence.
+That would save iterating over the program array every time a bracket jumps.</p>
+<p>While at storing items of two cells wide in an indexable array,
+you could also implement indexable arrays of 2 cell big elements.
+Firstly, that would save you having to do two gets/sets for each element.
+Secondly, you could index by element rather than by cell,
+increasing the length of programs that can be stored with 8 bit cells.</p>
+<h3 id="flipping-the-program-array"><a class="header" href="#flipping-the-program-array">Flipping The Program Array</a></h3>
+<p>Currently memory is layed-out as such:</p>
+<pre><code class="language-txt">[operating memory].[prog parking][prog content].[mem parking][mem content]
+</code></pre>
+<p>This is perfectly fine if you don't care what the transpiled bf looks like.
+If you do care about what the compiled bf looks like you should be worried.</p>
+<p>The compiled basm (with optimization) looks like this:</p>
+<pre><code class="language-bf">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;--[++&lt;,[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;-------------------------------------------[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+&gt;&gt;&gt;][-]---------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++&gt;&gt;&gt;][-]--------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+++&gt;&gt;&gt;][-]------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++++&gt;&gt;&gt;][-]-------------------------------------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+++++&gt;&gt;&gt;][-]---------------------------------------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++++++&gt;&gt;&gt;][-]--------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+++++++&gt;&gt;&gt;][-]----------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++++++++&gt;&gt;&gt;][-]---------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;[-]&gt;[-]++&gt;&gt;][-]-&lt;[-]&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;[-]&gt;&gt;&gt;][-]&lt;[-]&lt;--][-]&lt;&lt;[&lt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;-[+&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;-[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;][-]--&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;-&gt;&gt;&gt;&gt;][-]---&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;][-]----&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;-[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;][-]&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;-----[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;[&lt;&lt;+[-&gt;+&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;-----[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;+&gt;&gt;&gt;][-]------&lt;[-]&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;-&gt;&gt;&gt;][-]&lt;[-]&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;[-&gt;+&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;&lt;&lt;++&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;------[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;&lt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;[&lt;&lt;&lt;&lt;-[-&gt;+&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;-----[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;-&gt;&gt;&gt;][-]------&lt;[-]&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;+&gt;&gt;&gt;][-]&lt;[-]&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;&lt;&lt;[-&gt;+&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;++&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&gt;][-]-------&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;,&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]--------&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;.&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;+&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;--[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-]&gt;&gt;[-]&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;-]+
+</code></pre>
+<p>This is 11567 operators. Large spans of them being moves of the tape pointer.
+This inefficiency is caused by the fact that everytime we want to do something,
+like move a value from the operating memory to the memory parking,
+we need to move across the whole the program array.</p>
+<p>We can fix this by moving around the memory layout a little bit:</p>
+<pre><code class="language-txt">[prog content][prog parking].[operating memory].[mem parking][mem content]
+</code></pre>
+<p>Note the program array being both before the operating memory AND being flipped.
+(If we had kept the parking before the content,
+we would still need to jump over all of the content of the program array, except, this time,
+instead of when it would be to access the memory, it would be to access the program)
+That new layout saves us the jumps over the program array,
+but still keeps the program array capacity limit.</p>
+<p>This is much better in concept, but is quite annoying in execution.
+You won't be able to use the same meta-instructions to get/set the program and memory arrays due the fact that the array is flipped.
+This means two new whole instructions that will need debugging.
+It also causes a huge amount of code duplication,
+since you probably just need to change the assumed pointer increments by decrements
+and decrements by increments for the most part.
+If you make it, please don't show it to "<strong>D</strong>on't <strong>R</strong>epeat <strong>Y</strong>ourself" (aka DRY) people!</p>
+<p>While this would probably save many operations, it still would not be enough to cram the interpreter in itself without a little finagling.
+In the advent you would want to make this bf interpreter run itself,
+you would need to find a way to move from 0 to the operating memory segment while using <code>&gt;</code> less than <code>Vprog_array_cap</code> to move over the program array.
+Not being able to do so would mean that your interpreter is always bigger than its program array.
+This is of course something you want to avoid if you were to want to run it on itself.</p>
+<p>You can fix this issue with the usage of flyer, but I will leave this for you to solve.</p>
+<h3 id="get-a-better-bf-interpreter--use-a-compiler"><a class="header" href="#get-a-better-bf-interpreter--use-a-compiler">Get a Better Bf Interpreter / Use a Compiler</a></h3>
+<p>Finally, if you want better performance, don't use the bf interpreter built-in with the <code>basm</code> cli
+or, generally, just don't use an interpreter and get a compiler.
+While I believe the built-in interpreter is capable of running an helping somewhat with debugging via
+its dump feature (with flag <code>-d</code>), it is not the best for performance in no way.</p>
+<p>If you want to get just the transpiled basm code, use <code>basm compile</code> rather than <code>basm run</code>.
+You can then use that transpiled bf output in another bf interpreter / compiler. (What I mean by "compiler", is something that compiles to machine code)</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>You've now learnt possibly one of the most useless languages of the world, should I congratulate you?
+Yes! (but you should really find other things to do with your time)</p>
+<p>If you still have unanswered questions, want to contribute to this book or
+want to contribute to the basm programming language head over to the <a href="https://github.com/AtmolanderMimi/basm">github repository</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="dynamic-array.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="code-bf-interpreter.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="dynamic-array.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="code-bf-interpreter.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

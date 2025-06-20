@@ -1,0 +1,612 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Full Code - A Quick Introduction and Reference to Brain Aneurysm</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Quick Introduction and Reference to Brain Aneurysm</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm/src/code-bf-interpreter.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="full-code"><a class="header" href="#full-code">Full Code</a></h1>
+<p>For your copy-pasting convinience, here is the full file for the bf interpreter
+as implemented in this book:</p>
+<pre><code class="language-basm">// sets a value to a specific value by zeroing it before writing
+[@SET Aaddr Vval] [
+ZERO Aaddr;
+INCR Aaddr Vval;
+]
+
+// copies the content of a cell whilst keeping the source (conservatively)
+[@COPC Asrc Adst sp] [
+	ALIS Atmp sp;
+	COPY Asrc Adst Atmp;
+	ADDP Asrc Atmp;
+]
+
+// if not equal conditional
+[@IFNE Aaddr Vval [scp] sp] [
+ALIS Atmp1 sp;
+ALIS Atmp2 sp+1;
+ALIS sp sp+2;
+
+COPY Aaddr Atmp1 Atmp2;
+ADDP Aaddr Atmp2;
+
+WHNE Atmp1 Vval [
+    ZERO Atmp1;
+
+    INLN [scp];
+
+    INCR Atmp1 Vval;
+];
+
+ZERO Atmp1;
+]
+
+// if equal conditional
+[@IFEQ Aaddr Vval [scp] sp] [
+    ALIS Aflag sp;
+    ALIS sp sp+1;
+    ALIS Vnot_equal 1;
+
+    IFNE Aaddr Vval [
+        INCR Aflag Vnot_equal;
+    ] sp;
+
+    IFNE Aflag Vnot_equal [scp] sp;
+    ZERO Aflag;
+]
+
+// moves the value of the cell at Aarray[value of Aindex] to Adst
+[@GETD Aarray Aindex Adst] [
+ADDP Aarray+3 Aindex; 
+
+BBOX Aarray+1;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Aelement 3;
+
+WHNE Aindex 0 [
+    DECR Aindex 1;
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ALIS Acell Aindex;
+
+ADDP Acell Aelement;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+    ADDP Acell-1 Acell;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray+1;
+
+ADDP Adst Aarray+3;
+]
+
+// adds the value of the cell at Asrc to the Aarray[value of Aindex] cell
+[@ADDD Aarray Aindex Asrc] [
+ADDP Aarray+3 Asrc;
+ADDP Aarray+2 Aindex;
+
+BBOX Aarray;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Acell 3;
+ALIS Aelement 4;
+
+WHNE Aindex 0 [
+    DECR Aindex 1;
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Acell+1 Acell;
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ADDP Aelement Acell;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray;
+]
+
+[@init_input Aarray] [
+BBOX Aarray+4;
+ASUM 0;
+
+ALIS Aflag 1;
+ALIS Vappended 1;
+ALIS Vexit 2;
+
+ALIS sp 2;
+// we can still use sp, since we know the cells will be zeroed
+
+WHNE Aflag Vexit [
+    IN 0;
+
+    // -- mapping operators --
+    IFEQ 0 '+' [
+        SET 0 1;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '-' [
+        SET 0 2;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&gt;' [
+        SET 0 3;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&lt;' [
+        SET 0 4;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '[' [
+        SET 0 5;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ']' [
+        SET 0 6;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ',' [
+        SET 0 7;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '.' [
+        SET 0 8;
+        INCR Aflag Vappended;
+    ] sp;
+
+    // check for end
+    IFEQ 0 '!' [
+        ZERO 0;
+        SET Aflag Vexit;
+    ] sp;
+
+    // if we added something, we need to move up one
+    IFEQ Aflag Vappended [
+        ZERO Aflag;
+
+        BBOX 1;
+        ASUM 0;
+    ] sp;
+
+    // we don't clear the last character, even if it was invalid,
+    // as the next IN will overwrite the cell
+];
+
+// NEVER forget cleanup
+ZERO Aflag;
+
+// -- going back --
+// because the last char will be '!', we need to offset by at least 1
+BBOX 0;
+ASUM 1;
+
+// moves back until we reached the zeroed cells of the parking
+WHNE 0 0 [
+    BBOX 0;
+    ASUM 1;
+];
+
+ASUM Aarray+3;
+]
+
+[main] [
+ALIS Voperating_memory 16;
+ALIS Aprog_pointer 0;
+ALIS Amem_pointer 1;
+ALIS Aflag 2;
+ALIS Vexit 1;
+ALIS Vbracket 2;
+ALIS Aoperator 3;
+ALIS Acell 4;
+ALIS Abracket_jump 5;
+ALIS sp 6;
+
+ALIS Vprog_array_cap 256;
+ALIS Aprog Voperating_memory;
+ALIS Amem Aprog+Vprog_array_cap+4;
+
+// get program from user
+init_input Aprog;
+
+WHNE Aflag Vexit [
+    ALIS Atmp sp;
+    ALIS sp sp+1;
+
+    // 1. load in operator
+    COPC Aprog_pointer Atmp sp;
+    GETD Aprog Atmp Aoperator;
+
+    // 2. operator specific logic
+    // + + + + +
+    IFEQ Aoperator 1 [
+        INCR Acell 1;
+    ] sp;
+
+    // - - - - -
+    IFEQ Aoperator 2 [
+        DECR Acell 1;
+    ] sp;
+
+    // &gt; &gt; &gt; &gt; &gt;
+    IFEQ Aoperator 3 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        INCR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // &lt; &lt; &lt; &lt; &lt;
+    IFEQ Aoperator 4 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        // NOTE: this DECR may underflow the tape pointer
+        DECR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // [ [ [ [ [
+IFEQ Aoperator 5 [
+    IFEQ Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+
+        // 2.
+        // we don't need to define our search counter here,
+        // we can use Abracket_jump directly
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            INCR Abracket_jump 1;
+
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                INCR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                DECR Acounter 1;
+            ] sp;
+
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+
+// ] ] ] ] ]
+IFEQ Aoperator 6 [
+    IFNE Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+    
+        // 2.
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            DECR Abracket_jump 1;
+    
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+    
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                DECR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                INCR Acounter 1;
+            ] sp;
+    
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+
+    // , , , , ,
+    IFEQ Aoperator 7 [
+        IN Acell;
+    ] sp;
+
+    // . . . . .
+    IFEQ Aoperator 8 [
+        OUT Acell;
+    ] sp;
+
+    // check for the end
+    IFEQ Aoperator 0 [
+        INCR Aflag Vexit;
+    ] sp;
+
+    // set the operator back
+    COPC Aprog_pointer Atmp sp;
+    ADDD Aprog Atmp Aoperator;
+
+    IFEQ Aflag Vbracket [
+        ZERO Aprog_pointer;
+        ADDP Aprog_pointer Abracket_jump;
+        ZERO Aflag;
+    ] sp;
+
+    // increase program pointer
+    INCR Aprog_pointer 1;
+];
+]
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="bf-interpreter.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="setup-field.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="bf-interpreter.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="setup-field.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

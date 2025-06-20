@@ -1,0 +1,3073 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>A Quick Introduction and Reference to Brain Aneurysm</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Quick Introduction and Reference to Brain Aneurysm</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p><img src="../../resources/logo.png" alt="" /></p>
+<p>This book serves as a short introduction and reference to the Brain Aneurysm programming language v1.0,
+which I will refer to as <code>basm</code> throughout the book.
+This book will also touch on the companion cli tool of the same name.
+The basm transpiler is fully open-sourced at
+<a href="https://github.com/AtmolanderMimi/basm">https://github.com/AtmolanderMimi/basm</a>,
+if you encounter any issues while using it please report it there so that I can fix the problem!</p>
+<p>Basm is a very simple, assembly-like esoteric programming language made to transpile into Brainfuck (aka <code>bf</code> for short).
+My goal in creating basm was to prove (although it had already been done before) that bf can be used to write any program
+a user can think of. Whilst bf is Turing-complete, it is rare to see that Turing-complete<em>ness</em> actually exploited to
+write generic, everyday programs <em>understandably so</em>. Hopefully, by providing tooling to abstract over writing bf, it can become
+feasible to write anything in it.
+Making us finally free from the cage of that is this language with a <em>funny name</em>.</p>
+<p>By aiming to be transpiled into bf, basm shares many similarities with bf. Certain pieces of logic, like instructions, are transpiled pretty much
+1:1 into bf. We even allow writing raw bf in a basm source file. Basm does separate itself from bf where it matters however.
+I've summed up the pain points I've aimed to solve when writing bf programs:</p>
+<ul>
+<li>Relative nature of memory</li>
+<li>Lack of organization or code-reuse features</li>
+<li>Difficulties with text handling</li>
+</ul>
+<h2 id="relative-nature-of-memory"><a class="header" href="#relative-nature-of-memory">Relative Nature of Memory</a></h2>
+<p>In bf, you can't just say: <code>add cell no.3 to cell no.2</code>. You need to actually manage the tape pointer and most likely
+do mental arithmetic to calculate how many <code>&gt;</code> and <code>&lt;</code> you'll need to get to the cells you want.
+So, you'd better not mess up your bf tape pointer or you might end up with a silent bug killing
+both your program and any hope of creating anything productive with bf that may have inhabited you before.
+You may even end up in a situation where you don't know exactly where you are, because you conditionally moved the tape pointer.
+This can happen in a loop like this for example: <code>[&gt;]</code>.</p>
+<p>You could say that bf dynamically addresses its memory by default. It says: <code>get the cell -1 from me</code>. Basm tries to solve this by having a static addressing system.
+This means that, in a basm source file, you can safely refer to the 3rd cell and it will always be the third cell
+no matter the operations you performed before.
+That's possible thanks to the tape pointer being automatically managed by the compiler.
+Also, because of the abstraction over raw bf operations, basm makes it impossible to reach a "relative state" without you wanting to. You cannot accidentally write <code>[&gt;]</code>!
+You must implicitly use a <code>RAW</code> or <code>ASUM</code> operation with the intent of entering a relative state to enter a relative state. Reaching a relative state with these two operation is valid as it is needed to write things like dynamic array getting/setting. <em>(Implementing these operations is really interesting and involves a lot of language features that I describe throghly in the <code>Writing Relative Code</code> chapter)</em></p>
+<p>In brief, relative is when you don't know where the cell pointer is in the program.
+As a rule of thumb when programming in basm: relative bad <em>(mostly)</em>, static good <em>(mostly)</em>.</p>
+<h2 id="lack-of-organisation-or-code-reuse-features"><a class="header" href="#lack-of-organisation-or-code-reuse-features">Lack of Organisation or Code-reuse Features</a></h2>
+<p>Bf has virtually nothing to help developers, maybe that's why it got so popular, <em>maybe people like torture...</em>
+Welp, I don't! So, I filled basm with plenty of ways to help you abstract over bf.</p>
+<p>Firstly, in basm, the base building block of our program are not operators, but instead instructions.
+This gives the language a bigger indivisible piece of logic compared to bf.
+<code>INCR 0 16;</code> is much easier to conceptualize than <code>++++++++++++++++</code>, don't you think?</p>
+<p>Secondly, we have aliases with the <code>ALIS</code> operation, which allow you to
+give name to values, addresses or blocks of code.
+<em>In this household (programming language), we call blocks of code "scopes".</em></p>
+<p>Lastly, there are "meta-instructions" which are kinda similar to functions, but in implementation are moreso similar to macros.
+These meta-instructions, once defined can be used like any in-built instruction in the program.
+Since bf doesn't have a jump operator and data is separate from code, it's practically impossible to create functions.
+So, meta-instructions, as the name implies, are simply instructions made up of other lower-level instructions.
+Hence why they are more similar to macros than functions, they are all inlined when used.</p>
+<h2 id="difficulties-with-text-handleing"><a class="header" href="#difficulties-with-text-handleing">Difficulties With Text Handleing</a></h2>
+<p>Bf works with text like any other programming language would, it stores one character by cell in Unicode format.
+The problem with that is that bf is not like any other programming language in pretty much all regards!
+First and foremost, there is no way to set a cell to a specific value directly. If you want the character 'c',
+then hold on tight, because you will need to type <code>+</code> 99 times!
+Basm implements both a character literal and a string literal, thus with basm you only need to type <code>INCR 0 'c';</code> to set cell no.0 to the value of 'c'.
+There are also in-built operations for loading and printing strings, which is a normally a very tedious task in bf.</p>
+<h2 id="quick-note-on-code-formating-throughout-this-book"><a class="header" href="#quick-note-on-code-formating-throughout-this-book">Quick Note on Code Formating Throughout This Book</a></h2>
+<p>This book will contain and promote how I prefer to write code in basm.
+Almost nothing in the language forces a specific formatting standard.
+For example, to save columns, I like to omit putting a level of tab in the upmost scope.</p>
+<p>Like so:</p>
+<pre><code class="language-basm">[main] [
+// my code here
+INCR 0 12;
+WHNE 0 0 [
+    // but i raise for scopes after
+    DECR 0 1;
+];
+]
+</code></pre>
+<p>There is nothing in the language forcing you to omit whitespaces, in fact there is nothing in the
+language dictating how you should use whitespaces (except for separating identifiers).
+So, keep in mind that whilst I like to follow certain naming and formatting standards,
+the flexible nature of basm allows you to write it however your heart desires!</p>
+<hr />
+<p>Now that you know whether or not basm is for you, let's hop in!</p>
+<h2 id="disclamer"><a class="header" href="#disclamer">Disclamer</a></h2>
+<p>Basic knowledge of bf is required to understand this book. That is, you need to know the operators do and little else.
+If you read up to here I'm guessing, you're probably fine on that.</p>
+<p>Both the language and transpiler are my first foray into language development and are
+serving as my first real major project in Rust.
+There have been better implementations of bf transpilable languages which are both more efficient are easier to use.
+<strong>This project is only for my own personal pleasure as a creator and is not aimed at creating efficient bf programs.
+If you are seeking usable and well informed implementations of bf transpilers look <a href="https://esolangs.org/wiki/Brainfuck_code_generation">here</a>.</strong></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installing-the-cli"><a class="header" href="#installing-the-cli">Installing the Cli</a></h1>
+<p>First, before getting into programming in basm, you'll need to install the basm transpiler.
+You can find compiled binaries of the <code>basm</code> cli tool in the releases section at <a href="">https://github.com/AtmolanderMimi/basm</a> or you can choose to compile the Rust code straight from source with <code>cargo</code>.
+(Don't be scared, despite being built 100% Rust, learning basm does not require any Rust knowledge)</p>
+<p>Once installed you can use the <code>basm</code> tool through the terminal.
+It comes with a basm to bf transpiler, simple bf code optimizer and a bf interpreter.
+To transpile and run any basm file use the <code>run</code> subcommand like below:</p>
+<pre><code class="language-bash">basm run my-file.basm
+</code></pre>
+<p>For a more comprehensive list of  capabilities, you can use the <code>help</code> subcommand or read <a href="./cli-capabilities.html">the chapter on the <code>basm</code> cli tool</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="our-first-program"><a class="header" href="#our-first-program">Our First Program</a></h1>
+<p>Like any good programming language, you must start from the basics. The basics in this case being a "Hello, world!" program.
+Here is how you write one in basm:</p>
+<pre><code class="language-basm">[main] [
+PSTR 0 "Hello, world!";
+]
+</code></pre>
+<p>This source code file, once transpiled through the <code>basm</code> cli would compile down to this is bf:</p>
+<pre><code class="language-bf">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.
++++++++++++++++++++++++++++++.+++++++..
++++.[-]++++++++++++++++++++++++++++++++++++++++++++.------------.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.
+--------.+++.------.--------.
+[-]+++++++++++++++++++++++++++++++++.[-]
+</code></pre>
+<p>This program uses cell 0 as a buffer to increment and output each character in the string <code>"Hello, world!"</code> consecutively.
+Quite simple isn't it? <em>(compared to the bf at least)</em></p>
+<p>Let's start dissecting what it all means.
+First, we begin at the top with the <code>[main]</code> decorator which indicates that the following
+scope will be a main field. There can only be one main field per program, and by the name you
+have probably already guessed what it is. It's the entry point of our program! Any instruction put inside the scope of the <code>[main]</code> field will be transpiled and then executed at runtime. In this example, the main field only held one instruction, which is <code>PSTR 0 "Hello, world!"</code>.</p>
+<h2 id="instructions-statement"><a class="header" href="#instructions-statement">Instructions Statement</a></h2>
+<p>"Ok, but what's an instruction in basm?", I hear you asking.
+An instruction is the basic building block of basm programs.
+They represent an action and are the smallest unit of logic in the programming language.
+You can think of them like functions in other programming languages:
+They take a set number of typed arguments and operate using these arguments.
+In this program, the operation was "print a string" using the cell at index <code>0</code>.
+Here is the syntax for any instruction statement:</p>
+<pre><code>INSTRUCTION_NAME arg1 arg2 .. ;
+</code></pre>
+<p><code>INSTRUCTION_NAME</code> is the name of the instruction.
+An instruction's name is not required to be fully capitalized,
+although it is the standard that I am going to use.
+<code>arg1</code> and <code>arg2</code> are the arguments to the instruction.
+Arguments are separated by whitespaces (don't put commas!).
+To end an instruction we need to put a semicolon, and we are done here.
+In the case of the <code>PSTR</code> instruction above:</p>
+<ul>
+<li><code>PSTR</code> was the name (meaning "print string"),</li>
+<li><code>0</code> was the first argument and</li>
+<li><code>"Hello, world!"</code> was the second argument.</li>
+</ul>
+<h2 id="scopes"><a class="header" href="#scopes">Scopes</a></h2>
+<p>As said prior, a <code>[main]</code> field is made up of a <code>[main]</code> decorator and a scope. So what is a scope?
+A scope is a collection of zero or more instructions or scopes.
+Scopes are denoted by matching square brackets which encapsulate their contents.
+They can be used to make fields and can serve as arguments to instructions,
+such as conditionals and loops.
+Scopes also serve as lifetimes for aliases.
+Meaning any alias defined within themselves are invalid outside of themselves,
+basically serving to limit the lifetime of aliases.
+(we will see this later in the Aliases chapter)</p>
+<p>The scope syntax is very simple, just put square brackets around stuff! This would be a valid scope:</p>
+<pre><code class="language-basm">[]  // totally empty
+    // (comments can be made by writing "//" which will make the rest of a line a comment)
+</code></pre>
+<p>.. and so would this third argument in this <code>WHNE</code> instruction:</p>
+<pre><code class="language-basm">WHNE 0 42 [
+    INCR 0 1;
+];
+</code></pre>
+<p>Like other languages, it is totally valid to write a scope within another scope as a statement.
+Doing this, inlines the contents of the scope, practically like you would have not written the scope contents in a scope.
+With what you know now, scope statements are not useful, but you will learn that
+they can  be convenient for making local, temporary aliases and sublogic in parts of code.
+<em>Note that scope aliases, which you will also see later in the chapter on aliases, can't be inlined like this.</em></p>
+<p>Here is an example of using a scope as an expression: (only instruction need semicolons to terminate their statement, scope statements don't need it)</p>
+<pre><code class="language-basm">[main] [
+// doing stuff
+INCR 0 42;
+
+// oof, the main scope is getting quite crowded let's get out
+[
+    OUT 0;
+]
+]
+</code></pre>
+<p>Scope statements (for inlining) and scope expressions (for instruction arguments) are written exactly the same.
+Their expression-<em>ness</em> is dependent on context.
+When in a scope, a scope is parsed as a statement. Whereas, when in an instruction argument (which is most of the time), a scope is an expression.</p>
+<h3 id="note"><a class="header" href="#note">Note</a></h3>
+<p>From now on, all code will be implicitly contained in <code>[main]</code> unless otherwise noted for ease of reading <em>(and writing ;))</em>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="in-built-instructions"><a class="header" href="#in-built-instructions">In-built Instructions</a></h1>
+<p>Any basm source file start with some predefined instructions called called in-built.
+These instructions are valid wherever and whenever.
+Basm has very reduced set of in-built instructions for simplicity.
+This means that any instruction that could be easily reproduced by combining
+two or more instructions was not included (with some few exceptions).
+For example, there is no multiplication instruction built in.
+I said the instruction set was small and, in fact,
+the set of built-in instructions is so reduced that I can show the 16 of them all here:</p>
+<h3 id="arithmetic"><a class="header" href="#arithmetic">Arithmetic</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Arguments</th><th>Function</th></tr></thead><tbody>
+<tr><td><strong>ZERO</strong></td><td>addr</td><td>sets the value of<code>addr</code> to 0</td></tr>
+<tr><td><strong>INCR</strong></td><td>addr, value</td><td>increments the value of the<code>addr</code> cell by <code>value</code></td></tr>
+<tr><td><strong>DECR</strong></td><td>addr, value</td><td>decrements the value of the<code>addr</code> cell by <code>value</code></td></tr>
+<tr><td><strong>ADDP</strong></td><td>addr1, addr2</td><td>adds<code>addr2</code> to <code>addr1</code>, the result is stored in <code>addr1</code> (in place)</td></tr>
+<tr><td><strong>SUBP</strong></td><td>addr1, addr2</td><td>substract<code>addr2</code> from <code>addr1</code>, the result is stored in <code>addr1</code> (in place)</td></tr>
+<tr><td><strong>COPY</strong></td><td>addr1, addr2, addr3</td><td>copies the value of<code>addr1</code> into <code>addr2</code> and <code>addr3</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="control-flow--loop"><a class="header" href="#control-flow--loop">Control Flow / Loop</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Arguments</th><th>Function</th></tr></thead><tbody>
+<tr><td><strong>WHNE</strong></td><td>addr, value, [scope]</td><td>while the value of<code>addr</code> cell is not equal to <code>value</code> runs the <code>[scope]</code>. <code>addr</code> is not consumed</td></tr>
+</tbody></table>
+</div>
+<h3 id="io"><a class="header" href="#io">I/O</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Arguments</th><th>Function</th></tr></thead><tbody>
+<tr><td><strong>IN</strong></td><td>addr</td><td>takes input from the user and sets it in<code>addr</code>, behaviour will vary between bf implementations</td></tr>
+<tr><td><strong>OUT</strong></td><td>addr</td><td>outputs the value of<code>addr</code>, <code>addr</code> is not consumed</td></tr>
+<tr><td><strong>LSTR</strong></td><td>start_addr, "str"</td><td>loads the string character by character into cells from the<code>start_addr</code> advancing forward</td></tr>
+<tr><td><strong>PSTR</strong></td><td>addr, "str"</td><td>prints the string character by character using the cell<code>addr</code> as a buffer</td></tr>
+</tbody></table>
+</div>
+<h3 id="language--compilation"><a class="header" href="#language--compilation">Language / Compilation</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Arguments</th><th>Function</th></tr></thead><tbody>
+<tr><td><strong>ALIS</strong></td><td>ident, value or [scope]</td><td>creates an alias to a value or scope named<code>ident</code>. This instruction is purely abstraction</td></tr>
+<tr><td><strong>INLN</strong></td><td>[scope]</td><td>inlines a scope</td></tr>
+<tr><td><strong>RAW</strong></td><td>"str"</td><td>includes the string after transpilation, this can be used to include brainfuck operators</td></tr>
+<tr><td><strong>BBOX</strong></td><td>addr</td><td>moves the tape pointer to<code>addr</code></td></tr>
+<tr><td><strong>ASUM</strong></td><td>addr</td><td>tells to compiler to assume that the tape pointer is at<code>addr</code>. If that assumption is wrong all cells accesses will be offset</td></tr>
+</tbody></table>
+</div>
+<p>You can find this table of instructions in the reference section of this book.</p>
+<h2 id="types"><a class="header" href="#types">Types</a></h2>
+<p>Seeing this chart you might be a little confused due to how arguments in the <code>Arguments</code> column are formatted.
+<em>If confusion lasts for more than eight hours contact a doctor (or continue reading)</em>.</p>
+<p>Of course, there is a reason why arguments are denoted differently, it's because they don't have the same expected type!
+Each value in basm source code is typed and totally static,
+meaning that values within the source code can't get mutated at runtime.
+Only the value of cells in the tape can be mutated during execution.
+(basm is like one big set of macros, it would be for impossible for values to be mutable at runtime)</p>
+<p>Basm has 3 types for its source code values being:</p>
+<ul>
+<li><code>number</code> denoted by nothing</li>
+<li><code>scope</code> denoted by being surrounded with <code>[..]</code></li>
+<li><code>string</code> denoted by being surrounded with <code>".."</code></li>
+</ul>
+<p>Instructions statements will only take arguments with types corresponding to the instruction's arguments' types.
+You cannot pass in a string where a number is expected, types will not coerce.
+Instructions in the built-in set have arguments which are ordered by their type and meaning.
+The way I like to order them follows this little diagram:</p>
+<pre><code>address numbers -&gt; pure numbers -&gt; strings -&gt; scopes -&gt; stack pointer number
+</code></pre>
+<h3 id="number-type"><a class="header" href="#number-type">Number Type</a></h3>
+<p>Numbers in basm are the most common type for literals and are probably going to be the type you use most
+as they are very versatile.</p>
+<p>As you may have seen in the table above, numerics usually have one of two purposes.
+Either they serve as an address to a cell or they serve as a <em>pure number</em>.
+For example, <code>INCR</code> takes in the arguments <code>addr</code> and <code>value</code> which are both numeric,
+but their values hold two very different meanings.
+The value of <code>addr</code> (address) denotes the address of the cell to be operated on.
+Whereas the value of the passed in <code>value</code> (pure number) denotes by how much the cell at <code>addr</code> should be increased.
+Be sure to not mix numerics representing address and and numerics representing (pure) numbers as that is a surefire way to create bugs!</p>
+<p>There is three ways to write a number literal:</p>
+<ul>
+<li>Via a positive number, ex: <code>0</code>, <code>42</code>, <code>732</code></li>
+<li>Via a character literal, ex: <code>'b'</code>, <code>'F'</code></li>
+<li>Or by combining two number literals into an expression, ex: <code>3+'a'</code></li>
+</ul>
+<p>Character literals' values are mapped to their value in Unicode.
+Expression are interesting as they allow modularity to arguments.
+If I have an array starting at index <code>3</code> and I want to zero the first 3 cells in that array,
+I could elegantly write it like so:</p>
+<pre><code class="language-basm">ZERO 3+0;
+ZERO 3+1;
+ZERO 3+2;
+</code></pre>
+<p>Another interesting property about expressions is that they themselves are number literals,
+meaning that we can chain them together like to.</p>
+<pre><code class="language-basm">// reminder that values in sources files are computed at compile-time
+// expressions don't resolve at runtime!
+//     75  - 32  - 1 = 42
+INCR 0 'K' - ' ' - 1;
+OUT 0;
+</code></pre>
+<p>The way expressions are built is that they take a "base" value and then a "modifier".
+It merges the two values (the base and modifier value) into one expression and repeats.
+Currently, modifiers have four types which are implemented.</p>
+<ul>
+<li>Addition: <code>+</code>,</li>
+<li>Substraction: <code>-</code>,</li>
+<li>Multiplicaton: <code>*</code>,</li>
+<li>Integer division (towards 0): <code>/</code></li>
+</ul>
+<p>Basm uses left to right priority, totally forgoing PEMDAS and any parentheses to denote priority.
+Here would be the implicit priority of that last example:</p>
+<pre><code>((75) - 32) - 1 = 42
+</code></pre>
+<p>A little note on integer division modifiers, basm doesn't do decimal numbers.
+This means that division are kinda weird as they can't result a decimal number.
+So, all divisions made are truncated (practically, the decimal digits are removed) towards 0.
+As a result, <code>5/3</code>, which is in normal maths equal to 1.6666.., is equal to 1 in basm.
+This also introduces a loss of precision. <code>10/3*3</code> is not in fact 10, but 9.
+Since we execute from left to right we first compute <code>10/3</code> which is 3.3333..
+That gets rounded to 3 and then we execute the multiplication modifier on our rounded 3, so we get 9!</p>
+<h4 id="the-difference-between-address-numbers-and-pure-numbers"><a class="header" href="#the-difference-between-address-numbers-and-pure-numbers">The Difference Between Address Numbers and Pure Numbers</a></h4>
+<p>You may have noticed that I separate numbers into two "sub-types" based on their meaning.
+There are "address numbers" which are numeric values which represent addresses to cells and
+there are "pure numbers" which are numeric values which represent numeric values used for operations.
+Nothing stops you from using address numbers where pure numbers belong. This is also true the other way around.</p>
+<p>This distinction is going to be important once we start naming these numeric values with aliases.
+You will see, I prefix address number aliases with <code>A</code> for "address"
+and pure value aliases with <code>V</code> for pure number "value".</p>
+<p>In the built-in's' tables above, arguments named <code>addr</code> or <code>addr_nth</code> are <strong>address numbers</strong>,
+whereas arguments named <code>value</code> are <strong>pure numbers</strong>.</p>
+<h3 id="scopes-1"><a class="header" href="#scopes-1">Scopes</a></h3>
+<p>Scopes, as I described in the last chapter, are collections of instructions and other scopes.
+You can pass them into instructions as arguments by simply writing them in their literal form (which means the same thing as expression here).
+Here's a reminder of what a scope literal looks like:</p>
+<pre><code class="language-basm">[
+    // ...content here...
+]
+</code></pre>
+<h3 id="string"><a class="header" href="#string">String</a></h3>
+<p>Strings as types are very limited in usage,
+they cannot be aliased and you cannot make a meta-instruction with a string arugment.
+This means, basically, that the string type is only used by in-built instructions
+(i.e: <code>PSTR</code>, <code>LSTR</code> and <code>RAW</code>).
+Whilst writing code, it is very rare to actually end up working with string anymore than
+loading them into memory or printing them out.
+Because of this, string support is currently fairly lacking.
+You cannot operate on source code strings in any meaningful way in basm 1.0.
+The only power you hold is to summon them through their literal form,
+which like many programming languages is simply text between two quotes (<code>"</code>).
+For example:</p>
+<pre><code class="language-basm">RAW "this will be included in the transpiled file!
+";
+</code></pre>
+<p>Noticed how I needed to actually include a newline character
+in the source file for the string to contain it?
+This is because basm does not contain escapable characters like <code>\n</code> as of now.
+<em>It also means that you can't write a string containing <code>"</code> (or a character literal with <code>'</code>).
+That's because the lexer, in the state it currently is,
+would freak out if I ever tried to implement escaped characters.
+(I <strong>really</strong> need to rewrite the lexer)</em></p>
+<h2 id="assumptions-made-by-instructions"><a class="header" href="#assumptions-made-by-instructions">Assumptions Made by Instructions</a></h2>
+<p>All instructions both the ones you make and the ones which are built-in will hold some sort of assumptions.</p>
+<p>In basm, instructions "consume" the values of the source cells unless otherwise noted.
+"consuming", in this context, means that the cell is set to 0.
+For example, when we add two numbers together using <code>ADDP</code>, the second cell, which is not an output,
+will inadvertently be zeroed due to the operation we made on it.
+Cells which hold the result of operations are of course not zeroed.</p>
+<p>Apart from that, instructions also assume that address arguments don't have the same value (aka "alias", but that word has another meaning in basm).
+An instruction statement passed in with two of the same addresses have unspecified behaviour.
+Most often, this ends up locking the program in an endless loop,
+although it can also cause other undesirable behaviour.</p>
+<p>Lastly, notably, instructions assume that the values of the cells at output addresses are 0.
+If that condition is not met, an instruction which <em>"sets a cell to a value"</em> would rather <em>"increment a cell by that value"</em>.</p>
+<h2 id="notable-instructions"><a class="header" href="#notable-instructions">Notable Instructions</a></h2>
+<p>Now that you know a bit more about what constitutes an instruction, let's look at some notable
+instructions which may not be immediately intuitive just by reading their description.</p>
+<h3 id="whne-while-not-equal"><a class="header" href="#whne-while-not-equal">WHNE (While Not Equal)</a></h3>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr</td><td>number</td><td>address of the cell being compared against the<code>value</code></td></tr>
+<tr><td>value</td><td>number</td><td>value that the cell at<code>addr</code> must reach to stop the loop</td></tr>
+<tr><td>scope</td><td>scope</td><td>code to be executed in loop while the condition is not resolved</td></tr>
+</tbody></table>
+</div>
+<p>This instruction is vital, not only for writing good software in basm,
+but for writing any software that can be considered Turing-complete in general.
+<code>WHNE</code> is the only source of conditional execution and looping
+included within the whole pool of built-in instructions (excluding <code>RAW</code>, because it's weird).
+Thus, all sources of conditionality need to be derive from this.
+It is a sad day to be alive, but bf has no other primitive form of conditional than a while not equal to zero with the <code>[</code> and <code>]</code> operators.
+This instruction translates directly to a matching pair of <code>[</code>and<code>]</code> alongside some <code>+</code> and <code>-</code> so that we aren't restricted to equality with zero.
+As the name implies the behaviour is to:</p>
+<ol>
+<li>Check if cell at <code>addr</code> is equal to <code>value</code>. If it is, exit</li>
+<li>Execute the code in <code>scope</code></li>
+<li>Return to step 1</li>
+</ol>
+<p>Unlike most other operations WHNE does not consume the value of the cell it checks, meaning you don't have
+to reinitialize the cell after each check.</p>
+<p><strong>Example:</strong> The fact that the cell is not consumed makes it easy to create something like a counter</p>
+<pre><code class="language-basm">// outputs values from 0-99
+WHNE 0 100 [
+    OUT 0;
+    INCR 0 1;
+];
+</code></pre>
+<h3 id="copy"><a class="header" href="#copy">COPY</a></h3>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr1</td><td>number</td><td>address the source cell to be copied to<code>addr2</code> and <code>addr3</code>, the cell at <code>addr1</code> is consumed</td></tr>
+<tr><td>addr2</td><td>number</td><td>address of a cell receiving a copy of the cell<code>addr1</code></td></tr>
+<tr><td>addr3</td><td>number</td><td>address of a cell receiving a copy of the cell<code>addr1</code></td></tr>
+</tbody></table>
+</div>
+<p><code>COPY</code> is a <em>weird</em> one which is needed because of the <em>weird</em> nature of the <em>weird</em> language which is bf <em>(weirdly)</em>.
+There is no way to add two numbers together without one disappearing into the void, never to be seen again.
+This is why we require <code>COPY</code>.
+If we want operate on a value and still have a copy of it afterwards we will need to have the value twice.
+Once to use for the operation and the other to keep it alive.
+<code>COPY</code> was made for this, it takes in one cell and sets the value of two other cells
+to the value of the source <code>addr1</code> cell, consuming it in the process.
+This behaviour is essential for building almost any program.</p>
+<p><strong>Example:</strong> a program outputting the double of the last number forever, or until the cell value limit is reached:</p>
+<pre><code class="language-basm">INCR 0 1;
+WHNE 0 0 [
+    OUT 0;
+    COPY 0 2 3;
+  
+    ADDP 0 2;
+    ADDP 0 3;
+];
+</code></pre>
+<p><em>Now, most basm professionals don't want you to know this... but it's acceptable for the two output addresses of <code>COPY</code> to be the same.</em>
+Doing so will copy the value of the cell twice in the same place, practically doubling it.
+Although I know it is safe in this circumstance to have two address arguments with the same value due to the fact that <em>I kinda made the language</em>,
+this is not a safe bet to take on <em>ANY OTHER</em> instruction! (pretty cool though)</p>
+<h3 id="addp-add-in-place"><a class="header" href="#addp-add-in-place">ADDP (Add in Place)</a></h3>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr1</td><td>number</td><td>cell to be added to<code>addr2</code>, output is stored here</td></tr>
+<tr><td>addr2</td><td>number</td><td>cell to be added to<code>addr1</code></td></tr>
+</tbody></table>
+</div>
+<p>You might be surprised to see <code>ADDP</code> in this list, after all it's an addition operation,
+how complicated can it be?
+Welp, not all that much, but it still does have a property which is not reflected by its name.
+That being the ability to act as a move instruction.</p>
+<p>As long as the value at <code>addr1</code> is 0,
+calling <code>ADDP</code> will simply move the contents of the cell at <code>addr2</code> to <code>addr1</code>.
+This is because <code>x + 0 = x</code>, or in layman's terms: adding something to nothing will just return the initial something.
+And, since we happen to return that "initial something" to somewhere different from where we took it from, we effectively moved that "something".
+So, we can give<code>ADDP</code>a little pet name like<code>MOVE</code> as it really serves as so sometimes.</p>
+<p><strong>Example:</strong> I want to copy the value of cell 0 to cell 1 without consuming it</p>
+<pre><code class="language-basm">INCR 0 42;
+
+// reminder that we can't copy to 0 directly as that would make two pointers alias,
+// which in turn would cause an infinite loop
+// (no, the doubling trick with COPY was not about that)
+COPY 0 1 2;
+
+// we "move" 2 -&gt; 0
+ADDP 0 2;
+</code></pre>
+<h3 id="raw"><a class="header" href="#raw">RAW</a></h3>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>str</td><td>string</td><td>a string to be included in the transpiled code at the appropriate location</td></tr>
+</tbody></table>
+</div>
+<p><code>RAW</code> is a bit of a special case in that it can do the job of all the other instructions.
+If I truly wanted to reduce the instruction set to the maximum there would be one instruction
+and it would be this.</p>
+<p>Now, including a string in the compiled output does not seem like it would be able to do much at first.
+<em>Like, ok, we can put comments in the output?</em>
+But that's not the main attraction of <code>RAW</code>. The real reason it is of interest is because you can
+smuggle <strong>ANY</strong> string into the compiled file.
+This means that it is possible to include operators like <code>+</code>, <code>-</code>, <code>&gt;</code>, <code>&lt;</code>, <code>[</code>, <code>]</code>, <code>,</code> and <code>.</code>
+allowing us to insert raw bf code directly in our basm source file.
+With this, we can harvest the full power (it being rather small still) of bf.
+This comes with one downside, tape pointer movement, which is usually completely handled by the compiler,
+and unmatched brackets are not checked within strings passed to <code>RAW</code>.
+An unmatched bracket will probably just match with a totally unrelated one, messing up jumps made by <code>WHNE</code>
+and messing with tape pointer position <strong>unintentionally</strong> is <strong>BAD</strong>.
+I won't go into much details why it is, but simply put, the compiler needs to know were the pointer is at all times
+(unless you plan for it, we'll see that in the relative-code chapter).
+Just writing <code>RAW "&gt;";</code> is enough to completely mess up your program by effectively offsetting all the cells by 1.</p>
+<p>With <code>RAW ""&gt;";</code>, we can write dynamic code to our heart content without being limited by basm's static memory addresssing.
+The art of writing basm a program capable of harnessing the power of dynamic memory addresssing
+is one hard to come by these days,
+but in time (reading the chapter on relative code) you shall learn how to master it.</p>
+<p><strong>Example:</strong> Why would I want to use basm, when bf worked just fine for a "hello, world!"?</p>
+<pre><code class="language-basm">// be careful to not include bf operators in your text!
+RAW "my hello world program:
+";
+RAW "++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++.";
+</code></pre>
+<p>Which will give us exactly this output, as expected:</p>
+<pre><code class="language-bf">my hello world program:
+++++++++[&gt;++++[-&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;-&gt;.+&lt;.&lt;.+++.------.--------.&gt;&gt;.&gt;++.
+</code></pre>
+<h3 id="alis-alias"><a class="header" href="#alis-alias">ALIS (Alias)</a></h3>
+<p>Oh, wait... we have the whole next chapter just for that one!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="aliases"><a class="header" href="#aliases">Aliases</a></h1>
+<p>Aliases are by far the most common abstraction feature you are going to use while writing basm code,
+no questions asked.
+They allow to alias number values or scopes to identifiers to representing the value.
+You can think of aliases like variables in other programming languages, except they are purely immutable constants.
+Once an alias is defined, it can be used to substitute having the write the literals forms of values anywhere the alias is valid.
+Defining an alias is done via the <code>ALIS</code> "instruction" (<code>ALIS</code> can hardly be called an instruction as it does not compile into anything).</p>
+<p>For example, if I have a cell located at <code>42</code> containing the index of an array, rather than having to memorize its location,
+I could simply create an alias to the address like <code>Aindex</code>with the instruction<code>ALIS Aindex 42;</code>.</p>
+<h2 id="the-alis-instruction"><a class="header" href="#the-alis-instruction">The <code>ALIS</code> Instruction</a></h2>
+<p>At the exception of meta-instructions, the <code>ALIS</code> instruction is the only way to create aliases.
+Since I baited you in the last chapter, below is its nicely formatted specification!</p>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>alias_name</td><td>identifier</td><td>the name of the alias</td></tr>
+<tr><td>value</td><td>numeric/scope</td><td>the value to be bound to the alias</td></tr>
+</tbody></table>
+</div>
+<p><em>(don't worry about the "identifier" type, it's not actually a type. Just that <code>ALIS</code> is a special boy and can take names as argument)</em></p>
+<p><code>ALIS</code> allows creating aliases in the current scope by binding numeric or scope expressions to an identifier.
+As an instruction, <code>ALIS</code> does not compile to anything, it is purely abstraction.</p>
+<p>To define numeric aliases and then use the alias in place of any numeric value do as so:</p>
+<pre><code class="language-basm">ALIS Aindex 1;         // address of the index cell
+ALIS Vshrob 2;         // some random value
+ALIS Vvalue 40+Vshrob; // value of the index
+
+ALIS Vshrob 33;        // overwriting the last Vshrob alias
+
+INCR Aindex Vvalue;
+</code></pre>
+<p>Aliases are purely abstraction for writing the <strong>value</strong> of the bound expressions where the alias is.
+So, to help visualize, here is what the above program looks like after the aliases have been normalized out:</p>
+<pre><code class="language-basm">INCR 1 42;
+</code></pre>
+<p>Notice how <code>Vvalue</code> is replaced by the value of the expression passed into <code>ALIS</code> when the alias is created.
+This is why <code>Vvalue</code> got replaced by 42 (40+2) rather than 73 (40+33).
+The alias was bound to the value of the expression rat
+her than the expression itself,
+if it were bound to the expression changes to <code>Vshrob</code> would change <code>Vvalue</code>.</p>
+<h2 id="alias-validity"><a class="header" href="#alias-validity">Alias Validity</a></h2>
+<p>Aliases are valid for the duration of the scope they are defined in.
+This means that an alias defined in a higher scope cannot reach a lower one.
+That alias behaviour is the main reason why you would want to insert a scope within another,
+to have operation specific aliases. Here is an example of alias validity over the program:</p>
+<pre><code class="language-basm">ALIS Vsome 1; 
+
+// Vsome: 1
+[
+    // Vsome: 1
+    ALIS Vsome 2;
+    // Vsome: 2
+]
+// Vsome: 1
+</code></pre>
+<p>Whilst we are talking about this, might as well mention that, as in the example above,
+aliases can shadow each other and that not only through scope boundaries!
+They can also refer to the value they will shadow when defined.
+Here's an example of a fairly common pattern using aliases:</p>
+<pre><code class="language-basm">ALIS Vnum_cats 5;
+// ... some operations ...
+ALIS Vnum_cats Vnum_cats+3;
+</code></pre>
+<p>That example firsts set <code>Vnum_cats</code> to 5
+then does all the operations between the two <code>ALIS</code> with 5 as <code>Vnum_cats</code>.
+Lastly, the <code>Vnum_cats</code> alias is shadowed by the second <code>ALIS</code> which sets the alias to the value of <code>Vnum_cats+5</code>.
+The compiler normalizes the expression and gets the result of 8 (5+3) which it sets to be the new <code>Vnum_cats</code>.
+Using this, we can reach the what would be expected of variables in other programming languages, but don't get it
+twisted, aliases are not variables. They are replaced by their value at compile time
+and are totally gone at runtime.</p>
+<p>So, don't expect something like this to increment forever:</p>
+<pre><code class="language-basm">// THIS DOES NOT WORK!
+
+ALIS Vincrement 0;
+WHNE 0 1 [
+    ALIS Vincrement Vincrement+1;
+];
+</code></pre>
+<p>That example would completely fail as the alias in the looped scope doesn't persist over loops.
+It will get thrown out at the end of its scope like any other alias,
+as thus the value of <code>Vincrement</code> will always be 1 (0+1) in the looped scope.</p>
+<h2 id="alias-types"><a class="header" href="#alias-types">Alias Types</a></h2>
+<p>There are currently two types which are supported by aliases: number and scope.
+Yes, this means you can't alias a string, sadly.
+So far, we have only made aliases of numeric values as these are the most common,
+but we can also create scope aliases.
+Aliases with different types won't overwrite each other, even if they have the same name.
+They are treated as completely different.
+This means you can have both a numeric alias and scope alias named <code>my_alias</code> at the same time with no issue.
+Basm will automatically use the alias with the fitting type when <code>my_alias</code> is used.</p>
+<p>You create aliases of different types by matching identifiers to different expressions.
+If you give a numeric value to <code>ALIS</code> you will create a numeric alias,
+on the other hand if you give it a scope you will get a scope alias.</p>
+<h3 id="scope-aliases"><a class="header" href="#scope-aliases">Scope Aliases</a></h3>
+<p>Now, scope aliases are interesting to talk about as they allow you to share and reuse code around your source file,
+unlike numeric aliases which are only about values.
+Right now, they are not really interesting, but as you'll learn about meta-instruction
+you will see one of most interesting use case, as a <em>callback-like thingamabob</em>.</p>
+<p>Since there hasn't been an example of alias scopes yet, here is one:</p>
+<pre><code class="language-basm">// defining "my_scope" scope alias
+ALIS my_scope [
+	INCR 0 1;
+	OUT 0;
+];
+
+// using my_scope with the scope identifier syntax
+WHNE 0 128 [my_scope];
+</code></pre>
+<p>You have probably noticed a difference to how we use numeric aliases,
+being that we need to use a "scope identifier" to specify our scope alias.
+A scope identifier is simply an identifier (aka the name of the alias) wrapped by square brackets.
+This syntax tells the compiler to checks for the scope alias rather than the numeric alias
+(also it allows the person reading it to know that this is a scope alias being passed as an argument,
+which is <em>cool</em>).</p>
+<p>If you don't use the scope identifier syntax you will get this error:</p>
+<pre><code class="language-txt">------------------ [ ERRORS ] ------------------
+Error: from Ln 7, Col 12 in "/some/path/to/the/file.basm"
+ → alias was not defined
+[...] [main] [
+ALIS my_scope [
+        INCR 0 1;
+        OUT 0;
+];
+
+WHNE 0 128 my_scope;
+]
+ [...]
+</code></pre>
+<p><em>(the second <code>my_scope</code> is highlighted and underscored in the terminal)</em></p>
+<p>This means that the compiler tried to search for the numeric alias <code>my_scope</code>,
+which obviously doesn't exist, and failed.</p>
+<p>There is one more thing I want to add to scope aliases and that's inlining them.
+Unlike scope literals you can't simply write the alias down to inline it!
+So, you will need to use an instruction I made specifically for that called <code>INLN</code>.
+It takes one scope argument and inlines it, as if you would have written a literal in the file at its place.</p>
+<p>Here is an example displaying what I just talked about and an extra property that may not be obvious:</p>
+<pre><code class="language-basm">ALIS Vscale 7;
+ALIS increment [
+    INCR 0 Vscale;
+];
+
+// we repeat the scope three times
+INLN [increment];
+INLN [increment];
+INLN [increment];
+
+// then three more
+ALIS Vscale 12;
+INLN [increment];
+INLN [increment];
+INLN [increment];
+
+OUT 0;
+</code></pre>
+<p>This example, when ran, outputs 42 (7*6) or the <code>*</code> character if your interpreter outputs as text.
+That may seem odd, after all we set <code>Vscale</code> to 12 halfway through which should give us 57 (7*3 + 12*3), right?
+Wrong! Whilst, you can include aliases within a scope alias, they will be immediately normalized (aka replaced)
+by their bound value. So, the <code>increment</code> alias actually looks more like this after being defined:</p>
+<pre><code class="language-basm">ALIS increment [
+    // Vscale was replaced by its value
+    INCR 0 7;
+];
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="calculating-fibonacci"><a class="header" href="#calculating-fibonacci">Calculating Fibonacci</a></h1>
+<p>Now that you've learnt the basic building blocks of the language,
+you are probably eager to do something useful with them,
+but like a kid with un-assorted Lego blocks it may not be as easy as it seems to build something coherent with them.
+This synthesis chapter is a walk-through for creating a program
+which calculates the nth number of the Fibonacci sequence.
+We will first start by creating the basic logic then add user input.</p>
+<p>If you want to go ahead and try to build a fib program yourself before reading this explanation,
+I highly recommend it!
+Getting your hands dirty is the best way to learn and memorise quirks of the language
+<em>(and any skill for that matter)</em>.</p>
+<h2 id="building-the-inputless-version"><a class="header" href="#building-the-inputless-version">Building the Inputless Version</a></h2>
+<p>We are going to be implementing an iterative version of a Fibonacci calculator.
+<em>(In opposition to the recursive one, because there is no recursion in basm)</em></p>
+<p>If you have never built an iterative Fibonacci calculator in another language before, here is pseudo-code for how it typically looks like:</p>
+<pre><code class="language-txt">a = 0
+b = 1
+
+for i in [0; nth[:
+    c = a + b
+    a = b
+    b = c
+
+output a
+</code></pre>
+<p>What's nice here is that most of the features present in that pseudo-code example are present in basm.
+We can store values like <code>a</code>, <code>b</code> and <code>c</code> in cells and we of course have addition and output.
+There one pain point though, which is that unlike in the pseudo-code basm instructions consume their inputs.
+This means that we can't feasibly use <code>b</code> in <code>c = a + b</code> and <code>a = b</code> without having to copy it.
+That will unfortunately require writing a bit of copying logic boilerplate.</p>
+<p>Here's the non-functional pseudo-code/basm hybrid with the pieces which we can easily replace:</p>
+<pre><code class="language-basm">// unlike in the example above, we need to set the value of the variables
+ALIS Aa 0;              // a = 0 (all cells are 0 by default)
+ALIS Ab 1;
+INCR Ab 1;              // b = 1
+
+// this for loop syntax is invalid in basm
+for i in range [0; nth[:
+    ALIS Ac 2;          // we define Ac here, because it is operation specific to the loop
+    ALIS Atmp 3;
+
+    COPY Ab Ac Atmp;    // c = b and tmp = b
+    ADDP Ac Aa;         // c += a
+
+    ADDP Aa Atmp;       // a = tmp (which is b)
+    ADDP Ab Ac;         // b = c
+
+OUT Aa;                 // output a
+</code></pre>
+<p>Notice how <code>ADDP</code> has the double purpose of both adding and moving values around?
+We can be sure that these moves are safe to do because the cells were consumed by prior instructions.
+An example of this is with <code>Ab</code>, we knew it was zeroed from the <code>COPY</code> instruction,
+so it was safe to use <code>ADDP</code> as a move to move <code>Ac</code> to <code>Ab</code>.</p>
+<p>It is very important to keep track of which cell has been consumed when writing basm code.
+That, not only for being able to move cells to other cells without having to preemptively <code>ZERO</code> them,
+but also for what I like to call "scope hygeine". What it means is that a scope, once executed,
+will not leave non-zeroed cells. It is the duty of the scope to zero the cells it uses for operation.
+In the case of this example, the cells used for operation in the <code>for</code> loop scope are <code>Ac</code> and <code>Atmp</code>.
+Looking at the code we can see that they both get consumed before the end of the scope. Perfect!
+If you betray scope hygiene, you might end up trying to use a cell with an arbitrary value,
+whereas you expected all cells to be zero by default. By default, in basm,
+we assume all cells untouched by the current scope to be zero, this allows us to save operations
+having to <code>ZERO</code> all cells before using them.</p>
+<p>Here is an example where not zeroing all cells before the end of the scope is problematic:</p>
+<pre><code class="language-basm">[
+    // .. some operation ..
+    ALIS Atmp 1;
+    INCR Atmp 2;
+    COPY Atmp 0 2;
+]
+
+ALIS Aval 0; // we expect *Aval == 0
+INCR Aval '!';
+OUT Aval; // we should get '!', but get '#'
+</code></pre>
+<p>(In this case the problem is very easy to spot, it is as the project size increases that bugs caused by these kinds of
+errors become harder and harder to spot)</p>
+<p>For the last step in transforming our pseudo-code example into real basm code is to deal the <code>for</code> loop.
+There is no in-built <code>for</code> loop instruction, so we will have to manually handle our loop's exit condition.
+Normally other languages would do this for you, but being basm being low-level we will need to explicitly
+create and increase the index as well as check whether that index is out of the range.</p>
+<pre><code class="language-basm">ALIS Aa 0;
+ALIS Ab 1;
+INCR Ab 1;
+// we add a cell to store the index
+ALIS Ai 2;
+// the index we want to reach (it's a constant for now)
+ALIS Vdesired_index 11;
+
+// this reads like: while (index != desired_index)
+WHNE Ai Vdesired_index [
+    // because of the extra cell used for the index we need to offset those by 1
+    ALIS Ac 3; 
+    ALIS Atmp 4;
+
+    COPY Ab Ac Atmp;
+    ADDP Ac Aa;
+
+    ADDP Aa Atmp;
+    ADDP Ab Ac;
+
+    // increase the index for each iteration
+    INCR Ai 1;
+];
+
+OUT Aa;
+</code></pre>
+<p>If you did everything well, now the program should output 89!
+(or <code>Y</code>, if it does output this you can use the <code>-m</code> flag on the basm interpreter to output cells as numbers)
+You can try to fiddle with the value of <code>Vdesired_index</code> to get different numbers from the Fibonacci sequence.
+Be weary though, the bf interpreter that comes with the basm cli
+defaults to using cells of unsigned 8 bit integers, meaning that numbers are limited from 0-255!
+To change the size of the cells, use <code>-c 16</code> flag to get 16 bit unsigned cells.</p>
+<h2 id="adding-user-control"><a class="header" href="#adding-user-control">Adding User Control</a></h2>
+<p>We will now be adding a very small amount of user input to our program:
+we'll let the user decide which number they want from the Fibonacci sequence.
+This may seem simple, and it is! Rather than increasing a cell until we reach the desired value,
+we can simply decrease the cell containing the desired value until we reach zero.
+It's a bit different from the last version thought
+since the desired value will be stored in a cell rather than be a constant.</p>
+<pre><code class="language-basm">ALIS Aa 0;
+ALIS Ab 1;
+INCR Ab 1;
+// we set a cell to take user input (Value -&gt; Address)
+ALIS Adesired_index 2;
+IN Adesired_index;
+
+WHNE Adesired_index 0 [
+    ALIS Ac 3;
+    ALIS Atmp 4;
+
+    COPY Ab Ac Atmp;
+    ADDP Ac Aa;
+
+    ADDP Aa Atmp;
+    ADDP Ab Ac;
+
+    // decrease the index for each iteration
+    DECR Adesired_index 1;
+];
+
+OUT Aa;
+</code></pre>
+<p>Now when running the program, you will be prompted to input something which will be treated as the index.
+As you may have already guessed <code>IN</code> and <code>OUT</code> transpile directly to <code>,</code> and <code>.</code>.
+Make sure you use the <code>-n</code> flag while using the inbuilt basm interpreter
+to parse input as numbers rather than as characters.
+The prompt will repeat until you enter a valid number. That being until your input can parsed and contained by the cell.
+Input is special in bf as it is the only thing that can straight up overwrite cell data
+without caring about what it contained before. <em>(it is also special in that its implementation varies a lot from interpreter to interpreter, but whatever)</em></p>
+<p>Now you have a working interactive Fibonacci calculator!
+You check out the generated bf by printing it out via the <code>-p</code> flag
+and make my interpreter sweat by asking it anything above <code>fib(30)</code>
+(you will need the <code>-c 32</code> flag for the result to be correct).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="meta-instructions"><a class="header" href="#meta-instructions">Meta-Instructions</a></h1>
+<p>Wow, only now are we onto meta-instructions!
+Meta-instruction are like functions in other programming languages, except that they aren't.
+They are actually just multiple instructions joined into one, thus the name meta-instruction.
+These composite instructions are expanded at compile time into their component built-in instructions.
+So, they are actually more similar to macros or always inlining functions.</p>
+<h2 id="the-meta-fields"><a class="header" href="#the-meta-fields">The Meta Fields</a></h2>
+<p>To define a meta-instruction you need to use the second and only other field other than <code>[main]</code>,
+which is the <code>[@META arg1 arg2]</code> field.
+A basm source file can have zero or more meta-instructions fields present in a file before the <code>[main]</code> one.
+This field allows you to create a meta instruction of the name <code>META</code> with the arguments following it,
+in the case of the example they would be two numeric arguments named <code>arg1</code> and <code>arg2</code>.</p>
+<p>Once defined a meta-instruction can be used anywhere a normal built-in instruction can,
+even in other meta-instruction bodies (excluding those who came before and itself of course).</p>
+<h3 id="arguments"><a class="header" href="#arguments">Arguments</a></h3>
+<p>Meta-instructions can take zero or more arguments of numeric or scope type.
+To specify the arguments you want your meta-instruction to take in,
+you simply write they names (identifiers) in the field header:</p>
+<ul>
+<li><code>[@META]</code>: would take no arguments</li>
+<li><code>[@META arg1 arg2]</code>: would take two numeric arguments</li>
+<li><code>[@META arg1 [scope]]</code>: would take one numeric argument followed by a scope argument</li>
+</ul>
+<p>Basm will automatically create aliases named after the arguments which are bound to the arguments passed in by the caller.
+This means that you can refer to <code>arg1</code> like any other numeric alias in the scope of <code>[@META arg1]</code>.</p>
+<h2 id="naming"><a class="header" href="#naming">Naming</a></h2>
+<p>Meta-instructions cannot share the name of other instructions, must they be built-in's or user defined meta-instructions.
+Also, quick aside, while I prefer to keep the 4 capital letters naming convention for instruction names,
+names abide by the same restrictions as aliases and are thus not limited to 4 capital letters or less.</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>Meta-instructions are very practical to remove boilerplate.
+Since I decided to greatly reduce the amount of built-in instructions,
+you will probably need some to define some quality of life instructions.
+Thankfully, doing so is both easy on the meta-instruction definition end and in the usage end.</p>
+<h3 id="set"><a class="header" href="#set"><code>SET</code></a></h3>
+<p>If I want to set the value of cell by incrementing, but I know that it may be not consumed,
+then I would need to zero it before incrementing the cell, causing boilerplate.
+It would be much easier to read if both zeroing and incrementing the cell to a value would be the same instruction.
+Well, with meta-instructions you can implement that instruction yourself:</p>
+<pre><code class="language-basm">[@SET Acell Vval] [
+ZERO Acell;
+INCR Acell Vval;
+]
+
+[main] [
+// instead of:
+ZERO 0;
+INCR 0 12;
+
+// you can simply write:
+SET 0 12;
+]
+</code></pre>
+<p>At compile time, the <code>SET</code> instruction will be expanded and the aliases will be resolved,
+leading the main field looking something like this after meta-instruction inlining:</p>
+<pre><code class="language-basm">// instead of:
+ZERO 0;
+INCR 0 12;
+
+// you can simply write:
+ZERO 0;
+INCR 0 12;
+</code></pre>
+<p>As you can see, using meta-instruction saves you time and brain!</p>
+<h3 id="copc-copy-conservatively"><a class="header" href="#copc-copy-conservatively"><code>COPC</code> (Copy Conservatively)</a></h3>
+<p>It would have been useful in the Fibonacci program that we just wrote if we could have copied the value of <code>Ab</code>
+to <code>Ac</code> without having to explicitly use a temporary <code>Atmp</code>, right? We can made an instruction for that!
+This meta-instruction is called <code>COPC</code> for "copy conservatively".
+In this context, being conservative means that this instruction does not consume its inputs,
+or rather as we will see while implementing it, they are not consumed when the instruction ends.</p>
+<pre><code class="language-basm">[@COPC Asrc Adst sp] [
+ALIS Atmp sp;
+ALIS sp sp+1;
+
+COPY Asrc Adst Atmp;
+ADDP Asrc Atmp;
+]
+</code></pre>
+<p>I am guessing you aren't too chocked for the most part by this implementation, we simply encapsulate
+the temporary shuffle in a meta-instruction, like we would encapsulate logic in any other language.
+Everything is normal to one exception, you are probably asking are yourself what <code>sp</code> is doing here and what it means.</p>
+<p>We cannot simply use a static memory position for <code>Atmp</code> as we don't know which cells are free to be used when when <code>COPC</code> is called.
+Just using a static address for <code>Atmp</code> would probably just end up creating a situation where <code>COPC</code> and another operation are both using that static cell for something.</p>
+<p>Instruction which need memory for their operation can include a <code>sp</code>argument as the last one to ask for where it is safe to "allocate" cells for computation.<code>sp</code>meaning "stack pointer" it is an address pointing to the first free cell that the instruction can use for its operations.
+In the context of basm, allocating a cell is synonymous to "reserving for a cell for an operation".
+This is why<code>Atmp</code>is defined from<code>sp</code>. We know that cell including and after <code>sp</code> are free to use.</p>
+<p>I personally like to always have an alias named <code>sp</code>, which increment as I allocate more cells, in all scopes.
+When I want to allocate a new cells, I create an alias for the address of all cells and then increase <code>sp</code> by each cell I've allocated.
+In the example above, this logic comes in. I create 1 alias for a temporary cell named <code>Atmp</code> and then increase <code>sp</code> by 1.</p>
+<p>The <code>sp</code> alias also benefits greatly from alias lifetimes.
+When you increase the value of <code>sp</code> what you really do is create a new copy of <code>sp</code> that shadows the last one.
+This means that when you are done with a specific operation and the scope ends, <code>sp</code> will decrease naturally.
+This practically <em>frees</em> the cells that were allocated in the scope!</p>
+<p>Using <code>sp</code> is especially useful in the <code>[main]</code> scope where you want to keep track of where you have not allocated yet.
+Allocating based on the stack pointer also allows you to seamlessly add a cell without having to offset all later
+cell pointers by one (like we had to do in the Fibonacci example).</p>
+<p>Here is what Fibonacci would look like with <code>COPC</code> and the <code>sp</code> system:</p>
+<pre><code class="language-basm">[@COPC Asrc Adst sp] [
+ALIS Atmp sp;
+ALIS sp sp+1;
+
+COPY Asrc Adst Atmp;
+ADDP Asrc Atmp;
+]
+
+[main] [
+ALIS Aa 0;
+ALIS Ab 1;
+INCR Ab 1;
+ALIS Adesired_index 2;
+IN Adesired_index;
+ALIS sp 3; // set the sp to the next free cell
+
+WHNE Adesired_index 0 [
+    // "allocate" cells where the is free space
+    // this allows us to easily add another cell before without having to touch this
+    ALIS Ac sp;
+    ALIS Atmp sp+1;
+    ALIS sp sp+2; // update sp
+
+    // we use sp here
+    COPC Ab Ac sp;
+    ADDP Ac Aa;
+
+    ADDP Aa Ab;
+    ADDP Ab Ac;
+
+    DECR Adesired_index 1;
+];
+// aliases being bound by scope helps us here by giving us back
+// our old sp from before the WHNE scope, basically freeing a part of the stack
+
+OUT Aa;
+]
+</code></pre>
+<h3 id="twic-twice"><a class="header" href="#twic-twice">TWIC (Twice)</a></h3>
+<p>There aren't many interesting examples of using scopes as arguments
+other than trying to make conditional execution, so I wanted to give an little simple example here before actually getting into conditionals,
+because those are a bit complicated.
+<code>TWIC</code> is a instruction that takes a scope and inlines it twice, causing it to execute twice.</p>
+<pre><code class="language-basm">[@TWIC [scope]] [
+INLN [scope];
+INLN [scope];
+]
+</code></pre>
+<p>I mean, I have a whole chapter written about using scope as arguments for conditionals, and it's the next one... so let's read it!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-custom-conditionals"><a class="header" href="#creating-custom-conditionals">Creating Custom Conditionals</a></h1>
+<p>When we have one type of conditional execution in a language, we can derive all the other types from it.
+Same for looping, if we have a looping element we can make any looping element.
+In the case of basm, that any conditional/looping element is <code>WHNE</code> which we can derive all conditionals and loops we desire from.
+In this chapter, we're going to first implement <code>IFNE</code> (If Not Equal), then from it <code>IFEQ</code> (If Equal).</p>
+<p>First off, to make these meta-instruction conditionals we need to think of their arguments.
+We are going to want a cell address and a value so we can compare them together,
+a scope to be conditionally executed, and lastly,
+we are going to make use of the <code>sp</code> pattern to use some operation memory.</p>
+<p>So, the argument table for all of our conditionals should look like this:</p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr</td><td>number</td><td>address of cell compared to<code>val</code></td></tr>
+<tr><td>val</td><td>number</td><td>value compared to cell at<code>addr</code></td></tr>
+<tr><td>[scp]</td><td>scope</td><td>code to be conditionally executed</td></tr>
+<tr><td>sp</td><td>number</td><td>address to the next free cell</td></tr>
+</tbody></table>
+</div>
+<h2 id="ifne-if-not-equal"><a class="header" href="#ifne-if-not-equal">IFNE (If Not Equal)</a></h2>
+<p><code>IFNE</code> is the easiest conditional to define if we consider that right now we only have <code>WHNE</code>.
+When you think about it, an if statement is simply a conditional loop that loops once.
+With that in mind, we'll want to purposefully make <code>WHNE</code> loop once while also keeping its comparason ability.</p>
+<p>Here is how I would go about implementing a one iteration <code>WHNE</code> loop:</p>
+<pre><code class="language-basm">[@IFNE Aaddr Vval [scp] sp] [
+    WHNE Aaddr Vval [
+        INLN [scp];
+
+        // force Aaddr to be equal to Vval
+        ZERO Aaddr;
+        INCR Aaddr Vval;
+    ];
+]
+</code></pre>
+<p>You will notice that this implementation works!
+But, there is some pretty big downsides that we will want to avoid.</p>
+<p>We don't want these implementations to consume their inputs, so <code>IFNE</code>'s can be chained.
+In this case this implementation sets <code>Aaddr</code>to the value of<code>Vval</code>, which is no good.
+If we want to chain <code>IFNE</code>'s we will need to manually copy <code>Aaddr</code>each time we pass it in, which is tedious.</p>
+<p>Apart from that, there should be no non-zero allocated cells when inlining the scope as it might corrupt the behaviour of the scope,
+which does not expect<code>IFNE</code> to allocate cells while it is running.
+The specifics of what I just said are important, we don't want non-zero allocated cells.
+What this means, is that we can allocate cells, but when we inline the scope argument, all of our cells should be zero.
+If all our cells are zero, it is as if, to the inlined scope, that there are no allocated cells.
+Allocation is only a concept, what matters is whether the cells are zero or not when the scope is inlined.
+This notion is important as it will allow the caller to use the same <code>sp</code> both in the scope and in the <code>IFNE</code> argument.
+If <code>IFNE</code> required a cell to be allocated when inlining the scope, then all the mentions of <code>sp</code> in the scope should be increased by 1.</p>
+<p>So, let's solve these issues via extra cells that are granted by <code>sp</code>:</p>
+<pre><code class="language-basm">[@IFNE Aaddr Vval [scp] sp] [
+ALIS Atmp1 sp;
+ALIS Atmp2 sp+1;
+ALIS sp sp+2;
+
+// copy to Atmp1 so we can consume it
+COPY Aaddr Atmp1 Atmp2;
+ADDP Aaddr Atmp2;
+
+WHNE Atmp1 Vval [
+    // we don't care about Atmp1, it needs to be consumed before the scope
+    ZERO Atmp1;
+
+    // at this point, all of the values allocated in IFNE are zero,
+    // so it's like we allocated nothing, scp can use the same cells as we just did without causing bugs
+    INLN [scp];
+
+    INCR Atmp1 Vval;
+];
+
+// cleanup
+ZERO Atmp1;
+]
+</code></pre>
+<p>Now let's try it and see if it works:</p>
+<pre><code class="language-basm">// .. add the IFNE definition
+
+[main] [
+    ALIS Aval 0;
+    INCR Aval 42;
+    ALIS sp 1;
+  
+    // this will print ..
+    // (IFNE and PSTR can use the same sp)
+    IFNE Aval 33 [
+        PSTR sp "Aval is not equal to 33!";
+    ] sp;
+
+    // .. but not this
+    IFNE Aval 42 [
+        PSTR sp "Aval is not equal to 42!";
+    ] sp;
+]
+</code></pre>
+<p>Notice how both <code>PSTR</code> uses the same cells as <code>IFNE</code>? Yet, they don't collide as we purposefully
+zeroed all cells from the <code>IFNE</code> scope before running the scope argument!
+Try it yourself: Move the <code>ZERO Atmp1;</code> instruction after the inlining
+and see what happens when values are still non-zero.</p>
+<h2 id="ifeq-if-equal"><a class="header" href="#ifeq-if-equal">IFEQ (If Equal)</a></h2>
+<p><code>IFEQ</code> is very much linked to <code>IFNE</code>. <code>IFEQ</code> executes only when <code>IFNE</code> doesn't.
+We can make use of relation to easily derive <code>IFEQ</code> from a couple of <code>IFNE</code>'s.
+Rather than copying the value around,
+this implementation will make use of a flag representing wheter or not <code>IFNE</code> was executed.</p>
+<pre><code class="language-basm">[@IFEQ Aaddr Vval [scp] sp] [
+    ALIS Aflag sp;
+    ALIS sp sp+1;
+    ALIS Vnot_equal 1;
+
+    IFNE Aaddr Vval [
+        INCR Aflag Vnot_equal;
+    ] sp;
+
+    // this reads like "if is not equal to not equal"
+    // both "not equals" cancel out and we get "if is equal"
+
+    // once again all cells are zero here,
+    // as the flag needs to be of 0 for this to execute
+    IFNE Aflag Vnot_equal [scp] sp;
+
+    // cleanup (only useful if it did not execute)
+    ZERO Aflag;
+]
+</code></pre>
+<p>Once again I encourage you to test it:</p>
+<pre><code class="language-basm">// .. IFEQ and IFNE definition here
+
+[main] [
+    ALIS Aval 0;
+    INCR Aval 42;
+    ALIS sp 1;
+  
+    // this will print ..
+    IFEQ Aval 42 [
+        PSTR sp "Aval is equal to 42!";
+    ] sp;
+
+    // .. but not this
+    IFEQ Aval 60 [
+        PSTR sp "Aval is equal to 60!";
+    ] sp;
+]
+</code></pre>
+<p>With that out of the way, it's going to be much faster to write actually useful programs
+and now that you know the trade, I am sure you will be able to create your own conditionals!
+<em>(If you want to challenge yourself, try making a <code>WHEQ</code>)</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="writing-relative-code"><a class="header" href="#writing-relative-code">Writing Relative Code</a></h1>
+<p>Onto the last remaining chip of knowledge that basm requires: Harvesting the Power of Relative Code!
+Remember at the very start of this book, where I said that every memory access is static unless otherwise stated?
+Well, this chapter is about stating you don't want static accessing and would much prefer write relative logic.
+Sometimes static addressing is either less efficient, harder or simply impossible to use for certain problems.
+In these cases you will need to reach for relative logic.</p>
+<p>But, what is the difference between relative and static in basm exactly?
+By default, basm refers to cells in a static manner, meaning that an address will always refer to the same cell (e.g address <code>1</code> will always refer to the same cell).
+This kind of addressing is known as static.
+Relative means that an address will not always refer to the same cell,
+it will refer to a cell relative to a dynamic point.
+In most cases, that "relative point" is simply where your tape pointer is at a given moment.</p>
+<p>Now, by default basm moves your tape pointer automatically in order to access specific addresses.
+Basm won't lose track of where the tape pointer is unless you explicitly tell it to do so.
+When you ask to operate on a cell, basm will have remembered where the tape pointer currently is, and it will then try to move the tape pointer by the delta between the current position and the desired position.
+The tape pointer position that is remembered by the compiler is also known as the <em>assumed</em> tape pointer position,
+as it can get temporarily invalidated when working with relative code.
+For example, if we have the tape pointer at position <code>3</code> and ask to reach cell <code>5</code>, basm will automatically insert <code>&gt;&gt;</code>.
+There are three instruction made specifically for dealing with the tape pointer
+and be able to write relative code from it.</p>
+<h2 id="bbox-black-box"><a class="header" href="#bbox-black-box"><code>BBOX</code> (Black Box)</a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr</td><td>number</td><td>the address for the tape pointer to be moved to</td></tr>
+</tbody></table>
+</div>
+<p><code>BBOX</code> is probably the most simple instruction in the whole set of built-in ones.
+Its one and only purpose is to guaranty the position of the tape pointer at a certain point in the program.
+All it does it move the tape pointer to <code>addr</code> and does <em>nothing</em>.
+This behaviour is very useful for other instruction that work off of the assumption that the tape pointer is positioned
+at a certain cell.</p>
+<h2 id="asum-assume"><a class="header" href="#asum-assume"><code>ASUM</code> (Assume)</a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr</td><td>number</td><td>the address overwriting the assumed tape pointer position</td></tr>
+</tbody></table>
+</div>
+<p>This instruction is tightly integrated with the compiler.
+What it does is that it overwrites the assumed tape pointer position with the specified <code>addr</code>.
+This can serve either to put the program into a relative state (where the assumed pointer position is wrong)
+or to set the assumed pointer position back to a valid value.</p>
+<p>When combined with <code>BBOX</code> it can serve to offset the whole address field.
+Think about it, if the real tape pointer position is 1, but you tell the compiler it's 0 through <code>ASUM</code>,
+then the assumed pointer position will be offset by +1.
+Trying to access cell no.0 would lead to accessing cell no.1.
+When this happens, I like to call this program state the "relative state", all accesses are relative to 1.
+So, when this happens, all addresses become relative to the offset.</p>
+<pre><code class="language-basm">INCR 1 42;
+OUT 1; // returns '*'
+
+// offsets the pointer by +1 (so cells by -1)
+BBOX 0;
+ASUM 1;
+
+OUT 0; // returns '*'
+</code></pre>
+<p>This may all see like too much pedantry for something as simple as offsetting all addresses by one.
+Yes, in this case it is, but that's not what makes relative code interesting.
+Relative programming in basm starts becoming truly interesting when you loop this offset.
+Once you start looping, your offset cannot be known at compile time.
+Looping offsets are even the main reason why anyone would want to write relative code as it allows
+to create "flyers". Flyers are an operation which is applied while moving forwards (or backwards) through the tape.
+The word "flyer"/"glider" comes from the glider in Conway's Game of Life where it is a self replicating structure moving through the board.
+In basm, flyers can include data cells which move with the shift in assumed pointer position.
+I think it is easier to understand them in bf:</p>
+<pre><code class="language-bf">[.&gt;]
+</code></pre>
+<p>This is a basic flyer in bf. It outputs every cell until it reaches a cell with a value of 0.
+It may seem like it is useless at first, but it can serve to print strings in memory loaded via <code>LSTR</code>.
+This flyer takes advantage of the fact that strings are not constituted of arbitrary data and that they will not contain a zero cell <em>(at least not until you the string's end)</em>.</p>
+<p>We can easily create this pattern in basm with <code>BBOX</code> and <code>ASUM</code>:</p>
+<pre><code class="language-basm">// dynamic print string
+// Astart is the first cell
+// Aend is the 0 cell right after the last non-zero cell
+[@DPSTR Astart Aend] [ // "Dynamic Print String"
+    BBOX Astr;
+    ASUM 0;
+
+    WHNE 0 0 [
+        OUT 0;
+
+        // move forward
+        BBOX 1;
+        ASUM 0;
+    ];
+
+    // we set the pointer back to the valid assumption after we are done
+    ASUM Aend;
+]
+</code></pre>
+<p><em>(If you compile the above example with a <code>[main]</code> field with only <code>DPSTR 0 0;</code>, it will compile to exactly <code>[.&gt;]</code>)</em></p>
+<p>Most notably, this instruction will return the assumed pointer position to a valid value after running.
+Logic making use of relative state should always use <code>ASUM</code> to set back the assumed pointer position
+to a valid state.
+Since all basm code relies on the fact that addressing is static,
+leaving it in a relative state will no doubt make your program bug!</p>
+<h2 id="raw-1"><a class="header" href="#raw-1"><code>RAW</code></a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>str</td><td>string</td><td>inlines the string in the transpiled code, this can be used to include brainfuck operators</td></tr>
+</tbody></table>
+</div>
+<p><code>RAW</code> is inherently relative by default, as any moves made in it is not considered by the compiler.
+As thus, writing <code>RAW "&gt;";</code> has the same effect using <code>BBOX 1; ASUM 0;</code> like before.
+You have access to the whole of bf, which means that you can very easily cause offsets and write flyers.
+While I prefer using the more basm'ic solution, <code>RAW</code> is a valid solution for your relative programming needs.</p>
+<p>Next chapter will focus on applying relative knowledge to create a dynamically indexable array.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dynamically-indexing"><a class="header" href="#dynamically-indexing">Dynamically Indexing</a></h1>
+<p>We are now here, all the content chapters are after us and we are on the last stretch to making
+the final project, being a bf interpreter written in basm.
+But, before being able to go into that directly, I'd like to isolate a part of that bigger program
+and built it from scratch prior.
+To make a bf interpreter we will need a dynamically indexable array.</p>
+<h2 id="parking"><a class="header" href="#parking">Parking</a></h2>
+<p>Yes, I do say dynamically indexable <strong>array</strong> and not meta-instruction for dynamically indexing.
+While it would be possible to index any array dynamically without changing its layout,
+for the sake of conciseness, we will need to modify the layout of a basic array somewhat to allow
+for our dynamic get/set operations.
+To hold meta-instruction specific logic we'll reserve a little amount of memory before the actual array content.
+That memory region in the array is called the "parking".</p>
+<p>Since we are going to use a flyer to move through the array,
+we need somewhere to create it before it starts moving.
+The reserved space is going to be used for flyer construction.
+Our implementation of a dynamically indexable array will need <strong>4 cells zeroed cells</strong> for parking before the main contents of the array.
+Getting and setting will use these spaces in different ways.</p>
+<h2 id="getd-get-dynamic"><a class="header" href="#getd-get-dynamic"><code>GETD</code> (Get Dynamic)</a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>Aarray</td><td>number</td><td>the address of the start of the array (including the parking)</td></tr>
+<tr><td>Aindex</td><td>number</td><td>the address of the cell to be gotten in the array</td></tr>
+<tr><td>Adst</td><td>number</td><td>the address that will be used to store the gotten cell</td></tr>
+</tbody></table>
+</div>
+<p>As mentioned prior, we will be using a flyer with state to move through the array.
+The data it will need to hold are the index (aka the number of cells it needs to move),
+the return index (aka the number of cells it needs to move to get back to the parking)
+and, finally, when on the return, it will of course need to contain the gotten cell.
+We will also need to reserve an empty space (which we will call <code>[swap]</code>) to swap array content from the front to the back of our flyer.</p>
+<h3 id="flyer-layout"><a class="header" href="#flyer-layout">Flyer Layout</a></h3>
+<p>A diagram of our flyer would look like so:</p>
+<pre><code class="language-txt">[swap].[return][index].[element] -&gt;
+</code></pre>
+<p>And then on the return, once index is depleted:</p>
+<pre><code class="language-txt">&lt;- [element].[return][cell].[swap]
+</code></pre>
+<p><strong><code>[index]</code></strong> holds the distance left until the flyer reaches the index.
+It counts down for everytime the glider moves forward.</p>
+<p><strong><code>[return]</code></strong> holds <code>og_index - [index]</code>.
+Basically everytime <code>[index]</code> is decreased, we increase <code>[return]</code>.
+Since we slowly consume <code>[index]</code> to go forward, we need another counter to go backward.
+That counter comes in the form of the <code>[return]</code> cell to be able to return.
+In the best of worlds we would just move back until we reach a certain flag, rather than having to store that <code>[return]</code> index,
+but unlike strings, arrays can hold any arbitrary data.
+This means that we can't just move back until we meet a cell with a specific value,
+as that specific value could be contained in the array itself!</p>
+<p><strong><code>[cell]</code></strong> holds the value of the cell at the index.
+Once <code>[index]</code> is zeroed by the decrements, <code>[cell]</code> takes its place.</p>
+<p><strong><code>[swap]</code></strong> is the destination cell for <code>[element]</code>.
+Since array needs to be moved out of the way in order for the glider to move forward,
+an empty cell needs to be reserved for the element to be moved into.
+Note that <code>[swap]</code> needs to be there in the parking so that the cell no.0 can be moved out,
+although <code>[[swap]</code> is not part of the glider.
+The <code>[swap]</code>cell on the flyer should always be zero.
+By default,<code>[swap]</code>is included in our parking space and, as we move forward,
+it gets zeroed by the glider moving operation, so<code>[swap]</code> should always be zero
+If it is not, it will corrupt the array when flying through it
+as adding into a non-zero cell is no longer a move, like we expect, but an actual <em>addition</em>.</p>
+<p><strong><code>[element]</code></strong> represents the element of the array right in front of the flyer,
+it is not part of the flyer.
+It is the first cell of content of the array in the initial glider state.
+<em>(Not much to add here...)</em></p>
+<p><em>(Right now, not all parking cells are used, don't worry we will need all the 4 of them in <code>ADDP</code>)</em></p>
+<h3 id="making-our-flyer-move"><a class="header" href="#making-our-flyer-move">Making our Flyer Move</a></h3>
+<p>Moving our gliders (yes, I will also call flyers gliders) around is going to be a 4 step operation:</p>
+<ol>
+<li>End if <code>[index] == 0</code>, decrease the <code>[index]</code> by 1,</li>
+<li>Move the cell in front of us (<code>[element]</code> to our back <code>[swap]</code>)</li>
+<li>Move the whole of the glider cells up by one</li>
+<li>Offset the assumed pointer position by one and repeat</li>
+</ol>
+<p>This procedure will shift all the cells before the cell at <em>index</em> to our back,
+this is fixed on the way back, where we do the same shifting to go backwards,
+effectively cancelling the shift.</p>
+<h3 id="a-simpler-incd-increment-dynamic"><a class="header" href="#a-simpler-incd-increment-dynamic">A Simpler <code>INCD</code> (Increment Dynamic)</a></h3>
+<p>Before getting too much into the weeds of implementing this whole thing,
+let's just stand back a little and write the simplest part of it:
+a glider that can move to an dynamic index and increase the cell by 1.</p>
+<p>That glider will be much simpler! We won't need <code>[return]</code> or <code>[cell]</code>, making it a flyer with 1 cell of state.</p>
+<p>For context, diagram of our flyer would look like so:</p>
+<pre><code class="language-txt">[swap].[index].[element] -&gt;
+</code></pre>
+<p>We won't be able to move backwards without <code>[return]</code>.
+This also means that the assumed pointer position will be busted once the glider has done its thing.
+<code>INCD</code> as written here should be the last thing you do execute your program.</p>
+<pre><code class="language-basm">[@INCD Aarray Aindex] [
+// we still assume the array has 4 cells of parking
+// we load the parking like so: [empty][empty][swap][index]
+ADDP Aarray+3 Aindex; // Aindex -&gt; [index] 
+
+// entering relative mode
+// (since we won't have free unallocated space, we won't be able to use instructions with sp)
+BBOX Aarray+2;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Aindex 1;
+ALIS Aelement 2;
+
+WHNE Aindex 0 [
+    DECR Aindex 1; // step 1
+    ADDP Aswap Aelement; // step 2
+
+    ADDP Aindex+1 Aindex; // step 3
+
+    // step 4
+    // (it's very important do this before the end of the scope,
+    // because we need Aindex to point to the actual index cell so that the WHNE can check it)
+    BBOX 1;
+    ASUM 0;
+];
+
+// we are here, this means that we moved all we need
+// the cell we want is right in front of us at Aelement
+INCR Aelement 1;
+
+// normally this is here we would come back to unshift all the array
+// and fix the assumed tape pointer position, but we can't since we didn't store a return index!
+]
+</code></pre>
+<p>Let's try it by giving it an array with some already initialized values!</p>
+<pre><code class="language-basm">// add the INCD definition here...
+
+[main] [
+ALIS Aindex 0;
+INCR Aindex 3;
+
+ALIS Aarray 1;
+ALIS Aarray_contents Aarray+4;
+INCR Aarray_contents 1;
+INCR Aarray_contents+1 2;
+INCR Aarray_contents+2 3;
+INCR Aarray_contents+3 4; // the one that will be increased
+INCR Aarray_contents+4 5;
+INCR Aarray_contents+5 6;
+
+INCD Aarray Aindex;
+]
+</code></pre>
+<p>If we use the <code>-d</code> flag to dump the memory after execution we can see the program state:</p>
+<pre><code class="language-txt">-- TAPE STATE NUMERIC --
+0: 0
+1: 0
+2: 0
+3: 1
+4: 2
+5: 3
+6: 0
+7: 0
+8: 5
+9: 5
+10: 6
+</code></pre>
+<p>Good news, the cell containing 4 was successfully increased to 5!
+Bad news, we can see the effects of the array shift: every element before the one we operated on got
+offset by 2.
+Notably, you can also see the parking (cells 1 to 4) has been partially overwritten by the shifted elements
+of the array and the cells 6 and 7, being those of our flyer, being completely zeroed as expected.</p>
+<p>Don't expect to write these kind of meta-instruction right on the first try,
+there is always going to be little typos and unforeseen behaviour!
+Myself, while writing this example, had made many typos and oversights on the first try.</p>
+<h3 id="back-to-getd"><a class="header" href="#back-to-getd">Back to <code>GETD</code></a></h3>
+<p>Alright, enough dilly dallying now! Let's get to actually implementing <code>GETD</code> with what we have learnt.</p>
+<p>The first notable difference of <code>GETD</code> from what we just wrote is the memory layout,
+we already saw what we needed extensively in the <a href="dynamic-array.html#flyer-layout">layout section</a>.
+Just keep in mind that our parking layout should look like this:</p>
+<pre><code class="language-txt">[empty][swap][return][index]
+</code></pre>
+<p>Just adding the <code>[return]</code> cell (and later the <code>[cell]</code> cell) to our logic isn't too difficult:</p>
+<pre><code class="language-basm">[@GETD Aarray Aindex Adst] [
+ADDP Aarray+3 Aindex; // Aindex -&gt; [index] 
+
+// switch +2 -&gt; +1 because our flyer is bigger
+BBOX Aarray+1;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1; // add return
+ALIS Aindex 2;
+ALIS Aelement 3;
+
+WHNE Aindex 0 [
+    DECR Aindex 1; // step 1
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement; // step 2
+
+    ADDP Aindex+1 Aindex; // step 3
+    // it's important to correctly order the moves,
+    // so that your glider doesn't overlap itself
+    ADDP Areturn+1 Areturn;
+
+    // step 4
+    BBOX 1;
+    ASUM 0;
+];
+
+// we arrived!
+// we don't have a [index] anymore, but we have a [cell] at its place
+ALIS Acell Aindex;
+
+ADDP Acell Aelement; // taking the element
+
+// not done yet...
+</code></pre>
+<p>We are not done here!
+The second notable difference from the <code>INCD</code> is going to be that we want to go back
+both to un-shift the cells and reset the assumed pointer position to the correct value.
+If we don't do both of these things, <code>GETD</code> becomes practically the last valid instruction in the program.
+To do that we will have to copy the code of going forward and modify it to go back.
+It is as simple as making our loop read from <code>[return]</code>instead of<code>[index]</code> and reordering the flyer state moves.</p>
+<pre><code class="language-basm">// ... rest of GETD implementation
+
+// since we move back, we'll swap [element] and [swap]
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1; // step 1
+
+    // we now have &lt;- [element][return][cell][swap]
+    // we move back so -1 instead of +1
+    ADDP Areturn-1 Areturn; // step 3
+    ADDP Acell-1 Acell;
+
+    // step 4
+    // we inverted BBOX and ASUM values so we can go back
+    BBOX 0;
+    ASUM 1;
+
+    // step 2 (because of off by 1 reasons, we need it after the move)
+    ADDP Aswap Aelement;
+];
+
+// we are back at parking here and since we know where parking is,
+// we can set the assumed pointer back to a valid value!
+BBOX Aelement;
+ASUM Aarray+1;
+
+ADDP Adst Aarray+3;
+]
+</code></pre>
+<p>We can now try the same <code>[main]</code> as with <code>INCD</code> before, but with <code>INCD Aarray Aindex;</code>
+changed to <code>GETD Aarray Aindex 0;</code>:</p>
+<pre><code class="language-txt">-- TAPE STATE NUMERIC --
+0: 4
+1: 0
+2: 0
+3: 0
+4: 0
+5: 1
+6: 2
+7: 3
+8: 0
+9: 5
+10: 6
+</code></pre>
+<p>That's exactly what we wanted, the 3rd element of the array has been gotten and moved to cell 0.
+Notice how none of the array is shifted anymore because of the backtracking we did, perfect!</p>
+<h2 id="addd-add-dynamic"><a class="header" href="#addd-add-dynamic"><code>ADDD</code> (Add Dynamic)</a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>Aarray</td><td>number</td><td>the address of the start of the array (including the parking)</td></tr>
+<tr><td>Aindex</td><td>number</td><td>the address of the cell to be gotten in the array</td></tr>
+<tr><td>Asrc</td><td>number</td><td>the address of the cell that will be added to the dynamic one</td></tr>
+</tbody></table>
+</div>
+<p>Now that we are done with <code>GETD</code>, we can move onto <code>ADDD</code>.
+This meta-instruction is going to serve as our setter, we won't call it <code>SETD</code> though,
+because it will not zero the cell it adds to, making it more of an add than a set.
+This means that pretty much all the rules that we saw for moving with <code>ADDP</code>'s will apply to this, except now in a dynamic fashion.</p>
+<h3 id="flyer-layout-1"><a class="header" href="#flyer-layout-1">Flyer Layout</a></h3>
+<p>The interesting (and annoying) part of the <code>ADDD</code> glider, is that rather than carrying a cell value
+on the return trip, we do it on the going trip.
+This means we can't take advantage of the index being zeroed in the return trip to store the cell value where index stood.
+So, sadly, this requires us to make the flyer have <strong>3 reserved data cells</strong> at the start
+(plus the swap, maxing out our 4 spots of parking).</p>
+<p>A diagram of our flyer would look like so:</p>
+<pre><code class="language-txt">[swap].[return][index][cell].[element] -&gt;
+</code></pre>
+<p>And then on the return, once index is depleted:</p>
+<pre><code class="language-txt">&lt;- [element].[return][empty][empty].[swap]
+</code></pre>
+<p>It's going to be important to keep the <code>[empty]</code> cells empty, so that we properly un-shift all the cells on the return.</p>
+<h3 id="implementing"><a class="header" href="#implementing">Implementing</a></h3>
+<p><code>ADDD</code> is very similar to <code>GETD</code> outside of the flyer layout.
+The only notable difference between the two being that the flyer has 3 data cells, and that rather
+than taking a cell, it gives one of its cells.
+Other than that, you can probably take <code>GETD</code> and make an <code>ADDD</code> out of it with ease
+like we made <code>GETD</code> from our knowledge of <code>INCD</code>
+(despite being similar in name,
+<code>ADDD</code> is very different from our arguably incomplete <code>INCD</code> implementation).</p>
+<p>With that said, this means that a <code>ADDD</code> implementation should not be foreign to you.
+So, here is its definition:</p>
+<pre><code class="language-basm">[@ADDD Aarray Aindex Asrc] [
+// this layout forward: [swap].[return][index][cell].[element]
+ADDP Aarray+3 Asrc;   // Asrc   -&gt; [cell]
+ADDP Aarray+2 Aindex; // Aindex -&gt; [index] 
+
+// we'll remove the +1, because we'll use the full parking
+BBOX Aarray;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Acell 3; // new!
+ALIS Aelement 4; // .. which offset this by one
+
+WHNE Aindex 0 [
+    DECR Aindex 1; // step 1
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement; // step 2
+
+    ADDP Acell+1 Acell; // step 3 (also, new Acell move!)
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    // step 4
+    BBOX 1;
+    ASUM 0;
+];
+
+// we arrived!
+// adding the element out of the flyer
+ADDP Aelement Acell;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1; // step 1
+
+    // we now have &lt;- [element][return][empty][empty][swap]
+    // (we won't need to move both empty cells)
+    ADDP Areturn-1 Areturn; // step 3
+
+    // step 4
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray; // removed the +1, again
+]
+</code></pre>
+<p>Running the following program: ..</p>
+<pre><code class="language-basm">// .. ADDD definition here
+
+[main] [
+ALIS Aindex 0;
+INCR Aindex 3;
+// we need to allocate one more cell
+ALIS Acell 1;
+INCR Acell 40;
+
+ALIS Aarray 2;
+ALIS Aarray_contents Aarray+4;
+INCR Aarray_contents 1;
+INCR Aarray_contents+1 2;
+INCR Aarray_contents+2 3;
+INCR Aarray_contents+3 4;
+INCR Aarray_contents+4 5;
+INCR Aarray_contents+5 6;
+
+ADDD Aarray Aindex Acell;
+]
+</code></pre>
+<p>.. would expectedly give us this result:</p>
+<pre><code class="language-txt">-- TAPE STATE NUMERIC --
+0: 0
+1: 0
+2: 0
+3: 0
+4: 0
+5: 0
+6: 1
+7: 2
+8: 3
+9: 44
+10: 5
+11: 6
+</code></pre>
+<p>With that out of the way, we are ready to tackle the last chapter of this book!
+In the next chapter, we will use what we just wrote to handle the
+memory tape array and instruction array reading/setting of our bf interpreter.
+So, don't throw away these meta-instructions just yet!</p>
+<h2 id="note-1"><a class="header" href="#note-1">Note</a></h2>
+<p>These dynamic get/set implementation can probably be improved by you!
+Due to the nature of flyers (specifically moving the front element to the back swap),
+using long arrays/a lot of dynamic array addresing is not good for performance.
+If you can implement something while forgoing using these <code>GETD</code>/<code>ADDP</code>, prefer the unglided way.</p>
+<p>Furthermore, there is a way to make dynamic indexing for regular arrays without parking.
+This would require to move some cells out of the way to create a temporary parking and then set them back after the instruction is done.
+The issue with this, and why this is not the version used here, is because it is a bit more complex.
+You need to check wether the index refers to one of the cells that you are going to move away for example.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="synthesis-making-a-bf-interpreter"><a class="header" href="#synthesis-making-a-bf-interpreter">Synthesis: Making a Bf Interpreter</a></h1>
+<p>This chapter focuses entirely on the conception process of a bf interpreter in basm.
+This interpreter will be able in turn to transpile to bf, to make a bf interpreter in bf!
+It is <strong>highly recommended</strong> to have read all other chapters before digging into this one.</p>
+<h2 id="meta-instructions-header"><a class="header" href="#meta-instructions-header">Meta-instructions "header"</a></h2>
+<p>While working on the logic of the interpreter,
+I will use meta-instruction which we already defined earlier (notably <code>GETD</code> and <code>ADDD</code>).
+Make sure to add these meta-instructions definitions before any other code that uses them:</p>
+<pre><code class="language-basm">// sets a value to a specific value by zeroing it before writing
+[@SET Aaddr Vval] [
+ZERO Aaddr;
+INCR Aaddr Vval;
+]
+
+// copies the content of a cell whilst keeping the source (conservatively)
+[@COPC Asrc Adst sp] [
+	ALIS Atmp sp;
+	COPY Asrc Adst Atmp;
+	ADDP Asrc Atmp;
+]
+
+// if not equal conditional
+[@IFNE Aaddr Vval [scp] sp] [
+ALIS Atmp1 sp;
+ALIS Atmp2 sp+1;
+ALIS sp sp+2;
+
+COPY Aaddr Atmp1 Atmp2;
+ADDP Aaddr Atmp2;
+
+WHNE Atmp1 Vval [
+    ZERO Atmp1;
+
+    INLN [scp];
+
+    INCR Atmp1 Vval;
+];
+
+ZERO Atmp1;
+]
+
+// if equal conditional
+[@IFEQ Aaddr Vval [scp] sp] [
+    ALIS Aflag sp;
+    ALIS sp sp+1;
+    ALIS Vnot_equal 1;
+
+    IFNE Aaddr Vval [
+        INCR Aflag Vnot_equal;
+    ] sp;
+
+    IFNE Aflag Vnot_equal [scp] sp;
+    ZERO Aflag;
+]
+
+// moves the value of the cell at Aarray[value of Aindex] to Adst
+[@GETD Aarray Aindex Adst] [
+ADDP Aarray+3 Aindex; 
+
+BBOX Aarray+1;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Aelement 3;
+
+WHNE Aindex 0 [
+    DECR Aindex 1
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ALIS Acell Aindex;
+
+ADDP Acell Aelement;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+    ADDP Acell-1 Acell;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray+1;
+
+ADDP Adst Aarray+3;
+]
+
+// adds the value of the cell at Asrc to the Aarray[value of Aindex] cell
+[@ADDD Aarray Aindex Asrc] [
+ADDP Aarray+3 Asrc;
+ADDP Aarray+2 Aindex;
+
+BBOX Aarray;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Acell 3;
+ALIS Aelement 4;
+
+WHNE Aindex 0 [
+    DECR Aindex 1;
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Acell+1 Acell;
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ADDP Aelement Acell;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray;
+]
+</code></pre>
+<h2 id="memory-layout"><a class="header" href="#memory-layout">Memory Layout</a></h2>
+<p>Our the memory of our bf interpreter's tape consist of 3 parts:</p>
+<ul>
+<li>Generic memory for operations, aka operating memory</li>
+<li>Instruction array (with parking)</li>
+<li>Tape array (with parking)</li>
+</ul>
+<p>In memory the sections should look like this:</p>
+<pre><code class="language-txt">[operation][instruction][tape]
+</code></pre>
+<p>The tape array will be allowed to grow infinitely, as there is no ranges of allocated allocated cells after it.
+This is unlike the instruction array, which is stuck in-between the operation and tape array,
+meaning that we will need to reserve it a static size so that it does not overwrite the tape array's cells.
+Since we can't expand infinitely before the 0'th cell, as using cells before the 0'th is invalid bf
+(not the one we are going to interpret, but the one our program is made of),
+we cannot grow infinitely backwards, only forwards.</p>
+<h2 id="taking-user-input"><a class="header" href="#taking-user-input">Taking User Input</a></h2>
+<p>We will want the user to be able to input any bf program they find
+and paste it directly into the bf input without any processing on the part of the user.
+We'll also need a way for the user to tell us that they are done inputting the program,
+for this we can check for a specific character like <code>!</code> to stop instruction input.</p>
+<p>To do this your first though might be to have a counter
+representing the number of characters inputted.
+When there is an input, use <code>ADDD</code> to set it to the index of counter and then increase counter by 1.
+Repeat until we reach <code>!</code>.</p>
+<p>That is <em>fine</em>, with nothing more.
+There are some issues, mostly performance (both compute and size), which arise from it.
+We'll need all the space we can take,
+and I assure you that any performance gain will be very appreciated.</p>
+<p>First, using this method, we will end up storing any non-operator characters in our instruction array.
+This both takes up space for no reason and slows down <code>GETD</code> and <code>ADDD</code>
+(the more element in the array, the less efficient they become).</p>
+<p>Second, we don't take advantage of the limited nature of the operators.
+The set of characters which represent an operator is very restricted.
+When storing a <code>+</code> with this method, we will actually store the <code>+</code> character, being 43.
+Remember, most operations in bf take <code>O(n)</code> time, where <code>n: value of the cell</code>
+Whereas in most languages, operations are in <code>O(1)</code> time, aka constant time.
+This means that, if we can reduce the values representing operators,
+this will speed up all operations on operators including indexing them,
+since array indexing is just shifting them around (shifting once is <code>O(n)</code>)</p>
+<p>To address these issues, we will discard all non-operators characters
+and we will map all operators to the lowest values possible.
+We can also use 0 to denote the start/end of the array contents.
+Since all cells are zero by default, we won't need to add 0's manually, which is quite nifty.
+(You could also store the array length to know when you reach the end of the contents,
+but that will not be possible with our implementation)
+Here is the mapping:</p>
+<pre><code class="language-txt">start / end -&gt; 0
+`+` -&gt; 1
+`-` -&gt; 2
+`&gt;` -&gt; 3
+`&lt;` -&gt; 4
+`[` -&gt; 5
+`]` -&gt; 6
+`,` -&gt; 7
+`.` -&gt; 8
+</code></pre>
+<p>There is one more issue, although rather small compared to the two first ones.
+That being, <strong><code>ADDD</code> is not made for this at all!</strong>
+Every time we would add a new operator,
+we would need to travel through all the other elements of the array we already added before.
+It's not <em>that</em> bad, since instruction input is a one time process,
+but this is the best example where <code>GETD</code> and <code>ADDD</code> like meta-instruction should be avoided.
+So we are going to work around having to use them by making a dedicated instruction array filling flyer.</p>
+<h3 id="writing-the-flyer"><a class="header" href="#writing-the-flyer">Writing The Flyer</a></h3>
+<p>Instead of having a flyer go out for each operator through the use of <code>ADDD</code>,
+we can simply write a specialized flyer to fill the array.
+This input flyer will be able to take advantage of the context to have zero cells of state!
+That's right, we don't care about where we are or where we are going, so no index needed.
+Furthermore, since the array it will be constructing does not contain arbitrary data,
+we can guaranty that certain values will not show up (like 0).
+So, we can return without having to store a return cell.
+For the return, we will look for 0, which is not mapped to any instructions,
+but is present in the parking.</p>
+<p>I'll write this logic into a program specific meta-instruction.
+A program specific meta-instruction is a meta-instruction which is
+only useful within the context of the program.
+Custom instructions like <code>COPC</code> are not program specific,
+because they are generic enough to be used in many circumstances.
+This is not the case with what we will write.
+When writing program specific meta-instructions, I like to give them snake case names, like aliases.
+Don't worry meta-instruction names cannot overwrite your aliases.</p>
+<pre><code class="language-basm">
+[@init_input Aarray] [
+BBOX Aarray+4;
+ASUM 0;
+
+ALIS Aflag 1;
+ALIS Vappended 1;
+ALIS Vexit 2;
+
+ALIS sp 2;
+// we can still use sp, since we know the cells will be zeroed
+
+WHNE Aflag Vexit [
+    IN 0;
+
+    // -- mapping operators --
+    IFEQ 0 '+' [
+        SET 0 1;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '-' [
+        SET 0 2;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&gt;' [
+        SET 0 3;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&lt;' [
+        SET 0 4;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '[' [
+        SET 0 5;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ']' [
+        SET 0 6;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ',' [
+        SET 0 7;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '.' [
+        SET 0 8;
+        INCR Aflag Vappended;
+    ] sp;
+
+    // check for end
+    IFEQ 0 '!' [
+        ZERO 0;
+        SET Aflag Vexit;
+    ] sp;
+
+    // if we added something, we need to move up one
+    IFEQ Aflag Vappended [
+        ZERO Aflag;
+
+        BBOX 1;
+        ASUM 0;
+    ] sp;
+
+    // we don't clear the last character, even if it was invalid,
+    // as the next IN will overwrite the cell
+];
+
+// NEVER forget cleanup
+ZERO Aflag;
+
+// -- going back --
+// because the last char will be our zeroed '!', we need to offset by at least 1
+// if we don't want to read 0 directly
+BBOX 0;
+ASUM 1;
+
+// moves back until we reached the zeroed cells of the parking
+WHNE 0 0 [
+    BBOX 0;
+    ASUM 1;
+];
+
+ASUM Aarray+3;
+]
+</code></pre>
+<p>As you can see we once again use a flag for control flow.
+In this case our flag can have three states:</p>
+<ul>
+<li><code>0</code>: when nothing has happened</li>
+<li><code>Vappend</code>: when a operation is appended to the array</li>
+<li><code>Vexit</code>: when the '!' character is detected</li>
+</ul>
+<p>This flag doesn't count as the flyer having a state properly speaking.
+It's more like operation memory than state, since we won't carry that flag along for each glider shift.</p>
+<p>We also, despite having a flyer, use <code>sp</code>.
+We can safely do this as we can assume that the un-visited parts of the array are still zeroed.
+Also, our input safely overwrites the flag when getting user input,
+meaning that our code will always consume our flag, leaving no trash on the array.
+Once again, taking advantage of safe array assumptions saves us from using <code>ADDD</code>/<code>GETD</code> which operate on no assumption and are much less efficient.</p>
+<h2 id="memory-layout-in-main"><a class="header" href="#memory-layout-in-main">Memory Layout in <code>[main]</code></a></h2>
+<p>First and foremost, before defining the main logic we'll define the cells for our program to use.</p>
+<pre><code class="language-basm">ALIS Voperating_memory 16;
+ALIS Aprog_pointer 0;
+ALIS Amem_pointer 1;
+ALIS Aflag 2;
+ALIS Vexit 1;
+ALIS Vbracket 2;
+ALIS Aoperator 3;
+ALIS Acell 4;
+ALIS Abracket_jump 5;
+ALIS sp 6;
+
+ALIS Vprog_array_cap 256;
+ALIS Aprog Voperating_memory;
+// we add 4 to take into account the parking of the program array
+ALIS Amem Aprog+Vprog_array_cap+4;
+</code></pre>
+<p>There's alot to unpack here. Here are the most notable ones:</p>
+<h3 id="voperating_memory"><a class="header" href="#voperating_memory"><code>Voperating_memory</code></a></h3>
+<p>This alias defines how many cells are reserved for general computation (that being all but the arrays).
+The reserved space granted by <code>Voperating_memory</code> is required for us to store cells like <code>Aflag</code>.
+It is also required for meta-instruction using <code>sp</code> so they can have zeroed cells.
+Otherwise, without free zeroed cells, meta-instructions would reach into the program array, which would be bad for program state.</p>
+<h3 id="aflag"><a class="header" href="#aflag"><code>Aflag</code></a></h3>
+<p><code>Aflag</code> is <em>once again</em> a flag cell. It can have one of these values:</p>
+<ul>
+<li><code>0</code>: nothing happened</li>
+<li><code>Vexit</code>: program is done and should exit</li>
+<li><code>Vbracket</code>: a bracket has jumped, so <code>Aprog_pointer</code> should be updated to <code>Abracket_jump</code>
+(this needs to be done after all the other logic, which is why it is stored in the flag)</li>
+</ul>
+<h3 id="aoperator-and-acell"><a class="header" href="#aoperator-and-acell"><code>Aoperator</code> and <code>Acell</code></a></h3>
+<p>Those two aliased cells will hold both the current operator and current memory cell respectively.
+Since we can't edit cells directly in their array, we need to keep them in a static place in memory to read/write them.</p>
+<h3 id="aprog"><a class="header" href="#aprog"><code>Aprog</code></a></h3>
+<p>This alias defines the start of the program array (at its parking).
+The way it is defined is that it comes straight after the operating memory segment,
+meaning that its address can be defined as the length of the operating memory segment!
+That means that the starting position of the instruction array is relative to the end of the reserved operation cells range.
+This would cause an off by 1 error if basm started indexing cells from 1, but it indexes from 0,
+so we are good!</p>
+<p><code>Aprog</code> also comes with <code>Vprog_array_cap</code> aka the capacity of the program array.
+We don't inherently <em>need</em> it to define the array,
+but we will need to define how far away we want the memory array to be from the program array.
+Effectively, choosing how much space we allocated to the program array.
+In this example, I set 256 as the array capacity,
+because that is the max that you can index with an unsigned 8 bit cells.
+If you want to interpret bigger programs, you can increase this capacity,
+but beware you will also need to use cells of more than 8 bits to be able to index the instructions!</p>
+<h3 id="amem"><a class="header" href="#amem"><code>Amem</code></a></h3>
+<p>All that I specified about <code>Aprog</code> applies to <code>Amem</code>.
+The value is the start of the array (at its parking).
+While the memory array is technically not limited by memory, since it cannot overwrite other memory,
+it is still practically limited by the (un)efficiency of indexing
+and the maximum value storable in the cells, limiting the number of indexable cells.</p>
+<h3 id="abracket_jump"><a class="header" href="#abracket_jump"><code>Abracket_jump</code></a></h3>
+<p>Is used to store the address of the bracket operation matching the current bracket operation.
+(Aka, the <code>[</code> which is linked to the current <code>]</code> or vice versa)
+The bracket jumping implementation will not set the program pointer directly to it when running the bracket specific logic,
+since the program needs to do some cleanup before updating the <code>Aprog_pointer</code>.
+That cleanup includes setting the current operation back in <code>Aoperator</code>back in the array.
+To do that we need to know the index of that operator, which is always just the index in<code>Aprog_pointer</code>.
+This is why we don't change the operator pointer right away as we need to store it to return <code>Aoperator</code>.
+You are probably going to understand it better when you'll see the code managing this for yourself.</p>
+<h2 id="writing-main-logic"><a class="header" href="#writing-main-logic">Writing <code>[main]</code> Logic</a></h2>
+<p>The bread and butter of our logic is of course going to be a loop.
+We'll loop over every operator in the program until we reach the end,
+applying the effects of them as we go.
+To be more precise here's the broken down version of what the loop does:</p>
+<ol>
+<li>Get the operator at <code>Aprog_pointer</code></li>
+<li>Execute the operator specific logic</li>
+<li>Set the operator back</li>
+<li>Increase <code>Aprog_pointer</code></li>
+</ol>
+<p>Notice how getting the memory cell is not part of the loop, and neither will it be part of operator specific logic.
+This is because it would be incredibly wasteful to get and set the cell in the tape for every operator
+since the cell mostly remains over operators.
+Only <code>&gt;</code> and <code>&lt;</code> change the cell index, we will set and get a new cell only when these operators appear.
+Think about interpreting the very common pattern <code>+++</code>.
+If we were to get the cell, increase it by one and then put it back 3 times performance would be horrendous!
+So, to combat this, <code>Acell</code> functions more like a cell "cache" then its <code>Aoperator</code> counterpart.
+We only get/set the memory cell when moving the tape pointer with <code>&gt;</code> and <code>&lt;</code>.</p>
+<p>With all that said, let's start implementing the easy parts of the logic, that being all operators, but the brackets:</p>
+<pre><code class="language-basm">// .. add the header here
+// .. define init_input here
+
+[main] [
+ALIS Voperating_memory 16;
+ALIS Aprog_pointer 0;
+ALIS Amem_pointer 1;
+ALIS Aflag 2;
+ALIS Vexit 1;
+ALIS Vbracket 2;
+ALIS Aoperator 3;
+ALIS Acell 4;
+ALIS Abracket_jump 5;
+ALIS sp 6;
+
+ALIS Vprog_array_cap 256;
+ALIS Aprog Voperating_memory;
+ALIS Amem Aprog+Vprog_array_cap+4;
+
+// get program from user
+init_input Aprog;
+
+WHNE Aflag Vexit [
+    ALIS Atmp sp;
+    ALIS sp sp+1;
+
+    // 1. load in operator
+    COPC Aprog_pointer Atmp sp;
+    GETD Aprog Atmp Aoperator;
+
+    // 2. operator specific logic
+    // + + + + +
+    IFEQ Aoperator 1 [
+        INCR Acell 1;
+    ] sp;
+
+    // - - - - -
+    IFEQ Aoperator 2 [
+        DECR Acell 1;
+    ] sp;
+
+    // &gt; &gt; &gt; &gt; &gt;
+    IFEQ Aoperator 3 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        INCR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // &lt; &lt; &lt; &lt; &lt;
+    IFEQ Aoperator 4 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        // NOTE: this DECR may underflow the tape pointer
+        DECR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // TODO: implement '[' and ']'
+
+    // , , , , ,
+    IFEQ Aoperator 7 [
+        IN Acell;
+    ] sp;
+
+    // . . . . .
+    IFEQ Aoperator 8 [
+        OUT Acell;
+    ] sp;
+
+    // check for the end
+    IFEQ Aoperator 0 [
+        INCR Aflag Vexit;
+    ] sp;
+
+    // set the operator back
+    COPC Aprog_pointer Atmp sp;
+    ADDD Aprog Atmp Aoperator;
+
+    // NOTE: we'll add something here later... (ominous)
+
+    // increase program pointer
+    INCR Aprog_pointer 1;
+];
+]
+</code></pre>
+<p>With that that's <em>seemingly</em> most of the bf interpreter done already!
+(with the exception of <code>[</code> and <code>]</code>)
+You can take it easy from here we're already on the final stretch.
+With this stripped down bf interpreter, we don't have access to looping or conditionals, but we have enough to print some basic characters.
+Try the following code: (don't forget to use <code>!</code> to end program input!)</p>
+<pre><code class="language-bf">outputs the answer to life the universe and everything
+++++++++++++++++++++++++++++++++++++++++++++++++++++.--.
+</code></pre>
+<h3 id="the-needlessly-complicated-part"><a class="header" href="#the-needlessly-complicated-part">The "Needlessly" Complicated Part</a></h3>
+<p>You may not have understood the part about <code>Abracket_jump</code> and <code>Vbracket</code> for <code>Aflag</code>.
+It's time where we need to use them...
+Welp, the bracket jumping is logic not actually <em>that</em> bad, it's just that it is the most complicated part of this interpreter by far.
+If you equate complexity with <em>badness</em>, like me, this is the worst part, but it ain't that bad.
+Don't treat, my implementation is going to be the simplest one possible.</p>
+<p>When we get a <code>[</code> and we point to 0 or when we have <code>]</code> and point to a non-zero value,
+we follow this procedure to find the index of the opposing matching bracket:</p>
+<ol>
+<li>Initiate a counter at 1</li>
+<li>Initiate a search pointer at the current program pointer</li>
+<li>Add/Subtract the search pointer by 1</li>
+<li>Get the operator at the search pointer</li>
+<li>If the operator is a bracket and it is the <strong>same as the original, add 1</strong> to the counter.
+Else, if the operator is a bracket and the <strong>bracket is opposite, remove 1</strong> to the counter</li>
+<li>Set the operator back at the search pointer</li>
+<li>If the counter is non-zero, repeat from number 3</li>
+</ol>
+<p>With this procedure, our search counter should always end on the matching bracket!
+<em>Or, the program will loop forever/read oob if there is an unmatched bracket, but most bf code doesn't contain unmatched brackets.</em>
+<em>So, this is not a issue by one bit.</em>
+Once we have completed the procedure the <em>searched</em> search counter, equates to the position of the matching bracket.
+We don't want to apply it right away for reasons stated before.
+Instead, we will opt into setting the flag to <code>Vbracket</code>,
+so we can apply it after having set the operator back.</p>
+<p>Add these <code>IFEQ</code> instructions to apply bracket logic:</p>
+<pre><code class="language-basm">// [ [ [ [ [
+IFEQ Aoperator 5 [
+    IFEQ Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+
+        // 2.
+        // we don't need to define our search counter here,
+        // we can use Abracket_jump directly
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            INCR Abracket_jump 1;
+
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                INCR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                DECR Acounter 1;
+            ] sp;
+
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+
+// ] ] ] ] ]
+IFEQ Aoperator 6 [
+    IFNE Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+  
+        // 2.
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            DECR Abracket_jump 1;
+  
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+  
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                DECR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                INCR Acounter 1;
+            ] sp;
+  
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+</code></pre>
+<p>And the extra conditional to check the flag and apply the bracket jump:
+(you should add it at my <em>ominous</em> `NOTE</p>
+<p>`)</p>
+<pre><code class="language-basm">// if there was a jump, set the pointer to the matching bracket
+// (having the pointer increment after is intentional)
+IFEQ Aflag Vbracket [
+    ZERO Aprog_pointer;
+    ADDP Aprog_pointer Abracket_jump;
+    ZERO Aflag;
+] sp;
+</code></pre>
+<p>Whew... that, was, all.
+So now, with this enormous blob of bracket logic written, we finally have a 100% functional bf interpreter in basm!!!</p>
+<p>Try it out with this fancier "Hello Word!" example:
+(<a href="https://en.wikipedia.org/wiki/Brainfuck#Hello_World!">taken from Wikipedia</a>)</p>
+<pre><code class="language-bf">++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++.
+</code></pre>
+<h2 id="what-to-improve"><a class="header" href="#what-to-improve">What to Improve</a></h2>
+<p>You now own a bf interpreter, problem: <em>it's slooooooooow...</em>
+I highly encourage you to keep on working on this code
+to get a better handle on the logic that goes behind it.
+You can probably improve your knowledge of the language overall just by reviewing the interpreter.
+In implementing tweaks, you will find your own preferred way to approach writing basm code
+and find how you typically make mistakes. Making mistakes is part of learning, don't forget that!</p>
+<p>The bf interpreter may have seemed like an easy project
+if you just copied and pasted the code provided in this book, but let me tell you <strong>it isn't!</strong>
+Myself, despite having already written an extremely similar interpreter in basm and despite basm being a language I created,
+has struggled with many bugs which were not mentioned in this book for brevity <em>and also for my ego a little</em>.
+For example, as I was rewriting every meta-instruction from scratch for the book,
+I made a mistake in the original <code>IFEQ</code> definition. I forgot to zero the flag.
+This issue caught up with me when writing this very chapter on the interpreter.
+I didn't suspect that <code>IFEQ</code>, which I had written a long while ago and worked seeming well, would pollute cells.
+Now, with my experience and the fact that I already had a working <code>IFEQ</code> implementation
+before writing the book version, you would expect it to be easy to spot that mistake.
+It wasn't, especially considering this was not the only mistake I had made on the interpreter.</p>
+<p>I won't go over how to implement patches to improve the interpreter beyond what is shown above,
+but I can point out areas that you can thinker with if you crave performance.</p>
+<h3 id="bulking-operators"><a class="header" href="#bulking-operators">Bulking Operators</a></h3>
+<p>Adjacent operators of the same type can be merged into one single 2 cell wide item on the program array.
+For example, you could lay bulked operator on the array with this layout: <code>[operator][recurrence]</code>.
+So, <code>[+][+][+][+]</code> could be represented as <code>[+][4]</code> saving both space and the time to get those cells.
+(Saving space also comes with saving time, as the bigger the array is, the longer it will take to index)</p>
+<p>You could also store the precomputed index of the matching partner for brackets instead of recurrence.
+That would save iterating over the program array every time a bracket jumps.</p>
+<p>While at storing items of two cells wide in an indexable array,
+you could also implement indexable arrays of 2 cell big elements.
+Firstly, that would save you having to do two gets/sets for each element.
+Secondly, you could index by element rather than by cell,
+increasing the length of programs that can be stored with 8 bit cells.</p>
+<h3 id="flipping-the-program-array"><a class="header" href="#flipping-the-program-array">Flipping The Program Array</a></h3>
+<p>Currently memory is layed-out as such:</p>
+<pre><code class="language-txt">[operating memory].[prog parking][prog content].[mem parking][mem content]
+</code></pre>
+<p>This is perfectly fine if you don't care what the transpiled bf looks like.
+If you do care about what the compiled bf looks like you should be worried.</p>
+<p>The compiled basm (with optimization) looks like this:</p>
+<pre><code class="language-bf">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;--[++&lt;,[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;-------------------------------------------[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+&gt;&gt;&gt;][-]---------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++&gt;&gt;&gt;][-]--------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+++&gt;&gt;&gt;][-]------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++++&gt;&gt;&gt;][-]-------------------------------------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+++++&gt;&gt;&gt;][-]---------------------------------------------------------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++++++&gt;&gt;&gt;][-]--------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]+++++++&gt;&gt;&gt;][-]----------------------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;+&lt;[-]++++++++&gt;&gt;&gt;][-]---------------------------------&lt;[-]&lt;&lt;[-&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;[-]&gt;[-]++&gt;&gt;][-]-&lt;[-]&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;[-]&gt;&gt;&gt;][-]&lt;[-]&lt;--][-]&lt;&lt;[&lt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;-[+&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;-[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;][-]--&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;-&gt;&gt;&gt;&gt;][-]---&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;][-]----&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;-[-&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;][-]&lt;[-]&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;-----[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;[&lt;&lt;+[-&gt;+&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;-----[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;+&gt;&gt;&gt;][-]------&lt;[-]&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;-&gt;&gt;&gt;][-]&lt;[-]&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;[-&gt;+&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;&lt;&lt;++&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;------[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;&lt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;+&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;[&lt;&lt;&lt;&lt;-[-&gt;+&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&lt;+&gt;]&lt;&lt;[-[-&lt;+&gt;]&gt;[-&lt;+&gt;]&lt;&lt;&lt;[-&gt;&gt;&gt;+&lt;&lt;&lt;]&gt;]&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;-----[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;-&gt;&gt;&gt;][-]------&lt;[-]&lt;[-&gt;&gt;+&gt;+&lt;&lt;&lt;]&gt;&gt;&gt;[-&lt;&lt;&lt;+&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;+&gt;&gt;&gt;][-]&lt;[-]&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;&lt;&lt;[-&gt;+&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;]&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;++&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&gt;][-]-------&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;,&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]--------&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;.&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;+&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&gt;&gt;[-&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;]&lt;[-&gt;+&lt;]&lt;[-&gt;+&lt;]&lt;+[-&gt;+&lt;]&gt;&gt;]&gt;[-&gt;+&lt;]&lt;&lt;[-[-&lt;+&gt;]&lt;&lt;[-&gt;&gt;&gt;&gt;+&lt;&lt;&lt;&lt;]&gt;]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;]&lt;--[[-]&lt;+&gt;][-]&lt;[-&gt;+&gt;+&lt;&lt;]&gt;&gt;[-&lt;&lt;+&gt;&gt;]&lt;-[[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[-]&gt;&gt;[-]&gt;&gt;&gt;[-&lt;&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;&gt;]&gt;&gt;&gt;&gt;&gt;&gt;&gt;][-]&lt;[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+&gt;&gt;-]+
+</code></pre>
+<p>This is 11567 operators. Large spans of them being moves of the tape pointer.
+This inefficiency is caused by the fact that everytime we want to do something,
+like move a value from the operating memory to the memory parking,
+we need to move across the whole the program array.</p>
+<p>We can fix this by moving around the memory layout a little bit:</p>
+<pre><code class="language-txt">[prog content][prog parking].[operating memory].[mem parking][mem content]
+</code></pre>
+<p>Note the program array being both before the operating memory AND being flipped.
+(If we had kept the parking before the content,
+we would still need to jump over all of the content of the program array, except, this time,
+instead of when it would be to access the memory, it would be to access the program)
+That new layout saves us the jumps over the program array,
+but still keeps the program array capacity limit.</p>
+<p>This is much better in concept, but is quite annoying in execution.
+You won't be able to use the same meta-instructions to get/set the program and memory arrays due the fact that the array is flipped.
+This means two new whole instructions that will need debugging.
+It also causes a huge amount of code duplication,
+since you probably just need to change the assumed pointer increments by decrements
+and decrements by increments for the most part.
+If you make it, please don't show it to "<strong>D</strong>on't <strong>R</strong>epeat <strong>Y</strong>ourself" (aka DRY) people!</p>
+<p>While this would probably save many operations, it still would not be enough to cram the interpreter in itself without a little finagling.
+In the advent you would want to make this bf interpreter run itself,
+you would need to find a way to move from 0 to the operating memory segment while using <code>&gt;</code> less than <code>Vprog_array_cap</code> to move over the program array.
+Not being able to do so would mean that your interpreter is always bigger than its program array.
+This is of course something you want to avoid if you were to want to run it on itself.</p>
+<p>You can fix this issue with the usage of flyer, but I will leave this for you to solve.</p>
+<h3 id="get-a-better-bf-interpreter--use-a-compiler"><a class="header" href="#get-a-better-bf-interpreter--use-a-compiler">Get a Better Bf Interpreter / Use a Compiler</a></h3>
+<p>Finally, if you want better performance, don't use the bf interpreter built-in with the <code>basm</code> cli
+or, generally, just don't use an interpreter and get a compiler.
+While I believe the built-in interpreter is capable of running an helping somewhat with debugging via
+its dump feature (with flag <code>-d</code>), it is not the best for performance in no way.</p>
+<p>If you want to get just the transpiled basm code, use <code>basm compile</code> rather than <code>basm run</code>.
+You can then use that transpiled bf output in another bf interpreter / compiler. (What I mean by "compiler", is something that compiles to machine code)</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>You've now learnt possibly one of the most useless languages of the world, should I congratulate you?
+Yes! (but you should really find other things to do with your time)</p>
+<p>If you still have unanswered questions, want to contribute to this book or
+want to contribute to the basm programming language head over to the <a href="https://github.com/AtmolanderMimi/basm">github repository</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="full-code"><a class="header" href="#full-code">Full Code</a></h1>
+<p>For your copy-pasting convinience, here is the full file for the bf interpreter
+as implemented in this book:</p>
+<pre><code class="language-basm">// sets a value to a specific value by zeroing it before writing
+[@SET Aaddr Vval] [
+ZERO Aaddr;
+INCR Aaddr Vval;
+]
+
+// copies the content of a cell whilst keeping the source (conservatively)
+[@COPC Asrc Adst sp] [
+	ALIS Atmp sp;
+	COPY Asrc Adst Atmp;
+	ADDP Asrc Atmp;
+]
+
+// if not equal conditional
+[@IFNE Aaddr Vval [scp] sp] [
+ALIS Atmp1 sp;
+ALIS Atmp2 sp+1;
+ALIS sp sp+2;
+
+COPY Aaddr Atmp1 Atmp2;
+ADDP Aaddr Atmp2;
+
+WHNE Atmp1 Vval [
+    ZERO Atmp1;
+
+    INLN [scp];
+
+    INCR Atmp1 Vval;
+];
+
+ZERO Atmp1;
+]
+
+// if equal conditional
+[@IFEQ Aaddr Vval [scp] sp] [
+    ALIS Aflag sp;
+    ALIS sp sp+1;
+    ALIS Vnot_equal 1;
+
+    IFNE Aaddr Vval [
+        INCR Aflag Vnot_equal;
+    ] sp;
+
+    IFNE Aflag Vnot_equal [scp] sp;
+    ZERO Aflag;
+]
+
+// moves the value of the cell at Aarray[value of Aindex] to Adst
+[@GETD Aarray Aindex Adst] [
+ADDP Aarray+3 Aindex; 
+
+BBOX Aarray+1;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Aelement 3;
+
+WHNE Aindex 0 [
+    DECR Aindex 1;
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ALIS Acell Aindex;
+
+ADDP Acell Aelement;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+    ADDP Acell-1 Acell;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray+1;
+
+ADDP Adst Aarray+3;
+]
+
+// adds the value of the cell at Asrc to the Aarray[value of Aindex] cell
+[@ADDD Aarray Aindex Asrc] [
+ADDP Aarray+3 Asrc;
+ADDP Aarray+2 Aindex;
+
+BBOX Aarray;
+ASUM 0;
+
+ALIS Aswap 0;
+ALIS Areturn 1;
+ALIS Aindex 2;
+ALIS Acell 3;
+ALIS Aelement 4;
+
+WHNE Aindex 0 [
+    DECR Aindex 1;
+    INCR Areturn 1;
+
+    ADDP Aswap Aelement;
+
+    ADDP Acell+1 Acell;
+    ADDP Aindex+1 Aindex;
+    ADDP Areturn+1 Areturn;
+
+    BBOX 1;
+    ASUM 0;
+];
+
+ADDP Aelement Acell;
+
+ALIS Aswap Aelement;
+ALIS Aelement 0;
+
+WHNE Areturn 0 [
+    DECR Areturn 1;
+
+    ADDP Areturn-1 Areturn;
+
+    BBOX 0;
+    ASUM 1;
+
+    ADDP Aswap Aelement;
+];
+
+BBOX Aelement;
+ASUM Aarray;
+]
+
+[@init_input Aarray] [
+BBOX Aarray+4;
+ASUM 0;
+
+ALIS Aflag 1;
+ALIS Vappended 1;
+ALIS Vexit 2;
+
+ALIS sp 2;
+// we can still use sp, since we know the cells will be zeroed
+
+WHNE Aflag Vexit [
+    IN 0;
+
+    // -- mapping operators --
+    IFEQ 0 '+' [
+        SET 0 1;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '-' [
+        SET 0 2;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&gt;' [
+        SET 0 3;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '&lt;' [
+        SET 0 4;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '[' [
+        SET 0 5;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ']' [
+        SET 0 6;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 ',' [
+        SET 0 7;
+        INCR Aflag Vappended;
+    ] sp;
+    IFEQ 0 '.' [
+        SET 0 8;
+        INCR Aflag Vappended;
+    ] sp;
+
+    // check for end
+    IFEQ 0 '!' [
+        ZERO 0;
+        SET Aflag Vexit;
+    ] sp;
+
+    // if we added something, we need to move up one
+    IFEQ Aflag Vappended [
+        ZERO Aflag;
+
+        BBOX 1;
+        ASUM 0;
+    ] sp;
+
+    // we don't clear the last character, even if it was invalid,
+    // as the next IN will overwrite the cell
+];
+
+// NEVER forget cleanup
+ZERO Aflag;
+
+// -- going back --
+// because the last char will be '!', we need to offset by at least 1
+BBOX 0;
+ASUM 1;
+
+// moves back until we reached the zeroed cells of the parking
+WHNE 0 0 [
+    BBOX 0;
+    ASUM 1;
+];
+
+ASUM Aarray+3;
+]
+
+[main] [
+ALIS Voperating_memory 16;
+ALIS Aprog_pointer 0;
+ALIS Amem_pointer 1;
+ALIS Aflag 2;
+ALIS Vexit 1;
+ALIS Vbracket 2;
+ALIS Aoperator 3;
+ALIS Acell 4;
+ALIS Abracket_jump 5;
+ALIS sp 6;
+
+ALIS Vprog_array_cap 256;
+ALIS Aprog Voperating_memory;
+ALIS Amem Aprog+Vprog_array_cap+4;
+
+// get program from user
+init_input Aprog;
+
+WHNE Aflag Vexit [
+    ALIS Atmp sp;
+    ALIS sp sp+1;
+
+    // 1. load in operator
+    COPC Aprog_pointer Atmp sp;
+    GETD Aprog Atmp Aoperator;
+
+    // 2. operator specific logic
+    // + + + + +
+    IFEQ Aoperator 1 [
+        INCR Acell 1;
+    ] sp;
+
+    // - - - - -
+    IFEQ Aoperator 2 [
+        DECR Acell 1;
+    ] sp;
+
+    // &gt; &gt; &gt; &gt; &gt;
+    IFEQ Aoperator 3 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        INCR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // &lt; &lt; &lt; &lt; &lt;
+    IFEQ Aoperator 4 [
+        // store the old cell
+        COPC Amem_pointer Atmp sp;
+        ADDD Amem Atmp Acell;
+
+        // get the new cell
+        // NOTE: this DECR may underflow the tape pointer
+        DECR Amem_pointer 1;
+        COPC Amem_pointer Atmp sp;
+        GETD Amem Atmp Acell;
+    ] sp;
+
+    // [ [ [ [ [
+IFEQ Aoperator 5 [
+    IFEQ Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+
+        // 2.
+        // we don't need to define our search counter here,
+        // we can use Abracket_jump directly
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            INCR Abracket_jump 1;
+
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                INCR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                DECR Acounter 1;
+            ] sp;
+
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+
+// ] ] ] ] ]
+IFEQ Aoperator 6 [
+    IFNE Acell 0 [
+        ALIS Acounter sp;
+        INCR Acounter 1; // 1.
+        ALIS Asearch_op sp+1;
+        ALIS sp sp+2;
+    
+        // 2.
+        COPC Aprog_pointer Abracket_jump sp;
+        WHNE Acounter 0 [
+            // 3.
+            DECR Abracket_jump 1;
+    
+            // 4.
+            COPC Abracket_jump Atmp sp;
+            GETD Aprog Atmp Asearch_op;
+    
+            // 5.
+            // if op == '['
+            IFEQ Asearch_op 5 [
+                DECR Acounter 1;
+            ] sp;
+            // if op == ']'
+            IFEQ Asearch_op 6 [
+                INCR Acounter 1;
+            ] sp;
+    
+            // 6.
+            COPC Abracket_jump Atmp sp;
+            ADDD Aprog Atmp Asearch_op;
+        ]; // 7.
+
+        INCR Aflag Vbracket;
+    ] sp;
+] sp;
+
+    // , , , , ,
+    IFEQ Aoperator 7 [
+        IN Acell;
+    ] sp;
+
+    // . . . . .
+    IFEQ Aoperator 8 [
+        OUT Acell;
+    ] sp;
+
+    // check for the end
+    IFEQ Aoperator 0 [
+        INCR Aflag Vexit;
+    ] sp;
+
+    // set the operator back
+    COPC Aprog_pointer Atmp sp;
+    ADDD Aprog Atmp Aoperator;
+
+    IFEQ Aflag Vbracket [
+        ZERO Aprog_pointer;
+        ADDP Aprog_pointer Abracket_jump;
+        ZERO Aflag;
+    ] sp;
+
+    // increase program pointer
+    INCR Aprog_pointer 1;
+];
+]
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="addendum---setup-scope"><a class="header" href="#addendum---setup-scope">Addendum - [setup] scope</a></h1>
+<p>After having fully written this book and as I started working on an improved version of the current bf interpreter
+(the naive version of which is the one discussed in this very book),
+I finally caved to implement something which had been bugging my mind for a long time: a way to have global aliases.
+Such a feature always was on the list of things to introduce into the language had I had enough dedication and time,
+and as things went forth and as I made, quite honestly, fairly simple programs I thought that such a thing would not be required for v1.0.
+The full breath of consequences of this retrospectively earnestly stupid decision of mine only came down onto me
+as finally undertook a true "project of size", which was as previously stated the improved version of the bf interpreter in basm.
+Such an undertaking required to refactor and modify many values which were repeated all over,
+like the ids associated with each bf operator and the size of dynamically readable arrays.</p>
+<p>So, to solve this I added one more field: the <code>[setup]</code> field.
+Such a field had always been in my notes, only it is now that I see that this field is truely required to make a workable language.</p>
+<h2 id="what-is-it"><a class="header" href="#what-is-it">What is it?</a></h2>
+<p>The <code>[setup]</code> field is very similar to <code>[main]</code> in function. It's scope contains zero or more scopes or instructions.
+Any code included within <code>[setup]</code> will be put right before <code>[main]</code>.
+There can only be one <code>[setup]</code> field.
+Right about now this field sounds pretty useless: "Just another place to put code in..."
+Well, not really. Where <code>[setup]</code> shines is in it's two unique characteristics:</p>
+<ul>
+<li>It is normalized before any other fields, and</li>
+<li><strong>All aliases contained within the lowest scope are available from anywhere in the file</strong></li>
+</ul>
+<h3 id="it-is-normalized-before-any-other-fields"><a class="header" href="#it-is-normalized-before-any-other-fields">"It is normalized before any other fields"</a></h3>
+<p>This statement may not seem like too much, but it's ramifications are immense.
+At least if you can understand it. In the case of basm, normalizing means replacing aliases by their value.
+This means that meta-instructions are not normalized before <code>[setup]</code>.
+Then logically, meta-instructions cannot be used in <code>[setup]</code>.
+To be more precise, meta-instructions are not declared when <code>[setup]</code> is normalized,
+so if there are any meta-instructions they will raise an error stating that they are undefined.
+Despite the fact that they may be defined elsewhere in the file, they are not defined at the time of <code>[setup]</code> normalization.
+A meta-instruction cannot be inlined as it is not defined!</p>
+<p>This clause is limits quite a lot your ability to put logic within this field, however it is required for the second much, more empowering characteristic, of <code>[setup]</code>.</p>
+<h3 id="all-aliases-contained-within-the-lowest-scope-are-available-from-anywhere-in-the-file"><a class="header" href="#all-aliases-contained-within-the-lowest-scope-are-available-from-anywhere-in-the-file">"All aliases contained within the lowest scope are available from anywhere in the file"</a></h3>
+<p>This does what it says on the tin.
+Any scope, including most importantly the scopes of meta-instructions, can access aliases defined in <code>[setup]</code>
+unless that alias has been shadowed in scopes lower than the current one.
+That behaviour allows the creation of aliases available through the whole program, practically creating global aliases.
+Although, the wording on this is a little clumsy.
+"anywhere in the file", in this context, means that they are available in any scope other than the ones contained within <code>[setup]</code>.
+Of course, <code>[setup]</code> could not reference an alias which it has not yet created.</p>
+<p>Here's an example of the global aliases at work:</p>
+<pre><code class="language-basm">[setup] [
+// the idiomatic way to name global aliases is to prefix with "G"
+ALIS GVfrob 42;
+ALIS GVdefault 10;
+
+// any built-in instruction can be inserted here,
+// but it is not recommended to do so for anything other than value setting
+]
+
+[@FROB Acell] [
+    INCR Acell GVfrob;
+]
+
+[main] [
+    ALIS Acell 0;
+    INCR Acell GVdefault;
+    FROB Acell;
+
+    OUT Acell; // should return 52
+
+
+    // overwriting the global (only affects this scope and subscopes)
+    ALIS GVdefault 5;
+    // this will overwrite the global in this scope, but not in the meta
+    // since meta-instructions aliases are independent from the caller's
+    ALIS GVfrob 0;
+
+    ALIS Acell 1;
+    INCR Acell GVdefault;
+    FROB Acell;
+
+    OUT Acell; // should return 47 (despite the fact that we set GVfrob to 0 in main)
+]
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="built-in-instructions"><a class="header" href="#built-in-instructions">Built-in Instructions</a></h1>
+<p>Here is the list of all built-in instructions.</p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Arguments</th><th>Function</th></tr></thead><tbody>
+<tr><td><strong>ZERO</strong></td><td>addr</td><td>sets the value of<code>addr</code> to 0</td></tr>
+<tr><td><strong>INCR</strong></td><td>addr, value</td><td>increments the value of the<code>addr</code> cell by <code>value</code></td></tr>
+<tr><td><strong>DECR</strong></td><td>addr, value</td><td>decrements the value of the<code>addr</code> cell by <code>value</code></td></tr>
+<tr><td><strong>ADDP</strong></td><td>addr1, addr2</td><td>adds<code>addr2</code> to <code>addr1</code>, the result is stored in <code>addr1</code> (in place)</td></tr>
+<tr><td><strong>SUBP</strong></td><td>addr1, addr2</td><td>subtract<code>addr2</code> from <code>addr1</code>, the result is stored in <code>addr1</code> (in place)</td></tr>
+<tr><td><strong>COPY</strong></td><td>addr1, addr2, addr3</td><td>copies the value of<code>addr1</code> into <code>addr2</code> and <code>addr3</code></td></tr>
+<tr><td><strong>WHNE</strong></td><td>addr, value, [scope]</td><td>while the value of<code>addr</code> cell is not equal to <code>value</code> runs the <code>[scope]</code>. <code>addr</code> is not consumed</td></tr>
+<tr><td><strong>IN</strong></td><td>addr</td><td>takes input from the user and sets it in<code>addr</code>, behaviour will vary between bf implementations</td></tr>
+<tr><td><strong>OUT</strong></td><td>addr</td><td>outputs the value of<code>addr</code>, <code>addr</code> is not consumed</td></tr>
+<tr><td><strong>LSTR</strong></td><td>start_addr, "str"</td><td>loads the string character by character into cells from the<code>start_addr</code> advancing forward</td></tr>
+<tr><td><strong>PSTR</strong></td><td>addr, "str"</td><td>prints the string character by character using the cell<code>addr</code> as a buffer</td></tr>
+<tr><td><strong>ALIS</strong></td><td>ident, value or [scope]</td><td>creates an alias to a value or scope named<code>ident</code>. This instruction is purely abstraction</td></tr>
+<tr><td><strong>INLN</strong></td><td>[scope]</td><td>inlines a scope</td></tr>
+<tr><td><strong>RAW</strong></td><td>"str"</td><td>includes the string after transpilation, this can be used to include brainfuck operators</td></tr>
+<tr><td><strong>BBOX</strong></td><td>addr</td><td>moves the tape pointer to<code>addr</code></td></tr>
+<tr><td><strong>ASUM</strong></td><td>addr</td><td>tells to compiler to assume that the tape pointer is at<code>addr</code>. If that assumption is wrong all cells accesses will be offset</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="keywords"><a class="header" href="#keywords">Keywords</a></h1>
+<p>Here is a list of keywords specific to basm and their meaning.</p>
+<ul>
+<li><code>allocated</code>: a cell is said to be "allocated" when it is reserved/used by an operation</li>
+<li><code>dynamic/relative</code>: an access to memory which the address is not known to the compiler at compile time. It can vary over executions.</li>
+<li><code>address number</code>: a value of numeric type in the basm source code file, which represents the <strong>address of a cell</strong>.</li>
+<li><code>pure number</code>: a value of numeric type in the basm source code file, which represents <strong>a number</strong>.</li>
+<li><code>static</code>: an access to memory which the address is known to the compiler at compile time. It does not vary over executions.</li>
+<li><code>inlining</code>: expanding the code referred to in the caller's body, all meta-instructions inline in basm.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cli-capabilities"><a class="header" href="#cli-capabilities">Cli Capabilities</a></h1>
+<p>Alongside the language itself, I'd like to include some information about the transpiler I wrote for it,
+because, of course, there's no point in writing a book about a compiler<em>less</em> language.</p>
+<p>The only (probably forever) basm compiler is
+<a href="https://github.com/AtmolanderMimi/basm">available on github</a>
+under the retrospectively confusing name <code>basm</code>.
+This tool doesn't just include a compiler,
+it also comes with a bf interpreter to run transpiled basm directly.</p>
+<p>Currently, the cli has two subcommands: <code>compile</code> and <code>run</code>.
+Both of them are similar in that they both take in a file path and have some flags in common.</p>
+<h2 id="compile"><a class="header" href="#compile"><code>compile</code></a></h2>
+<p>The <code>compile</code> subcommand is the simplest way to use the basm cli.
+Similar to tool like <code>gcc</code>, it will create a file in the current working directory named like the one passed in with the extension replaced with <code>.bf</code>.
+File name and output path can be specified with the <code>-o</code> flag.
+If compilation fails, error information will be printed to the terminal.</p>
+<h3 id="flags"><a class="header" href="#flags">Flags</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Shorthand</th><th>Longhand</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>-o</code></td><td><code>--out &lt;OUT&gt;</code></td><td>The path to put the compiled file</td></tr>
+<tr><td><code>-p</code></td><td><code>--show</code></td><td>Print the transpiled bf script</td></tr>
+<tr><td><code>-u</code></td><td><code>--unoptimized</code></td><td>Skips the use of the inbuilt brainfuck optimizer</td></tr>
+<tr><td><code>-h</code></td><td><code>--help</code></td><td>Print help</td></tr>
+</tbody></table>
+</div>
+<h2 id="run"><a class="header" href="#run"><code>run</code></a></h2>
+<p>This command compiles then run the specified basm source file.
+You can use the bf interpreter directly if you use this command the <code>-r</code> flag,
+which specifies that the file is a bf source file, not a basm source file.
+Unlike <code>compile</code>, this does not create a file containing the compiled bf.
+If the compilation fails, error information will be printed to the terminal.</p>
+<h3 id="flags-1"><a class="header" href="#flags-1">Flags</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Shorthand</th><th>Longhand</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>-c</code></td><td><code>--cell-size &lt;CELL_SIZE&gt;</code></td><td>Sets the size of cells in bits (only 8, 16 and 32) [default: 8]</td></tr>
+<tr><td><code>-i</code></td><td><code>--signed</code></td><td>Sets the cells as signed containing signed numbers</td></tr>
+<tr><td><code>-a</code></td><td><code>--abort-overflow</code></td><td>Aborts the execution of the program when a cell over/under-flows</td></tr>
+<tr><td><code>-t</code></td><td><code>--tape-limit &lt;TAPE_LIMIT&gt;</code></td><td>Limits the lenght of the tape in cells, aborts execution if it is reached</td></tr>
+<tr><td><code>-n</code></td><td><code>--number-input</code></td><td>Treats the input as integer numbers rather than characters</td></tr>
+<tr><td><code>-m</code></td><td><code>--number-output</code></td><td>Treats the output as integer numbers rather than characters</td></tr>
+<tr><td><code>-s</code></td><td><code>--single-input</code></td><td>Removes the bufferring of the unused parts of inputs to provide to them to later bf inputs</td></tr>
+<tr><td><code>-r</code></td><td><code>--raw</code></td><td>Interprets the file as brainfuck, skips the compiling process</td></tr>
+<tr><td><code>-p</code></td><td><code>--show</code></td><td>Print the transpiled brainfuck</td></tr>
+<tr><td><code>-u</code></td><td><code>--unoptimized</code></td><td>Skips the use of the inbuilt brainfuck optimizer</td></tr>
+<tr><td><code>-d</code></td><td><code>--dump</code></td><td>Dump the tape and tape pointer position to terminal once the program ends (includes by erroring out)</td></tr>
+<tr><td><code>-h</code></td><td><code>--help</code></td><td>Print help</td></tr>
+</tbody></table>
+</div>
+<h2 id="bf-optimizations"><a class="header" href="#bf-optimizations">Bf Optimizations</a></h2>
+<p><code>basm</code> applies some basic optimizations to the bf resulting from the transpilation process by default.
+It can merge operators to reduce redundant use (e.g: <code>+++-</code> would turn into <code>++</code>)
+and it can reorder operations so that less tape pointer moves are used.
+Overall, the purpose of the built in optimizer is to reduce the number of operators in compiled scripts.
+By default, basm doesn't remove redundant operations and is generally quite stupid.
+For example, an instruction like <code>INCR 12 0;</code>, which does nothing,
+would still move the tape pointer to the 12th cell. This gets optimized out.</p>
+<p>All optimization are made to have no impact on the resulting program, at a few exceptions:</p>
+<ul>
+<li>Willingfully moving the tape pointer before 0 will be optimized out if there is a cancelling move afterwards (e.g: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>)</li>
+<li>Any pointer moves that don't lead to other operations (at the end of the program) are removed</li>
+</ul>
+<p>If you suspect that optimizations are messing with your program,
+you can disable them with the <code>-u</code> flag.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

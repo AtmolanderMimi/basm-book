@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Aliases - A Quick Introduction and Reference to Brain Aneurysm</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Quick Introduction and Reference to Brain Aneurysm</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm/src/aliases.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="aliases"><a class="header" href="#aliases">Aliases</a></h1>
+<p>Aliases are by far the most common abstraction feature you are going to use while writing basm code,
+no questions asked.
+They allow to alias number values or scopes to identifiers to representing the value.
+You can think of aliases like variables in other programming languages, except they are purely immutable constants.
+Once an alias is defined, it can be used to substitute having the write the literals forms of values anywhere the alias is valid.
+Defining an alias is done via the <code>ALIS</code> "instruction" (<code>ALIS</code> can hardly be called an instruction as it does not compile into anything).</p>
+<p>For example, if I have a cell located at <code>42</code> containing the index of an array, rather than having to memorize its location,
+I could simply create an alias to the address like <code>Aindex</code>with the instruction<code>ALIS Aindex 42;</code>.</p>
+<h2 id="the-alis-instruction"><a class="header" href="#the-alis-instruction">The <code>ALIS</code> Instruction</a></h2>
+<p>At the exception of meta-instructions, the <code>ALIS</code> instruction is the only way to create aliases.
+Since I baited you in the last chapter, below is its nicely formatted specification!</p>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>alias_name</td><td>identifier</td><td>the name of the alias</td></tr>
+<tr><td>value</td><td>numeric/scope</td><td>the value to be bound to the alias</td></tr>
+</tbody></table>
+</div>
+<p><em>(don't worry about the "identifier" type, it's not actually a type. Just that <code>ALIS</code> is a special boy and can take names as argument)</em></p>
+<p><code>ALIS</code> allows creating aliases in the current scope by binding numeric or scope expressions to an identifier.
+As an instruction, <code>ALIS</code> does not compile to anything, it is purely abstraction.</p>
+<p>To define numeric aliases and then use the alias in place of any numeric value do as so:</p>
+<pre><code class="language-basm">ALIS Aindex 1;         // address of the index cell
+ALIS Vshrob 2;         // some random value
+ALIS Vvalue 40+Vshrob; // value of the index
+
+ALIS Vshrob 33;        // overwriting the last Vshrob alias
+
+INCR Aindex Vvalue;
+</code></pre>
+<p>Aliases are purely abstraction for writing the <strong>value</strong> of the bound expressions where the alias is.
+So, to help visualize, here is what the above program looks like after the aliases have been normalized out:</p>
+<pre><code class="language-basm">INCR 1 42;
+</code></pre>
+<p>Notice how <code>Vvalue</code> is replaced by the value of the expression passed into <code>ALIS</code> when the alias is created.
+This is why <code>Vvalue</code> got replaced by 42 (40+2) rather than 73 (40+33).
+The alias was bound to the value of the expression rat
+her than the expression itself,
+if it were bound to the expression changes to <code>Vshrob</code> would change <code>Vvalue</code>.</p>
+<h2 id="alias-validity"><a class="header" href="#alias-validity">Alias Validity</a></h2>
+<p>Aliases are valid for the duration of the scope they are defined in.
+This means that an alias defined in a higher scope cannot reach a lower one.
+That alias behaviour is the main reason why you would want to insert a scope within another,
+to have operation specific aliases. Here is an example of alias validity over the program:</p>
+<pre><code class="language-basm">ALIS Vsome 1; 
+
+// Vsome: 1
+[
+    // Vsome: 1
+    ALIS Vsome 2;
+    // Vsome: 2
+]
+// Vsome: 1
+</code></pre>
+<p>Whilst we are talking about this, might as well mention that, as in the example above,
+aliases can shadow each other and that not only through scope boundaries!
+They can also refer to the value they will shadow when defined.
+Here's an example of a fairly common pattern using aliases:</p>
+<pre><code class="language-basm">ALIS Vnum_cats 5;
+// ... some operations ...
+ALIS Vnum_cats Vnum_cats+3;
+</code></pre>
+<p>That example firsts set <code>Vnum_cats</code> to 5
+then does all the operations between the two <code>ALIS</code> with 5 as <code>Vnum_cats</code>.
+Lastly, the <code>Vnum_cats</code> alias is shadowed by the second <code>ALIS</code> which sets the alias to the value of <code>Vnum_cats+5</code>.
+The compiler normalizes the expression and gets the result of 8 (5+3) which it sets to be the new <code>Vnum_cats</code>.
+Using this, we can reach the what would be expected of variables in other programming languages, but don't get it
+twisted, aliases are not variables. They are replaced by their value at compile time
+and are totally gone at runtime.</p>
+<p>So, don't expect something like this to increment forever:</p>
+<pre><code class="language-basm">// THIS DOES NOT WORK!
+
+ALIS Vincrement 0;
+WHNE 0 1 [
+    ALIS Vincrement Vincrement+1;
+];
+</code></pre>
+<p>That example would completely fail as the alias in the looped scope doesn't persist over loops.
+It will get thrown out at the end of its scope like any other alias,
+as thus the value of <code>Vincrement</code> will always be 1 (0+1) in the looped scope.</p>
+<h2 id="alias-types"><a class="header" href="#alias-types">Alias Types</a></h2>
+<p>There are currently two types which are supported by aliases: number and scope.
+Yes, this means you can't alias a string, sadly.
+So far, we have only made aliases of numeric values as these are the most common,
+but we can also create scope aliases.
+Aliases with different types won't overwrite each other, even if they have the same name.
+They are treated as completely different.
+This means you can have both a numeric alias and scope alias named <code>my_alias</code> at the same time with no issue.
+Basm will automatically use the alias with the fitting type when <code>my_alias</code> is used.</p>
+<p>You create aliases of different types by matching identifiers to different expressions.
+If you give a numeric value to <code>ALIS</code> you will create a numeric alias,
+on the other hand if you give it a scope you will get a scope alias.</p>
+<h3 id="scope-aliases"><a class="header" href="#scope-aliases">Scope Aliases</a></h3>
+<p>Now, scope aliases are interesting to talk about as they allow you to share and reuse code around your source file,
+unlike numeric aliases which are only about values.
+Right now, they are not really interesting, but as you'll learn about meta-instruction
+you will see one of most interesting use case, as a <em>callback-like thingamabob</em>.</p>
+<p>Since there hasn't been an example of alias scopes yet, here is one:</p>
+<pre><code class="language-basm">// defining "my_scope" scope alias
+ALIS my_scope [
+	INCR 0 1;
+	OUT 0;
+];
+
+// using my_scope with the scope identifier syntax
+WHNE 0 128 [my_scope];
+</code></pre>
+<p>You have probably noticed a difference to how we use numeric aliases,
+being that we need to use a "scope identifier" to specify our scope alias.
+A scope identifier is simply an identifier (aka the name of the alias) wrapped by square brackets.
+This syntax tells the compiler to checks for the scope alias rather than the numeric alias
+(also it allows the person reading it to know that this is a scope alias being passed as an argument,
+which is <em>cool</em>).</p>
+<p>If you don't use the scope identifier syntax you will get this error:</p>
+<pre><code class="language-txt">------------------ [ ERRORS ] ------------------
+Error: from Ln 7, Col 12 in "/some/path/to/the/file.basm"
+ → alias was not defined
+[...] [main] [
+ALIS my_scope [
+        INCR 0 1;
+        OUT 0;
+];
+
+WHNE 0 128 my_scope;
+]
+ [...]
+</code></pre>
+<p><em>(the second <code>my_scope</code> is highlighted and underscored in the terminal)</em></p>
+<p>This means that the compiler tried to search for the numeric alias <code>my_scope</code>,
+which obviously doesn't exist, and failed.</p>
+<p>There is one more thing I want to add to scope aliases and that's inlining them.
+Unlike scope literals you can't simply write the alias down to inline it!
+So, you will need to use an instruction I made specifically for that called <code>INLN</code>.
+It takes one scope argument and inlines it, as if you would have written a literal in the file at its place.</p>
+<p>Here is an example displaying what I just talked about and an extra property that may not be obvious:</p>
+<pre><code class="language-basm">ALIS Vscale 7;
+ALIS increment [
+    INCR 0 Vscale;
+];
+
+// we repeat the scope three times
+INLN [increment];
+INLN [increment];
+INLN [increment];
+
+// then three more
+ALIS Vscale 12;
+INLN [increment];
+INLN [increment];
+INLN [increment];
+
+OUT 0;
+</code></pre>
+<p>This example, when ran, outputs 42 (7*6) or the <code>*</code> character if your interpreter outputs as text.
+That may seem odd, after all we set <code>Vscale</code> to 12 halfway through which should give us 57 (7*3 + 12*3), right?
+Wrong! Whilst, you can include aliases within a scope alias, they will be immediately normalized (aka replaced)
+by their bound value. So, the <code>increment</code> alias actually looks more like this after being defined:</p>
+<pre><code class="language-basm">ALIS increment [
+    // Vscale was replaced by its value
+    INCR 0 7;
+];
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="built-in-instructions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="fibonacci.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="built-in-instructions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="fibonacci.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

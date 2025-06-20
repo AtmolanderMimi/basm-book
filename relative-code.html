@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Writing Relative Code - A Quick Introduction and Reference to Brain Aneurysm</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Quick Introduction and Reference to Brain Aneurysm</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm/src/relative-code.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="writing-relative-code"><a class="header" href="#writing-relative-code">Writing Relative Code</a></h1>
+<p>Onto the last remaining chip of knowledge that basm requires: Harvesting the Power of Relative Code!
+Remember at the very start of this book, where I said that every memory access is static unless otherwise stated?
+Well, this chapter is about stating you don't want static accessing and would much prefer write relative logic.
+Sometimes static addressing is either less efficient, harder or simply impossible to use for certain problems.
+In these cases you will need to reach for relative logic.</p>
+<p>But, what is the difference between relative and static in basm exactly?
+By default, basm refers to cells in a static manner, meaning that an address will always refer to the same cell (e.g address <code>1</code> will always refer to the same cell).
+This kind of addressing is known as static.
+Relative means that an address will not always refer to the same cell,
+it will refer to a cell relative to a dynamic point.
+In most cases, that "relative point" is simply where your tape pointer is at a given moment.</p>
+<p>Now, by default basm moves your tape pointer automatically in order to access specific addresses.
+Basm won't lose track of where the tape pointer is unless you explicitly tell it to do so.
+When you ask to operate on a cell, basm will have remembered where the tape pointer currently is, and it will then try to move the tape pointer by the delta between the current position and the desired position.
+The tape pointer position that is remembered by the compiler is also known as the <em>assumed</em> tape pointer position,
+as it can get temporarily invalidated when working with relative code.
+For example, if we have the tape pointer at position <code>3</code> and ask to reach cell <code>5</code>, basm will automatically insert <code>&gt;&gt;</code>.
+There are three instruction made specifically for dealing with the tape pointer
+and be able to write relative code from it.</p>
+<h2 id="bbox-black-box"><a class="header" href="#bbox-black-box"><code>BBOX</code> (Black Box)</a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr</td><td>number</td><td>the address for the tape pointer to be moved to</td></tr>
+</tbody></table>
+</div>
+<p><code>BBOX</code> is probably the most simple instruction in the whole set of built-in ones.
+Its one and only purpose is to guaranty the position of the tape pointer at a certain point in the program.
+All it does it move the tape pointer to <code>addr</code> and does <em>nothing</em>.
+This behaviour is very useful for other instruction that work off of the assumption that the tape pointer is positioned
+at a certain cell.</p>
+<h2 id="asum-assume"><a class="header" href="#asum-assume"><code>ASUM</code> (Assume)</a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>addr</td><td>number</td><td>the address overwriting the assumed tape pointer position</td></tr>
+</tbody></table>
+</div>
+<p>This instruction is tightly integrated with the compiler.
+What it does is that it overwrites the assumed tape pointer position with the specified <code>addr</code>.
+This can serve either to put the program into a relative state (where the assumed pointer position is wrong)
+or to set the assumed pointer position back to a valid value.</p>
+<p>When combined with <code>BBOX</code> it can serve to offset the whole address field.
+Think about it, if the real tape pointer position is 1, but you tell the compiler it's 0 through <code>ASUM</code>,
+then the assumed pointer position will be offset by +1.
+Trying to access cell no.0 would lead to accessing cell no.1.
+When this happens, I like to call this program state the "relative state", all accesses are relative to 1.
+So, when this happens, all addresses become relative to the offset.</p>
+<pre><code class="language-basm">INCR 1 42;
+OUT 1; // returns '*'
+
+// offsets the pointer by +1 (so cells by -1)
+BBOX 0;
+ASUM 1;
+
+OUT 0; // returns '*'
+</code></pre>
+<p>This may all see like too much pedantry for something as simple as offsetting all addresses by one.
+Yes, in this case it is, but that's not what makes relative code interesting.
+Relative programming in basm starts becoming truly interesting when you loop this offset.
+Once you start looping, your offset cannot be known at compile time.
+Looping offsets are even the main reason why anyone would want to write relative code as it allows
+to create "flyers". Flyers are an operation which is applied while moving forwards (or backwards) through the tape.
+The word "flyer"/"glider" comes from the glider in Conway's Game of Life where it is a self replicating structure moving through the board.
+In basm, flyers can include data cells which move with the shift in assumed pointer position.
+I think it is easier to understand them in bf:</p>
+<pre><code class="language-bf">[.&gt;]
+</code></pre>
+<p>This is a basic flyer in bf. It outputs every cell until it reaches a cell with a value of 0.
+It may seem like it is useless at first, but it can serve to print strings in memory loaded via <code>LSTR</code>.
+This flyer takes advantage of the fact that strings are not constituted of arbitrary data and that they will not contain a zero cell <em>(at least not until you the string's end)</em>.</p>
+<p>We can easily create this pattern in basm with <code>BBOX</code> and <code>ASUM</code>:</p>
+<pre><code class="language-basm">// dynamic print string
+// Astart is the first cell
+// Aend is the 0 cell right after the last non-zero cell
+[@DPSTR Astart Aend] [ // "Dynamic Print String"
+    BBOX Astr;
+    ASUM 0;
+
+    WHNE 0 0 [
+        OUT 0;
+
+        // move forward
+        BBOX 1;
+        ASUM 0;
+    ];
+
+    // we set the pointer back to the valid assumption after we are done
+    ASUM Aend;
+]
+</code></pre>
+<p><em>(If you compile the above example with a <code>[main]</code> field with only <code>DPSTR 0 0;</code>, it will compile to exactly <code>[.&gt;]</code>)</em></p>
+<p>Most notably, this instruction will return the assumed pointer position to a valid value after running.
+Logic making use of relative state should always use <code>ASUM</code> to set back the assumed pointer position
+to a valid state.
+Since all basm code relies on the fact that addressing is static,
+leaving it in a relative state will no doubt make your program bug!</p>
+<h2 id="raw"><a class="header" href="#raw"><code>RAW</code></a></h2>
+<p><strong>Arguments</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>str</td><td>string</td><td>inlines the string in the transpiled code, this can be used to include brainfuck operators</td></tr>
+</tbody></table>
+</div>
+<p><code>RAW</code> is inherently relative by default, as any moves made in it is not considered by the compiler.
+As thus, writing <code>RAW "&gt;";</code> has the same effect using <code>BBOX 1; ASUM 0;</code> like before.
+You have access to the whole of bf, which means that you can very easily cause offsets and write flyers.
+While I prefer using the more basm'ic solution, <code>RAW</code> is a valid solution for your relative programming needs.</p>
+<p>Next chapter will focus on applying relative knowledge to create a dynamically indexable array.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="custom-conditionals.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="dynamic-array.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="custom-conditionals.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="dynamic-array.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

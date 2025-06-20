@@ -1,0 +1,358 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Meta-Instructions - A Quick Introduction and Reference to Brain Aneurysm</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Quick Introduction and Reference to Brain Aneurysm</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/AtmolanderMimi/basm/src/meta-instructions.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="meta-instructions"><a class="header" href="#meta-instructions">Meta-Instructions</a></h1>
+<p>Wow, only now are we onto meta-instructions!
+Meta-instruction are like functions in other programming languages, except that they aren't.
+They are actually just multiple instructions joined into one, thus the name meta-instruction.
+These composite instructions are expanded at compile time into their component built-in instructions.
+So, they are actually more similar to macros or always inlining functions.</p>
+<h2 id="the-meta-fields"><a class="header" href="#the-meta-fields">The Meta Fields</a></h2>
+<p>To define a meta-instruction you need to use the second and only other field other than <code>[main]</code>,
+which is the <code>[@META arg1 arg2]</code> field.
+A basm source file can have zero or more meta-instructions fields present in a file before the <code>[main]</code> one.
+This field allows you to create a meta instruction of the name <code>META</code> with the arguments following it,
+in the case of the example they would be two numeric arguments named <code>arg1</code> and <code>arg2</code>.</p>
+<p>Once defined a meta-instruction can be used anywhere a normal built-in instruction can,
+even in other meta-instruction bodies (excluding those who came before and itself of course).</p>
+<h3 id="arguments"><a class="header" href="#arguments">Arguments</a></h3>
+<p>Meta-instructions can take zero or more arguments of numeric or scope type.
+To specify the arguments you want your meta-instruction to take in,
+you simply write they names (identifiers) in the field header:</p>
+<ul>
+<li><code>[@META]</code>: would take no arguments</li>
+<li><code>[@META arg1 arg2]</code>: would take two numeric arguments</li>
+<li><code>[@META arg1 [scope]]</code>: would take one numeric argument followed by a scope argument</li>
+</ul>
+<p>Basm will automatically create aliases named after the arguments which are bound to the arguments passed in by the caller.
+This means that you can refer to <code>arg1</code> like any other numeric alias in the scope of <code>[@META arg1]</code>.</p>
+<h2 id="naming"><a class="header" href="#naming">Naming</a></h2>
+<p>Meta-instructions cannot share the name of other instructions, must they be built-in's or user defined meta-instructions.
+Also, quick aside, while I prefer to keep the 4 capital letters naming convention for instruction names,
+names abide by the same restrictions as aliases and are thus not limited to 4 capital letters or less.</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>Meta-instructions are very practical to remove boilerplate.
+Since I decided to greatly reduce the amount of built-in instructions,
+you will probably need some to define some quality of life instructions.
+Thankfully, doing so is both easy on the meta-instruction definition end and in the usage end.</p>
+<h3 id="set"><a class="header" href="#set"><code>SET</code></a></h3>
+<p>If I want to set the value of cell by incrementing, but I know that it may be not consumed,
+then I would need to zero it before incrementing the cell, causing boilerplate.
+It would be much easier to read if both zeroing and incrementing the cell to a value would be the same instruction.
+Well, with meta-instructions you can implement that instruction yourself:</p>
+<pre><code class="language-basm">[@SET Acell Vval] [
+ZERO Acell;
+INCR Acell Vval;
+]
+
+[main] [
+// instead of:
+ZERO 0;
+INCR 0 12;
+
+// you can simply write:
+SET 0 12;
+]
+</code></pre>
+<p>At compile time, the <code>SET</code> instruction will be expanded and the aliases will be resolved,
+leading the main field looking something like this after meta-instruction inlining:</p>
+<pre><code class="language-basm">// instead of:
+ZERO 0;
+INCR 0 12;
+
+// you can simply write:
+ZERO 0;
+INCR 0 12;
+</code></pre>
+<p>As you can see, using meta-instruction saves you time and brain!</p>
+<h3 id="copc-copy-conservatively"><a class="header" href="#copc-copy-conservatively"><code>COPC</code> (Copy Conservatively)</a></h3>
+<p>It would have been useful in the Fibonacci program that we just wrote if we could have copied the value of <code>Ab</code>
+to <code>Ac</code> without having to explicitly use a temporary <code>Atmp</code>, right? We can made an instruction for that!
+This meta-instruction is called <code>COPC</code> for "copy conservatively".
+In this context, being conservative means that this instruction does not consume its inputs,
+or rather as we will see while implementing it, they are not consumed when the instruction ends.</p>
+<pre><code class="language-basm">[@COPC Asrc Adst sp] [
+ALIS Atmp sp;
+ALIS sp sp+1;
+
+COPY Asrc Adst Atmp;
+ADDP Asrc Atmp;
+]
+</code></pre>
+<p>I am guessing you aren't too chocked for the most part by this implementation, we simply encapsulate
+the temporary shuffle in a meta-instruction, like we would encapsulate logic in any other language.
+Everything is normal to one exception, you are probably asking are yourself what <code>sp</code> is doing here and what it means.</p>
+<p>We cannot simply use a static memory position for <code>Atmp</code> as we don't know which cells are free to be used when when <code>COPC</code> is called.
+Just using a static address for <code>Atmp</code> would probably just end up creating a situation where <code>COPC</code> and another operation are both using that static cell for something.</p>
+<p>Instruction which need memory for their operation can include a <code>sp</code>argument as the last one to ask for where it is safe to "allocate" cells for computation.<code>sp</code>meaning "stack pointer" it is an address pointing to the first free cell that the instruction can use for its operations.
+In the context of basm, allocating a cell is synonymous to "reserving for a cell for an operation".
+This is why<code>Atmp</code>is defined from<code>sp</code>. We know that cell including and after <code>sp</code> are free to use.</p>
+<p>I personally like to always have an alias named <code>sp</code>, which increment as I allocate more cells, in all scopes.
+When I want to allocate a new cells, I create an alias for the address of all cells and then increase <code>sp</code> by each cell I've allocated.
+In the example above, this logic comes in. I create 1 alias for a temporary cell named <code>Atmp</code> and then increase <code>sp</code> by 1.</p>
+<p>The <code>sp</code> alias also benefits greatly from alias lifetimes.
+When you increase the value of <code>sp</code> what you really do is create a new copy of <code>sp</code> that shadows the last one.
+This means that when you are done with a specific operation and the scope ends, <code>sp</code> will decrease naturally.
+This practically <em>frees</em> the cells that were allocated in the scope!</p>
+<p>Using <code>sp</code> is especially useful in the <code>[main]</code> scope where you want to keep track of where you have not allocated yet.
+Allocating based on the stack pointer also allows you to seamlessly add a cell without having to offset all later
+cell pointers by one (like we had to do in the Fibonacci example).</p>
+<p>Here is what Fibonacci would look like with <code>COPC</code> and the <code>sp</code> system:</p>
+<pre><code class="language-basm">[@COPC Asrc Adst sp] [
+ALIS Atmp sp;
+ALIS sp sp+1;
+
+COPY Asrc Adst Atmp;
+ADDP Asrc Atmp;
+]
+
+[main] [
+ALIS Aa 0;
+ALIS Ab 1;
+INCR Ab 1;
+ALIS Adesired_index 2;
+IN Adesired_index;
+ALIS sp 3; // set the sp to the next free cell
+
+WHNE Adesired_index 0 [
+    // "allocate" cells where the is free space
+    // this allows us to easily add another cell before without having to touch this
+    ALIS Ac sp;
+    ALIS Atmp sp+1;
+    ALIS sp sp+2; // update sp
+
+    // we use sp here
+    COPC Ab Ac sp;
+    ADDP Ac Aa;
+
+    ADDP Aa Ab;
+    ADDP Ab Ac;
+
+    DECR Adesired_index 1;
+];
+// aliases being bound by scope helps us here by giving us back
+// our old sp from before the WHNE scope, basically freeing a part of the stack
+
+OUT Aa;
+]
+</code></pre>
+<h3 id="twic-twice"><a class="header" href="#twic-twice">TWIC (Twice)</a></h3>
+<p>There aren't many interesting examples of using scopes as arguments
+other than trying to make conditional execution, so I wanted to give an little simple example here before actually getting into conditionals,
+because those are a bit complicated.
+<code>TWIC</code> is a instruction that takes a scope and inlines it twice, causing it to execute twice.</p>
+<pre><code class="language-basm">[@TWIC [scope]] [
+INLN [scope];
+INLN [scope];
+]
+</code></pre>
+<p>I mean, I have a whole chapter written about using scope as arguments for conditionals, and it's the next one... so let's read it!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="fibonacci.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="custom-conditionals.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="fibonacci.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="custom-conditionals.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
